@@ -172,13 +172,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						err('Please retry afetr 24 hours. 境外 IP 限制 24 小時內僅能發 1 篇文');
 					}
 				}
-			} else if ($author_name != '匿名, 清大') {
+			} else if ($author_name != '匿名, 交大' && $author_name != '匿名, 清大') {
 				$posts = $db->getPostsByIp($ip_addr, 6);
 				if (count($posts) == 6) {
 					$last = strtotime($posts[2]['created_at']);
 					if (time() - $last < 3*60*60) {
 						$db->updateSubmissionStatus($uid, -12);
-						err('Please retry afetr 3 hours. 校外 IP 限制 3 小時內僅能發 5 篇文');
+						err('Please retry afetr 3 hours. 交清 IP 限制 3 小時內僅能發 5 篇文');
 					}
 				}
 			} else {

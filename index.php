@@ -33,7 +33,7 @@ include('includes/head.php');
 					<li>等待審核至少 5 分鐘</li>
 					<li><button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
 				</ul>
-				<h4>(B) 清大 IP 位址</h4>
+				<h4>(B) 交清 IP 位址</h4>
 				<p>使用 114 或 113 位址投稿者，滿足以下條件即發出</p>
 				<ul>
 					<li>10 分鐘至 2 小時：<button class="ts vote positive button">通過</button>&nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 2 個</li>
