@@ -5,4 +5,4 @@ Disallow: /logout
 Disallow: /review
 Allow: /review/DEMO$
 Disallow: /api
-Sitemap: https://x.nctu.app/sitemap.xml
+Sitemap: https://x.nthu.io/sitemap.xml

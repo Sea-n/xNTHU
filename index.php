@@ -4,7 +4,7 @@
 	<head>
 <?php
 $TITLE = '首頁';
-$IMG = 'https://x.nctu.app/assets/img/og.png';
+$IMG = 'https://x.nthu.io/assets/img/og.png';
 include('includes/head.php');
 ?>
 		<script src="/assets/js/index.js"></script>
@@ -13,30 +13,30 @@ include('includes/head.php');
 <?php include('includes/nav.php'); ?>
 		<header class="ts fluid vertically padded heading slate">
 			<div class="ts narrow container">
-				<h1 class="ts header">靠北交大 2.0</h1>
+				<h1 class="ts header">靠北清大 2.0</h1>
 				<div class="description">不要問為何沒有人審文，先承認你就是沒有人。</div>
 			</div>
 		</header>
 		<div class="ts container" name="main">
 			<h2 class="ts header">社群平台</h2>
 			<div class="icon-row">
-				<a id="telegram-icon"  class="ts link tiny rounded image" target="_blank" href="https://t.me/xNCTU"              ><img src="https://image.flaticon.com/icons/svg/2111/2111646.svg"   alt="Telegram" ></a>
+				<a id="telegram-icon"  class="ts link tiny rounded image" target="_blank" href="https://t.me/xNTHU"              ><img src="https://image.flaticon.com/icons/svg/2111/2111646.svg"   alt="Telegram" ></a>
 				<a id="twitter-icon"   class="ts link tiny rounded image" target="_blank" href="https://twitter.com/x_NCTU"      ><img src="https://image.flaticon.com/icons/svg/124/124021.svg"     alt="Twitter"  ></a>
-				<a id="plurk-icon"     class="ts link tiny rounded image" target="_blank" href="https://www.plurk.com/xNCTU"     ><img src="https://image.flaticon.com/icons/svg/124/124026.svg"     alt="Plurk"    ></a>
-				<a id="facebook-icon"  class="ts link tiny rounded image" target="_blank" href="https://www.facebook.com/xNCTU"  ><img src="https://image.flaticon.com/icons/svg/220/220200.svg"     alt="Facebook" ></a>
+				<a id="plurk-icon"     class="ts link tiny rounded image" target="_blank" href="https://www.plurk.com/xNTHU"     ><img src="https://image.flaticon.com/icons/svg/124/124026.svg"     alt="Plurk"    ></a>
+				<a id="facebook-icon"  class="ts link tiny rounded image" target="_blank" href="https://www.facebook.com/xNTHU"  ><img src="https://image.flaticon.com/icons/svg/220/220200.svg"     alt="Facebook" ></a>
 				<a id="instagram-icon" class="ts link tiny rounded image" target="_blank" href="https://www.instagram.com/x_nctu"><img src="https://image.flaticon.com/icons/svg/2111/2111463.svg"   alt="Instagram"></a>
 			</div>
 
 			<h2 class="ts header">審文機制</h2>
 			<div id="review-content" style="height: 320px; overflow-y: hidden;">
-				<p>新版靠北交大 2.0 採自助式審文，所有交大師生皆可加入審核者的行列，以下是系統判斷標準</p>
+				<p>新版靠北清大 2.0 採自助式審文，所有清大師生皆可加入審核者的行列，以下是系統判斷標準</p>
 				<h4>(A) 具名投稿</h4>
 				<p>如在 5 分鐘內無 <button class="ts vote negative button">駁回</button>，免審核即自動發出，詳細判斷條件如下：</p>
 				<ul>
 					<li>等待審核至少 5 分鐘</li>
 					<li><button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
 				</ul>
-				<h4>(B) 交大 IP 位址</h4>
+				<h4>(B) 清大 IP 位址</h4>
 				<p>使用 113 位址投稿者，滿足以下條件即發出</p>
 				<ul>
 					<li>10 分鐘至 2 小時：<button class="ts vote positive button">通過</button>&nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 2 個</li>
@@ -73,7 +73,7 @@ include('includes/head.php');
 			<h2 class="ts header">使用 Telegram 快速審核</h2>
 			<p>您只要登入 NCTU 帳號，點擊下面按鈕即可綁定 Telegram 帳號，讓您收到最即時的投稿通知，並快速通過/駁回貼文。</p>
 <?php if (!isset($USER) || !isset($USER['tg_id'])) { ?>
-			<script async src="https://telegram.org/js/telegram-widget.js?7" data-telegram-login="xNCTUbot" data-size="large" data-auth-url="https://x.nctu.app/login-tg" data-request-access="write"></script>
+			<script async src="https://telegram.org/js/telegram-widget.js?7" data-telegram-login="xNTHUbot" data-size="large" data-auth-url="https://x.nthu.io/login-tg" data-request-access="write"></script>
 <?php } else { ?>
 <div class="ts positive message">
 	<div class="header">您已連結成功！</div>
@@ -87,7 +87,7 @@ include('includes/head.php');
 			<p>您可以在 <a href="/ranking">這個頁面</a> 查看前 50 名</p>
 
 			<h2 class="ts header">服務聲明</h2>
-			<p>感謝您使用「靠北交大 2.0」（以下簡稱本網站），本網站之所有文章皆為不特定使用者自行投稿、不特定師生進行審核，並不代表本網站立場。</p>
+			<p>感謝您使用「靠北清大 2.0」（以下簡稱本網站），本網站之所有文章皆為不特定使用者自行投稿、不特定師生進行審核，並不代表本網站立場。</p>
 			<p>如有侵害您權益之貼文，麻煩寄信至服務團隊，將在最短時間協助您撤下貼文或進行澄清。</p>
 			<p>投稿者如散播不實訊息而遭司法單位追究，在司法機關提供調取票等充分條件下，本網站將依法提供 IP 位址配合偵辦，切勿以身試法。</p>
 		</div>

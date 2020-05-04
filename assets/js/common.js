@@ -5,7 +5,7 @@ window.addEventListener("resize", resizeNav);
 
 function init() {
 	console.log("Hey there!");
-	console.log("Source code: https://git.io/xNCTU");
+	console.log("Source code: https://git.io/xNTHU");
 
 	resizeNav();
 	adjustNav();
@@ -111,7 +111,7 @@ function toHTML(str) {
 					a.href = word;
 					a.target = '_blank';
 					word = a.outerHTML;
-				} else if (/^#靠交\d+$/.test(word)) {
+				} else if (/^#靠清\d+$/.test(word)) {
 					var a = document.createElement('a');
 					a.appendChild(document.createTextNode(word));
 					a.href = '/post/' + word.substr(3);
@@ -120,7 +120,7 @@ function toHTML(str) {
 				} else if (/^#告白交大\d+$/.test(word)) {
 					var a = document.createElement('a');
 					a.appendChild(document.createTextNode(word));
-					a.href = 'https://crush.nctu.app/post/' + word.substr(3);
+					a.href = 'https://crush.nthu.io/post/' + word.substr(3);
 					a.target = '_blank';
 					word = a.outerHTML;
 				} else if (/^#投稿\w+$/.test(word)) {

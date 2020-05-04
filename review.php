@@ -71,13 +71,13 @@ if (isset($post)) {
 		$DESC = mb_substr($DESC, 0, 150) . '...';
 
 	if ($post['has_img'])
-		$IMG = "https://x.nctu.app/img/{$post['uid']}.jpg";
+		$IMG = "https://x.nthu.io/img/{$post['uid']}.jpg";
 } else if (isset($_GET['deleted'])) {
 	$TITLE = '已刪投稿';
-	$IMG = 'https://x.nctu.app/assets/img/og.png';
+	$IMG = 'https://x.nthu.io/assets/img/og.png';
 } else {
 	$TITLE = '貼文審核';
-	$IMG = 'https://x.nctu.app/assets/img/og.png';
+	$IMG = 'https://x.nthu.io/assets/img/og.png';
 }
 include('includes/head.php');
 ?>
@@ -93,7 +93,7 @@ include('includes/nav.php');
 		<header class="ts fluid vertically padded heading slate">
 			<div class="ts narrow container">
 				<h1 class="ts header"><?= isset($_GET['deleted']) ? '已刪投稿' : '貼文審核' ?></h1>
-				<div class="description">靠北交大 2.0</div>
+				<div class="description">靠北清大 2.0</div>
 			</div>
 		</header>
 		<div class="ts container" name="main">
@@ -105,8 +105,8 @@ if (count($posts) == 0) {
 			<p>歡迎使用 Telegram Bot 接收投稿通知，並在程式內快速審查</p>
 <?php } else if (isset($_GET['deleted'])) { ?>
 			<div class="ts negative message">
-				<div class="header">你不是交大生</div>
-				<p>這邊僅限交大使用者瀏覽，外校生僅可在知道投稿編號的情況下看到刪除記錄，例如 <a href="/review/2C8j">#投稿2C8j</a>。</p>
+				<div class="header">你不是清大生</div>
+				<p>這邊僅限清大使用者瀏覽，外校生僅可在知道投稿編號的情況下看到刪除記錄，例如 <a href="/review/2C8j">#投稿2C8j</a>。</p>
 			</div>
 <?php } else { ?>
 			<h2 class="ts header">太棒了！目前沒有待審投稿</h2>
@@ -140,7 +140,7 @@ if (isset($post['id'])) {
 ?>
 			<div class="ts positive message">
 				<div class="header">文章已發出</div>
-				<p>您可以在 <a href="/post/<?= $post['id'] ?>">#靠交<?= $post['id'] ?></a> 找到這篇文章</p>
+				<p>您可以在 <a href="/post/<?= $post['id'] ?>">#靠清<?= $post['id'] ?></a> 找到這篇文章</p>
 			</div>
 <?php } ?>
 			<div class="ts card" id="post-<?= $uid ?>" style="margin-bottom: 42px;">

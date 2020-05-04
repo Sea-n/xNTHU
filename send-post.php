@@ -54,7 +54,7 @@ $img = $post['has_img'] ? $uid : '';
 
 $time = strtotime($post['created_at']);
 $time = date("Y 年 m 月 d 日 H:i", $time);
-$link = "https://x.nctu.app/post/$id";
+$link = "https://x.nthu.io/post/$id";
 
 /* Send post to every SNS */
 $sns = [
@@ -131,7 +131,7 @@ function checkEligible(array $post): bool {
 	}
 
 	/* Rule for NCTU IP address */
-	if ($post['author_name'] == '匿名, 交大') {
+	if ($post['author_name'] == '匿名, 清大') {
 		/* Night mode: 02:00 - 07:59 */
 		if (2 <= idate('H') && idate('H') <= 7) {
 			if ($vote < 3)
@@ -203,20 +203,20 @@ function send_telegram(int $id, string $body, string $img = ''): int {
 	else
 		$msg = "";
 
-	$msg .= "<a href='$link'>#靠交$id</a>\n\n" . enHTML($body);
+	$msg .= "<a href='$link'>#靠清$id</a>\n\n" . enHTML($body);
 
-	/* Send to @xNCTU */
+	/* Send to @xNTHU */
 	if (empty($img))
 		$result = $TG->sendMsg([
-			'chat_id' => '@xNCTU',
+			'chat_id' => '@xNTHU',
 			'text' => $msg,
 			'parse_mode' => 'HTML',
 			'disable_web_page_preview' => !$is_url
 		]);
 	else
 		$result = $TG->sendPhoto([
-			'chat_id' => '@xNCTU',
-			'photo' => "https://x.nctu.app/img/{$img}.jpg",
+			'chat_id' => '@xNTHU',
+			'photo' => "https://x.nthu.io/img/{$img}.jpg",
 			'caption' => $msg,
 			'parse_mode' => 'HTML',
 		]);
@@ -228,7 +228,7 @@ function send_telegram(int $id, string $body, string $img = ''): int {
 
 function send_twitter(int $id, string $body, string $img = ''): int {
 	global $link;
-	$msg = "#靠交$id\n\n$body";
+	$msg = "#靠清$id\n\n$body";
 	if (strlen($msg) > 250)
 		$msg = mb_substr($msg, 0, 120) . '...';
 	$msg .= "\n\n✅ $link .";
@@ -339,8 +339,8 @@ function send_twitter(int $id, string $body, string $img = ''): int {
 function send_plurk(int $id, string $body, string $img = ''): int {
 	global $link;
 
-	$msg = empty($img) ? '' : "https://x.nctu.app/img/$img.jpg\n";
-	$msg .= "#靠交$id\n$body";
+	$msg = empty($img) ? '' : "https://x.nthu.io/img/$img.jpg\n";
+	$msg .= "#靠清$id\n$body";
 
 	if (mb_strlen($msg) > 290)
 		$msg = mb_substr($msg, 0, 290) . '...';
@@ -379,7 +379,7 @@ function send_plurk(int $id, string $body, string $img = ''): int {
 
 function send_facebook(int $id, string $body, string $img = ''): int {
 	global $link, $time;
-	$msg = "#靠交$id\n\n";
+	$msg = "#靠清$id\n\n";
 	$msg .= "$body\n\n";
 	$msg .= "投稿時間：$time\n";
 	$msg .= "✅ $link";
@@ -395,7 +395,7 @@ function send_facebook(int $id, string $body, string $img = ''): int {
 		if (filter_var($end, FILTER_VALIDATE_URL) && strpos($end, 'facebook') === false)
 			$data['link'] = $end;
 	} else {
-		$data['url'] = "https://x.nctu.app/img/$img.jpg";
+		$data['url'] = "https://x.nthu.io/img/$img.jpg";
 		$data['caption'] = $msg;
 	}
 
@@ -435,14 +435,14 @@ function update_telegram(array $post) {
 
 	$plurk = base_convert($post['plurk_id'], 10, 36);
 	$TG->editMarkup([
-		'chat_id' => '@xNCTU',
+		'chat_id' => '@xNTHU',
 		'message_id' => $post['telegram_id'],
 		'reply_markup' => [
 			'inline_keyboard' => [
 				[
 					[
 						'text' => 'Facebook',
-						'url' => "https://www.facebook.com/xNCTU/posts/{$post['facebook_id']}"
+						'url' => "https://www.facebook.com/xNTHU/posts/{$post['facebook_id']}"
 					],
 					[
 						'text' => 'Plurk',

@@ -32,7 +32,7 @@ if (isset($USER) || ($uid ?? 'x') == 'DEMO' || ($uid ?? 'x') == '2C8j') {
 		<tr>
 			<td colspan="5">
 				<div class="ts info message">
-					<div class="header">此區域僅限交大使用者查看</div>
+					<div class="header">此區域僅限清大使用者查看</div>
 					<p>您可以打開 <a href="/review/DEMO">#投稿DEMO </a>，免登入即可預覽投票介面</p>
 				</div>
 			</td>

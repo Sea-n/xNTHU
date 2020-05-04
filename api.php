@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						err('Please retry afetr 24 hours. 境外 IP 限制 24 小時內僅能發 1 篇文');
 					}
 				}
-			} else if ($author_name != '匿名, 交大') {
+			} else if ($author_name != '匿名, 清大') {
 				$posts = $db->getPostsByIp($ip_addr, 6);
 				if (count($posts) == 6) {
 					$last = strtotime($posts[2]['created_at']);
@@ -349,7 +349,7 @@ function checkSubmitData(string $body, bool $has_img): string {
 
 	/* Check CAPTCHA */
 	$captcha = trim($_POST['captcha'] ?? 'X');
-	if ($captcha != '交大竹湖' && $captcha != '交大竹狐') {
+	if ($captcha != '清大竹湖' && $captcha != '清大竹狐') {
 		if (mb_strlen($captcha) > 1 && mb_strlen($captcha) < 20)
 			error_log("Captcha failed: $captcha.");
 		return 'Are you human? 驗證碼錯誤';

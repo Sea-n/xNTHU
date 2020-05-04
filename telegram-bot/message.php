@@ -5,7 +5,7 @@ $db = new MyDB();
 
 if ($TG->ChatID < 0) {
 	if ($TG->ChatID == -1001489855993)
-		exit;  // xNCTU Votes group
+		exit;  // xNTHU Votes group
 
 	$TG->sendMsg([
 		'text' => '目前尚未支援群組功能',
@@ -13,8 +13,8 @@ if ($TG->ChatID < 0) {
 			'inline_keyboard' => [
 				[
 					[
-						'text' => '📢 靠交 2.0 頻道',
-						'url' => 'https://t.me/xNCTU'
+						'text' => '📢 靠清 2.0 頻道',
+						'url' => 'https://t.me/xNTHU'
 					]
 				]
 			]
@@ -25,7 +25,7 @@ if ($TG->ChatID < 0) {
 
 $USER = $db->getUserByTg($TG->FromID);
 if (!$USER) {
-	$msg = "您尚未綁定 NCTU 帳號，請至靠北交大 2.0 網站登入\n\n";
+	$msg = "您尚未綁定 NCTU 帳號，請至靠北清大 2.0 網站登入\n\n";
 	$msg .= "操作步驟：\n";
 	$msg .= "1. 登入 NCTU OAuth 帳號\n";
 	$msg .= "2. 點擊下方按鈕連結 Telegram 帳號\n";
@@ -36,9 +36,9 @@ if (!$USER) {
 			'inline_keyboard' => [
 				[
 					[
-						'text' => '綁定靠交 2.0 網站',
+						'text' => '綁定靠清 2.0 網站',
 						'login_url' => [
-							'url' => "https://x.nctu.app/login-tg?r=%2F"
+							'url' => "https://x.nthu.io/login-tg?r=%2F"
 						]
 					]
 				]
@@ -57,7 +57,7 @@ if (substr($text, 0, 1) == '/') {
 	switch($cmd) {
 		case 'start':
 		case 'help':
-			$msg = "歡迎使用靠北交大 2.0 機器人\n\n";
+			$msg = "歡迎使用靠北清大 2.0 機器人\n\n";
 			$msg .= "目前支援的指令：\n";
 			$msg .= "/name 更改網站上的暱稱\n";
 			$msg .= "/send 發送測試貼文\n";
@@ -73,7 +73,7 @@ if (substr($text, 0, 1) == '/') {
 
 			$result = $TG->getTelegram('sendPhoto', [
 				'chat_id' => $TG->ChatID,
-				'photo' => "https://x.nctu.app/img/TEST.jpg",
+				'photo' => "https://x.nthu.io/img/TEST.jpg",
 				'caption' => $body,
 				'reply_markup' => [
 					'inline_keyboard' => [
@@ -91,7 +91,7 @@ if (substr($text, 0, 1) == '/') {
 							[
 								'text' => '開啟審核頁面',
 								'login_url' => [
-									'url' => "https://x.nctu.app/login-tg?r=%2Freview%2FTEST"
+									'url' => "https://x.nthu.io/login-tg?r=%2Freview%2FTEST"
 								]
 							]
 						]
@@ -122,7 +122,7 @@ if (substr($text, 0, 1) == '/') {
 							[
 								'text' => '開啟網站',
 								'login_url' => [
-									'url' => "https://x.nctu.app/login-tg"
+									'url' => "https://x.nthu.io/login-tg"
 								]
 							]
 						]
@@ -139,9 +139,9 @@ if (substr($text, 0, 1) == '/') {
 					'inline_keyboard' => [
 						[
 							[
-								'text' => '綁定靠交 2.0 網站',
+								'text' => '綁定靠清 2.0 網站',
 								'login_url' => [
-									'url' => "https://x.nctu.app/login-tg?r=%2F"
+									'url' => "https://x.nthu.io/login-tg?r=%2F"
 								]
 							]
 						]
@@ -153,7 +153,7 @@ if (substr($text, 0, 1) == '/') {
 		case 'delete':
 			$TG->sendMsg([
 				'text' => "此功能僅限管理員使用\n\n" .
-					"如果您有興趣為靠交 2.0 盡一份心力的話，歡迎聯絡開發團隊 🙃"
+					"如果您有興趣為靠清 2.0 盡一份心力的話，歡迎聯絡開發團隊 🙃"
 			]);
 			break;
 

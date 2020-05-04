@@ -1,4 +1,4 @@
-require("dotenv").config({ path: '/usr/share/nginx/x.nctu.app/.env' });
+require("dotenv").config({ path: '/usr/share/nginx/x.nthu.io/.env' });
 const { readFileSync, writeFileSync } = require('fs');
 const { promisify } = require('util');
 const { createConnection } = require('mysql');
@@ -22,8 +22,8 @@ const { IgApiClient } = require('instagram-private-api');
 	const post = rows[0];
 	strictEqual(post.has_img, 1);
 	strictEqual(post.instagram_id, '');
-	const img = '/usr/share/nginx/x.nctu.app/img/' + post.uid + '.jpg';
-	const msg = '#靠交' + post.id + '\n\n' + post.body;
+	const img = '/usr/share/nginx/x.nthu.io/img/' + post.uid + '.jpg';
+	const msg = '#靠清' + post.id + '\n\n' + post.body;
 
 	/* Instagram */
 	const ig = new IgApiClient();

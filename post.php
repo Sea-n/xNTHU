@@ -28,7 +28,7 @@ if (!$post) {
 <html lang="zh-TW">
 	<head>
 <?php
-$hashtag = "#靠交{$id}";
+$hashtag = "#靠清{$id}";
 
 $DESC = $post['body'];
 $TITLE = "$hashtag $DESC";
@@ -40,7 +40,7 @@ if (mb_strlen($DESC) > 150)
 	$DESC = mb_substr($DESC, 0, 150) . '...';
 
 if ($post['has_img'])
-	$IMG = "https://x.nctu.app/img/{$post['uid']}.jpg";
+	$IMG = "https://x.nthu.io/img/{$post['uid']}.jpg";
 
 include('includes/head.php');
 ?>
@@ -49,7 +49,7 @@ include('includes/head.php');
 <?php include('includes/nav.php'); ?>
 		<header class="ts fluid vertically padded heading slate">
 			<div class="ts narrow container">
-				<h1 class="ts header">靠北交大 2.0</h1>
+				<h1 class="ts header">靠北清大 2.0</h1>
 				<div class="description">不要問為何沒有人審文，先承認你就是沒有人。</div>
 			</div>
 		</header>
@@ -97,21 +97,21 @@ if (isset($post['deleted_at'])) {
 <meta itemprop="image" content="/assets/img/logo.png">
 <?php } ?>
 				<div class="content">
-					<div itemprop="headline" class="header">#靠交<?= $id ?></div>
+					<div itemprop="headline" class="header">#靠清<?= $id ?></div>
 					<p itemprop="articleBody"><?= $body ?></p>
 				</div>
 				<div class="extra content">
 <?php if ($post['telegram_id'] > 10) { ?>
-					<p><span><i class="telegram icon"></i> Telegram: <a target="_blank" href="https://t.me/s/xNCTU/<?= $post['telegram_id'] ?>">@xNCTU/<?= $post['telegram_id'] ?></a></span><br>
+					<p><span><i class="telegram icon"></i> Telegram: <a target="_blank" href="https://t.me/s/xNTHU/<?= $post['telegram_id'] ?>">@xNTHU/<?= $post['telegram_id'] ?></a></span><br>
 <?php }
 if ($post['facebook_id'] > 10) { ?>
-					<span><i class="facebook icon"></i> Facebook: <a target="_blank" href="https://www.facebook.com/xNCTU/posts/<?= $post['facebook_id'] ?>">@xNCTU/<?= $post['facebook_id'] ?></a></span><br>
+					<span><i class="facebook icon"></i> Facebook: <a target="_blank" href="https://www.facebook.com/xNTHU/posts/<?= $post['facebook_id'] ?>">@xNTHU/<?= $post['facebook_id'] ?></a></span><br>
 <?php }
 if (strlen($post['instagram_id']) > 1) { ?>
 					<span><i class="instagram icon"></i> Instagram: <a target="_blank" href="https://www.instagram.com/p/<?= $post['instagram_id'] ?>">@x_nctu/<?= $post['instagram_id'] ?></a></span><br>
 <?php }
 if (strlen($plurk) > 1) { ?>
-					<span><i class="talk icon"></i> Plurk: <a target="_blank" href="https://www.plurk.com/p/<?= $plurk ?>">@xNCTU/<?= $plurk ?></a></span><br>
+					<span><i class="talk icon"></i> Plurk: <a target="_blank" href="https://www.plurk.com/p/<?= $plurk ?>">@xNTHU/<?= $plurk ?></a></span><br>
 <?php }
 if ($post['twitter_id'] > 10) { ?>
 					<span><i class="twitter icon"></i> Twitter: <a target="_blank" href="https://twitter.com/x_NCTU/status/<?= $post['twitter_id'] ?>">@x_NCTU/<?= $post['twitter_id'] ?></a></span></p>
@@ -134,7 +134,7 @@ if ($post['twitter_id'] > 10) { ?>
 						<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
 							<meta itemprop="url" content="/assets/img/logo.png">
 						</div>
-						<span itemprop="name">靠北交大 2.0</span>
+						<span itemprop="name">靠北清大 2.0</span>
 					</div>
 					<link itemprop="mainEntityOfPage" href="<?= $URL ?>" />
 				</div>

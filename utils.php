@@ -6,7 +6,7 @@ function ip_from(string $ip_addr): string {
 
 	/* Known IP address prefix for TANet */
 	$tanet = [
-		'140.113.' => '交大',
+		'140.113.' => '清大',
 		'140.112.' => '台大',
 		'140.114.' => '清大',
 		'140.115.' => '中央',
@@ -18,8 +18,8 @@ function ip_from(string $ip_addr): string {
 		'140.124.' => '北科',
 		'140.129.' => '陽明',
 		'163.13.' => '淡江',
-		'2001:f18:' => '交大',
-		'2001:288:4001:' => '交大',
+		'2001:f18:' => '清大',
+		'2001:288:4001:' => '清大',
 		'2001:288:e001:' => '清大',
 		'2001:288:1001:' => '台大',
 	];
@@ -157,10 +157,10 @@ function toHTML(string $text = ''): string {
 		foreach ($text[$k1] as $k2 => $v2) {
 			if (filter_var($v2, FILTER_VALIDATE_URL))
 				$text[$k1][$k2] = "<a target='_blank' href='$v2'>$v2</a>";
-			else if (preg_match('/^#靠交(\d+)$/', $v2, $matches))
+			else if (preg_match('/^#靠清(\d+)$/', $v2, $matches))
 				$text[$k1][$k2] = "<a target='_blank' href='/post/{$matches[1]}'>$v2</a>";
-			else if (preg_match('/^#告白交大(\d+)$/', $v2, $matches))
-				$text[$k1][$k2] = "<a target='_blank' href='https://crush.nctu.app/post/{$matches[1]}'>$v2</a>";
+			else if (preg_match('/^#告白清大(\d+)$/', $v2, $matches))
+				$text[$k1][$k2] = "<a target='_blank' href='https://crush.nthu.io/post/{$matches[1]}'>$v2</a>";
 			else if (preg_match('/^#投稿(\w+)$/', $v2, $matches))
 				$text[$k1][$k2] = "<a target='_blank' href='/review/{$matches[1]}'>$v2</a>";
 			else if (preg_match('/^#[^ ]+$/', $v2, $matches))

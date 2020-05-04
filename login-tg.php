@@ -52,7 +52,7 @@ if ($USER) {
 }
 
 if (!isset($_SESSION['nctu_id']))
-	exit('You must login NCTU first. 請先於首頁右上角登入交大帳號');
+	exit('You must login NCTU first. 請先於首頁右上角登入清大帳號');
 
 $db->insertUserTg($_SESSION['nctu_id'], $auth_data);
 

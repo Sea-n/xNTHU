@@ -14,7 +14,7 @@ if (!$USER) {
 	$TG->getTelegram('answerCallbackQuery', [
 		'callback_query_id' => $TG->data['callback_query']['id'],
 		'show_alert' => true,
-		'text' => "您尚未綁定 NCTU 帳號，請至靠北交大 2.0 網站登入"
+		'text' => "您尚未綁定 NCTU 帳號，請至靠北清大 2.0 網站登入"
 	]);
 	exit;
 }
@@ -44,7 +44,7 @@ switch ($args[0]) {
 							[
 								'text' => '開啟審核頁面',
 								'login_url' => [
-									'url' => "https://x.nctu.app/login-tg?r=%2Freview%2F$uid"
+									'url' => "https://x.nthu.io/login-tg?r=%2Freview%2F$uid"
 								]
 							]
 						]
@@ -58,7 +58,7 @@ switch ($args[0]) {
 		$TG->sendMsg([
 			'reply_to_message_id' => $TG->MsgID,
 			'text' => "[$type/$uid] 請輸入 1 - 100 字理由\n\n" .
-				"將會顯示於貼文頁面中，所有已登入的交大人都能看到您的具名投票",
+				"將會顯示於貼文頁面中，所有已登入的清大人都能看到您的具名投票",
 			'reply_markup' => [
 				'force_reply' => true,
 			]
