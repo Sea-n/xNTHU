@@ -228,6 +228,38 @@ if (substr($text, 0, 1) == '/') {
 			]);
 			break;
 
+		case 'update':
+			if ($TG->FromID != 109780439) {
+				$TG->sendMsg([
+					'text' => "此功能僅限管理員使用",
+				]);
+				exit;
+			}
+
+			[$column, $body] = explode(' ', $arg, 2);
+
+			if ($column != "body") {
+				$TG->sendMsg([
+					'text' => "Column '$column' unsupported."
+				]);
+				exit;
+			}
+
+			if (!preg_match('/^#投稿(\w{4})/um', $TG->data['message']['reply_to_message']['text'] ?? '', $matches)) {
+				$TG->sendMsg([
+					'text' => 'Please reply to submission message.'
+				]);
+				exit;
+			}
+			$uid = $matches[1];
+
+			$db->updatePostBody($uid, $body);
+
+			$TG->sendMsg([
+				'text' => "Done.\n"
+			]);
+			break;
+
 		case 'delete':
 			$TG->sendMsg([
 				'text' => "此功能僅限管理員使用\n\n" .
