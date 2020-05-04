@@ -25,25 +25,24 @@ if ($TG->ChatID < 0) {
 
 $USER = $db->getUserByTg($TG->FromID);
 if (!$USER) {
-	$msg = "您尚未綁定 NCTU 帳號，請至靠北清大 2.0 網站登入\n\n";
-	$msg .= "操作步驟：\n";
-	$msg .= "1. 登入 NCTU OAuth 帳號\n";
-	$msg .= "2. 點擊下方按鈕連結 Telegram 帳號\n";
-	$msg .= "3. 系統綁定成功後，將會發送 Telegram 訊息通知您";
+	$msg = "【靠北清大 2.0 帳號申請單】\n\n";
+	$msg .= "1. 姓名：`XXX`\n";
+	$msg .= "2. 學號：`108062000`\n";
+	$msg .= "3. 系級：`資工系 23 級`\n";
+	$msg .= "4. Telegram Username：`@{$TG->data['message']['from']['username']}`\n";
+	$msg .= "5. Telegram UID：`{$TG->FromID}`\n";
+	$result = $TG->sendMsg([
+		'text' => $msg,
+		'parse_mode' => 'Markdown',
+	]);
+
+	$msg = "您尚未驗證清大身份，請*使用清大信箱*，填寫以上申請單後寄至維護團隊\n\n";
+	$msg .= "主旨： *靠北清大 2.0 - 帳號申請*\n";
+	$msg .= "收件人： x@nthu.io\n";
+	$msg .= "\n目前為人工審核，寄出後請靜待維護團隊確認身份";
 	$TG->sendMsg([
 		'text' => $msg,
-		'reply_markup' => [
-			'inline_keyboard' => [
-				[
-					[
-						'text' => '綁定靠清 2.0 網站',
-						'login_url' => [
-							'url' => "https://x.nthu.io/login-tg?r=%2F"
-						]
-					]
-				]
-			]
-		]
+		'parse_mode' => 'Markdown',
 	]);
 	exit;
 }
@@ -148,6 +147,54 @@ if (substr($text, 0, 1) == '/') {
 					]
 				]
 			]);
+			break;
+
+		case 'adduser':
+			if ($TG->FromID != 109780439) {
+				$TG->sendMsg([
+					'text' => "此功能僅限管理員使用",
+				]);
+				exit;
+			}
+
+			$args = explode(' ', $arg);
+			if (count($args) != 2) {
+				$TG->sendMsg([
+					'text' => "使用方式：/adduser <NTHU ID> <TG ID>",
+				]);
+				exit;
+			}
+
+			$nthu_id = $args[0];
+			$tg_id = $args[1];
+
+			$db->insertUserNthu($nthu_id, $tg_id);
+
+			$result = $TG->sendMsg([
+				'chat_id' => $tg_id,
+				'text' => "🎉 驗證成功！\n\n請點擊以下按鈕登入靠北清大 2.0 網站",
+				'reply_markup' => [
+					'inline_keyboard' => [
+						[
+							[
+								'text' => '登入靠北清大 2.0',
+								'login_url' => [
+									'url' => "https://x.nthu.io/login-tg?r=%2F"
+								]
+							]
+						]
+					]
+				]
+			]);
+
+			if ($result['ok'])
+				$TG->sendMsg([
+					'text' => "Done.\n"
+				]);
+			else
+				$TG->sendMsg([
+					'text' => "Failed.\n\n" . json_encode($result, JSON_PRETTY_PRINT)
+				]);
 			break;
 
 		case 'delete':

@@ -48,7 +48,7 @@ if (isset($USER)) {
 				<span class="tablet or large device only">Logout</span>
 			</a>
 <?php } else { ?>
-			<a class="item" href="/login-nctu" data-type="login" onclick="this.href+='?r='+encodeURIComponent(location.pathname+location.search);">Login</a>
+			<a class="item" href="/login-nctu" data-type="login" onclick="this.href+='?r='+encodeURIComponent(location.pathname+location.search);">NCTU Login</a>
 <?php } ?>
 		</div>
 	</div>

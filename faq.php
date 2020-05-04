@@ -49,7 +49,7 @@ include('includes/head.php');
 
 			<h2 class="ts header" id="apply-account">Q：怎麼註冊帳號</h2>
 			<p>如果您是交大師生，請直接點擊右上角 Login 使用 NCTU OAuth 登入，不需另外註冊即可使用。</p>
-			<p>對於清大學生，請將學生證拍照寄給靠北清大團隊，並提供 Telegram username，將為您開通帳號權限。</p>
+			<p>對於清大學生，請依照 <a href="https://t.me/xNTHUbot">Telegram Bot 指引</a> 申請，維護團隊將盡快為您開通帳號權限。</p>
 
 			<h2 class="ts header" id="ip-mask">Q：隱藏 IP 位址的機制是什麼</h2>
 			<p>所有已登入的交大人、清大人都看得到匿名發文者的部分 IP 位址，一方面知道幾篇文是同一個人發的可能性，另一方面又保留匿名性。</p>

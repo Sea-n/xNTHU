@@ -210,6 +210,26 @@ function humanTime(string $date): string {
 }
 
 function idToDep(string $id): string {
+	if (preg_match('#^(1\d\d|\d\d)\d{6}$#', $id)) {  # NTHU
+		$TABLE = [ "000"=>"學士班",
+			"060"=>"電資學士班","061"=>"電機系","062"=>"資工系",
+			"999"=>"END"];
+
+		$idA = substr($id, 0, 3);
+		$idB = substr($id, 3, 3);
+
+		foreach ($TABLE as $s => $n) {
+			if ($idB >= $s)
+				$dep = $n;
+		}
+
+		/* 4 year + (040 ~ 139) + 1911 */
+		$deg = (int)$idA;
+		$deg = $deg - 100 + 4 + 11;
+
+		return "$dep $deg 級";
+	}
+
 	/* Teachers */
 	if ($id == 'X9616') return '技術發展組';  # 王英鼎
 	if ($id == 'E9604') return '資工系';  # 張巧涵
