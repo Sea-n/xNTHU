@@ -101,20 +101,11 @@ if (isset($post['deleted_at'])) {
 					<p itemprop="articleBody"><?= $body ?></p>
 				</div>
 				<div class="extra content">
-<?php if ($post['telegram_id'] > 10) { ?>
+<?php if ($post['telegram_id'] > 1) { ?>
 					<p><span><i class="telegram icon"></i> Telegram: <a target="_blank" href="https://t.me/s/xNTHU/<?= $post['telegram_id'] ?>">@xNTHU/<?= $post['telegram_id'] ?></a></span><br>
 <?php }
 if ($post['facebook_id'] > 10) { ?>
-					<span><i class="facebook icon"></i> Facebook: <a target="_blank" href="https://www.facebook.com/xNTHU/posts/<?= $post['facebook_id'] ?>">@xNTHU/<?= $post['facebook_id'] ?></a></span><br>
-<?php }
-if (strlen($post['instagram_id']) > 1) { ?>
-					<span><i class="instagram icon"></i> Instagram: <a target="_blank" href="https://www.instagram.com/p/<?= $post['instagram_id'] ?>">@x_nctu/<?= $post['instagram_id'] ?></a></span><br>
-<?php }
-if (strlen($plurk) > 1) { ?>
-					<span><i class="talk icon"></i> Plurk: <a target="_blank" href="https://www.plurk.com/p/<?= $plurk ?>">@xNTHU/<?= $plurk ?></a></span><br>
-<?php }
-if ($post['twitter_id'] > 10) { ?>
-					<span><i class="twitter icon"></i> Twitter: <a target="_blank" href="https://twitter.com/x_NCTU/status/<?= $post['twitter_id'] ?>">@x_NCTU/<?= $post['twitter_id'] ?></a></span></p>
+					<span><i class="facebook icon"></i> Facebook: <a target="_blank" href="https://www.facebook.com/xNTHU2.0/posts/<?= $post['facebook_id'] ?>">@xNTHU2.0/<?= $post['facebook_id'] ?></a></span><br>
 <?php } ?>
 
 					<div itemprop="author" itemscope itemtype="http://schema.org/Person" class="right floated author">
