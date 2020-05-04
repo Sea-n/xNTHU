@@ -425,7 +425,7 @@ function send_instagram(int $id, string $body, string $img = ''): int {
 	if (empty($img))
 		return -1;
 
-	system("(node " . __DIR__ . "/send-ig.js $id >> /temp/xnctu-ig.log 2>> /temp/xnctu-ig.err) &");
+	system("(node " . __DIR__ . "/send-ig.js $id >> /temp/xnthu-ig.log 2>> /temp/xnthu-ig.err) &");
 
 	return 0;
 }

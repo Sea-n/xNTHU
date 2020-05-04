@@ -7,7 +7,7 @@ require_once('utils.php');
 require_once('database.php');
 $db = new MyDB();
 
-$CACHE = '/temp/xnctu-ranking.html';
+$CACHE = '/temp/xnthu-ranking.html';
 
 $TITLE = '排行榜';
 include('includes/head.php');

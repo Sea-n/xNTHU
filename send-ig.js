@@ -10,9 +10,9 @@ const { IgApiClient } = require('instagram-private-api');
 
 	const conn = createConnection({
 		host: 'localhost',
-		user: 'xnctu',
+		user: 'xnthu',
 		password: process.env.MYSQL_PASSWORD,
-		database: 'xnctu',
+		database: 'xnthu',
 	});
 	const query = promisify(conn.query).bind(conn);
 
@@ -33,10 +33,10 @@ const { IgApiClient } = require('instagram-private-api');
 		const serialized = await ig.state.serialize();
 		delete serialized.constants;
 		const json = JSON.stringify(serialized);
-		writeFileSync('/temp/xnctu-ig.session', json);
+		writeFileSync('/temp/xnthu-ig.session', json);
 	});
 
-	const session = readFileSync('/temp/xnctu-ig.session');
+	const session = readFileSync('/temp/xnthu-ig.session');
 	const state = JSON.parse(session);
 	await ig.state.deserialize(state);
 
