@@ -79,7 +79,7 @@ case 'vote':
 		enHTML("$type $reason");
 
 	$TG->sendMsg([
-		'chat_id' => -1001489855993,
+		'chat_id' => -1001268692253,
 		'text' => $msg,
 		'parse_mode' => 'HTML',
 		'disable_web_page_preview' => true,

@@ -4,7 +4,7 @@ require(__DIR__.'/../database.php');
 $db = new MyDB();
 
 if ($TG->ChatID < 0) {
-	if ($TG->ChatID == -1001489855993)
+	if ($TG->ChatID == -1001268692253)
 		exit;  // xNTHU Votes group
 
 	$TG->sendMsg([
