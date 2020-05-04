@@ -26,11 +26,11 @@ if ($TG->ChatID < 0) {
 $USER = $db->getUserByTg($TG->FromID);
 if (!$USER) {
 	$msg = "【靠北清大 2.0 帳號申請單】\n\n";
-	$msg .= "1. 姓名：`XXX`\n";
-	$msg .= "2. 學號：`108062000`\n";
-	$msg .= "3. 系級：`資工系 23 級`\n";
-	$msg .= "4. Telegram Username：`@{$TG->data['message']['from']['username']}`\n";
-	$msg .= "5. Telegram UID：`{$TG->FromID}`\n";
+	$msg .= "1. 姓名： `XXX`\n";
+	$msg .= "2. 學號： `108062000`\n";
+	$msg .= "3. 系級： `資工系 23 級`\n";
+	$msg .= "4. Telegram Username： `@{$TG->data['message']['from']['username']}`\n";
+	$msg .= "5. Telegram UID： `{$TG->FromID}`\n";
 	$result = $TG->sendMsg([
 		'text' => $msg,
 		'parse_mode' => 'Markdown',
