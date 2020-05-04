@@ -349,7 +349,7 @@ function checkSubmitData(string $body, bool $has_img): string {
 
 	/* Check CAPTCHA */
 	$captcha = trim($_POST['captcha'] ?? 'X');
-	if ($captcha != '清大竹湖' && $captcha != '清大竹狐') {
+	if ($captcha != '清大梅園') {
 		if (mb_strlen($captcha) > 1 && mb_strlen($captcha) < 20)
 			error_log("Captcha failed: $captcha.");
 		return 'Are you human? 驗證碼錯誤';

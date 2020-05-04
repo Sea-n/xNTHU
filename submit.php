@@ -18,10 +18,10 @@ if (isset($_SESSION['nctu_id']))
 if (!isset($_SESSION['csrf_token']))
 	$_SESSION['csrf_token'] = rand58(8);
 
-$captcha_q = "請輸入「清大ㄓㄨˊㄏㄨˊ」（四個字）";
+$captcha_q = "請輸入「清大ㄇㄟˊㄩㄢˊ」（四個字）";
 $captcha_a = "";
-if (isset($USER) || $ip_from == '清大')
-	$captcha_a = "清大竹湖";
+if (isset($USER) || $ip_from == '清大' || $ip_from == '交大')
+	$captcha_a = "清大梅園";
 ?>
 <!DOCTYPE html>
 <html lang="zh-TW">
