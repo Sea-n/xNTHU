@@ -164,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		/* Check rate limit */
 		if (empty($author_id)) {
 			if (strpos($author_name, '境外') !== false) {
+				/*
 				$posts = $db->getPostsByIp($ip_addr, 2);
 				if (count($posts) == 2) {
 					$last = strtotime($posts[1]['created_at']);
@@ -172,6 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						err('Please retry afetr 24 hours. 境外 IP 限制 24 小時內僅能發 1 篇文');
 					}
 				}
+				 */
 			} else if ($author_name != '匿名, 交大' && $author_name != '匿名, 清大') {
 				$posts = $db->getPostsByIp($ip_addr, 6);
 				if (count($posts) == 6) {
@@ -275,6 +277,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 				err('無法驗證身份：IP 位址不相符');
 
 			$db->updateSubmissionStatus($uid, 1);
+
+			if (strpos($post['author_name'], '境外') !== false) {
+				$time = strtotime($post['created_at']);
+				$time = date("Y 年 m 月 d 日 H:i", $time);
+				$link = "https://x.nthu.io/posts";
+
+				$msg = "#靠清TEST\n\n";
+				$msg .= "{$post['body']}\n\n";
+				$msg .= "投稿時間：$time\n";
+				$msg .= "✅ $link";
+
+				$URL = 'https://graph.facebook.com/v6.0/' . FB_PAGES_ID . '/feed';
+
+				$data = ['access_token' => FB_ACCESS_TOKEN];
+				$data['message'] = $msg;
+
+				$curl = curl_init();
+				curl_setopt_array($curl, [
+					CURLOPT_URL => $URL,
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_POSTFIELDS => $data
+				]);
+
+				$result = curl_exec($curl);
+				curl_close($curl);
+				$result = json_decode($result, true);
+
+				$fb_id = $result['post_id'] ?? $result['id'] ?? '0_0';
+				$post_id = (int) explode('_', $fb_id)[1];
+
+				if ($post_id == 0) {
+					echo json_encode([
+						'ok' => false,
+						'msg' => 'FB Error: ' . json_encode($result),
+					], JSON_PRETTY_PRINT);
+					exit;
+				}
+
+				echo json_encode([
+					'ok' => true,
+					'msg' => '投稿已送出',
+					'redirect' => "https://fb.com/$post_id",
+				], JSON_PRETTY_PRINT);
+
+				exit;
+			} else
 			echo json_encode([
 				'ok' => true,
 				'msg' => '投稿已送出'

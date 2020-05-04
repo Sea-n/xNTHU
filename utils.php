@@ -212,6 +212,7 @@ function humanTime(string $date): string {
 function idToDep(string $id): string {
 	if (preg_match('#^(1\d\d|\d\d)\d{6}$#', $id)) {  # NTHU
 		$TABLE = [ "000"=>"學士班",
+			"021"=>"數學系",
 			"060"=>"電資學士班","061"=>"電機系","062"=>"資工系",
 			"999"=>"END"];
 
