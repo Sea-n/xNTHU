@@ -270,7 +270,6 @@ function send_facebook_api(int $id, string $body, string $img = ''): int {
 function update_telegram(array $post) {
 	global $TG;
 
-	$plurk = base_convert($post['plurk_id'], 10, 36);
 	$TG->editMarkup([
 		'chat_id' => '@xNTHU',
 		'message_id' => $post['telegram_id'],

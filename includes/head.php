@@ -40,11 +40,11 @@ $URL = htmlentities($URL);
 <meta property="fb:app_id" content="776010579474059" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css">
 <link rel="stylesheet" href="/assets/css/style.css">
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158901570-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-165366611-1"></script>
 <script>
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());
 
-	gtag('config', 'UA-158901570-1');
+	gtag('config', 'UA-165366611-1');
 </script>
