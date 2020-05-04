@@ -3,7 +3,7 @@ $TITLE = htmlentities($TITLE);
 $TITLE = str_replace("\n", "  ", $TITLE);
 
 if (!isset($DESC))
-	$DESC = '不要問為何沒有人審文，先承認你就是沒有人。新版靠北清大 2.0 (xNTHU) 讓全校師生都有了審核的權限，每天穩定發出投稿文章。並支援 Telegram、Plurk、Twitter、Facebook、Instagram 五大社群媒體平台。';
+	$DESC = '不要問為何沒有人審文，先承認你就是沒有人。新版靠北清大 2.0 (xNTHU) 讓全校師生都有了審核的權限，每天穩定發出投稿文章。並支援 Telegram、Facebook 等社群媒體平台。';
 $DESC = htmlentities($DESC);
 $DESC = str_replace("\n", "  ", $DESC);
 
@@ -37,8 +37,6 @@ $URL = htmlentities($URL);
 <meta property="og:type" content="website" />
 <meta property="og:description" content="<?= $DESC ?>" />
 <meta property="og:site_name" content="靠北清大 2.0" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@x_NCTU" />
 <meta property="fb:app_id" content="776010579474059" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css">
 <link rel="stylesheet" href="/assets/css/style.css">

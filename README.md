@@ -8,10 +8,7 @@
 
 ## 社群平台
 - Telegram: [@xNTHU](https://t.me/xNTHU)
-- Plurk: [@xNTHU](https://plurk.com/xNTHU)
-- Twitter: [@x_NCTU](https://twitter.com/x_NCTU)
-- Facebook: [@xNTHU](https://fb.me/xNTHU)
-- Instagram [@x_nctu](https://www.instagram.com/x_nctu/)
+- Facebook: [@xNTHU](https://fb.me/xNTHU2.0)
 
 ## 審文機制
 新版靠北清大 2.0 採自助式審文，所有清大師生皆可加入審核者的行列

@@ -21,10 +21,7 @@ include('includes/head.php');
 			<h2 class="ts header">社群平台</h2>
 			<div class="icon-row">
 				<a id="telegram-icon"  class="ts link tiny rounded image" target="_blank" href="https://t.me/xNTHU"              ><img src="https://image.flaticon.com/icons/svg/2111/2111646.svg"   alt="Telegram" ></a>
-				<a id="twitter-icon"   class="ts link tiny rounded image" target="_blank" href="https://twitter.com/x_NCTU"      ><img src="https://image.flaticon.com/icons/svg/124/124021.svg"     alt="Twitter"  ></a>
-				<a id="plurk-icon"     class="ts link tiny rounded image" target="_blank" href="https://www.plurk.com/xNTHU"     ><img src="https://image.flaticon.com/icons/svg/124/124026.svg"     alt="Plurk"    ></a>
-				<a id="facebook-icon"  class="ts link tiny rounded image" target="_blank" href="https://www.facebook.com/xNTHU"  ><img src="https://image.flaticon.com/icons/svg/220/220200.svg"     alt="Facebook" ></a>
-				<a id="instagram-icon" class="ts link tiny rounded image" target="_blank" href="https://www.instagram.com/x_nctu"><img src="https://image.flaticon.com/icons/svg/2111/2111463.svg"   alt="Instagram"></a>
+				<a id="facebook-icon"  class="ts link tiny rounded image" target="_blank" href="https://www.facebook.com/xNTHU2.0"><img src="https://image.flaticon.com/icons/svg/220/220200.svg"     alt="Facebook" ></a>
 			</div>
 
 			<h2 class="ts header">審文機制</h2>
@@ -37,7 +34,7 @@ include('includes/head.php');
 					<li><button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
 				</ul>
 				<h4>(B) 清大 IP 位址</h4>
-				<p>使用 113 位址投稿者，滿足以下條件即發出</p>
+				<p>使用 114 或 113 位址投稿者，滿足以下條件即發出</p>
 				<ul>
 					<li>10 分鐘至 2 小時：<button class="ts vote positive button">通過</button>&nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 2 個</li>
 					<li>2 小時以後：<button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></p>
