@@ -213,6 +213,7 @@ function idToDep(string $id): string {
 	if (preg_match('#^(1\d\d|\d\d)\d{6}$#', $id)) {  # NTHU
 		$TABLE = [ "000"=>"學士班",
 			"021"=>"數學系",
+			"030"=>"工學院學士班",
 			"060"=>"電資學士班","061"=>"電機系","062"=>"資工系",
 			"999"=>"END"];
 
@@ -264,7 +265,7 @@ function idToDep(string $id): string {
 	/* Exception for changed department */
 	if ($id == '0711239') $dep = '資工系';
 
-	return "$dep $deg 級";
+	return "交大$dep $deg 級";
 }
 
 function genPic(string $str) {

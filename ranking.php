@@ -97,7 +97,7 @@ usort($user_count, function($A, $B) {
 });
 $pt_max = $user_count[0]['pt'];
 
-$user_count = array_slice($user_count, 0, 50);
+$user_count = array_slice($user_count, 0, 20);
 
 foreach($user_count as $k => $v) {
 	$user = $db->getUserByNctu($v['id']);
@@ -236,7 +236,7 @@ function genData(string $id) {
 	}
 
 	$data['title'] = $name;
-	$begin = strtotime("2020-02-21 00:00");
+	$begin = strtotime("2020-05-04 00:00");
 	$end = strtotime("today 24:00");
 
 	for ($i=$begin; $i<=$end; $i+=$step) {

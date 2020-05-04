@@ -34,7 +34,7 @@ include('includes/head.php');
 					<li><button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
 				</ul>
 				<h4>(B) 交清 IP 位址</h4>
-				<p>使用 114 或 113 位址投稿者，滿足以下條件即發出</p>
+				<p>使用 113 或 114 位址投稿者，滿足以下條件即發出</p>
 				<ul>
 					<li>10 分鐘至 2 小時：<button class="ts vote positive button">通過</button>&nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 2 個</li>
 					<li>2 小時以後：<button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></p>
@@ -81,7 +81,7 @@ include('includes/head.php');
 			<h2 class="ts header">排行榜</h2>
 			<p>為鼓勵用心審文，避免全部通過/全部駁回，排名計算公式為：總投票數 + min(少數票, 多數票/5) * 3<br>
 			意即「&nbsp;<button class="ts vote positive button">通過</button>&nbsp;90 票」與「&nbsp;<button class="ts vote positive button">通過</button>&nbsp;50 票 +&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;10 票」的排名相同</p>
-			<p>您可以在 <a href="/ranking">這個頁面</a> 查看前 50 名</p>
+			<p>您可以在 <a href="/ranking">這個頁面</a> 查看前 20 名</p>
 
 			<h2 class="ts header">服務聲明</h2>
 			<p>感謝您使用「靠北清大 2.0」（以下簡稱本網站），本網站之所有文章皆為不特定使用者自行投稿、不特定師生進行審核，並不代表本網站立場。</p>
