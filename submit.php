@@ -20,7 +20,7 @@ if (!isset($_SESSION['csrf_token']))
 
 $captcha_q = "請輸入「清大ㄇㄟˊㄩㄢˊ」（四個字）";
 $captcha_a = "";
-if (isset($USER) || $ip_from == '清大' || $ip_from == '交大')
+if (isset($USER) || $ip_from == '交大' || $ip_from == '清大')
 	$captcha_a = "清大梅園";
 ?>
 <!DOCTYPE html>

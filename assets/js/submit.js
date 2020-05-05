@@ -287,10 +287,7 @@ function confirmSubmission() {
 		}
 		localStorage.setItem('draft', '');
 		submitted = true;
-		if (resp.redirect)
-			location.href = resp.redirect;
-		else
-			location.href = '/review/' + uid;
+		location.href = '/review/' + uid;
 	});
 }
 

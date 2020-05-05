@@ -178,7 +178,7 @@ if (substr($text, 0, 1) == '/') {
 							[
 								'text' => '登入靠北清大 2.0',
 								'login_url' => [
-									'url' => "https://x.nthu.io/login-tg?r=%2F"
+									'url' => "https://x.nthu.io/login-tg?r=%2Freview"
 								]
 							]
 						]

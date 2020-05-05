@@ -213,17 +213,14 @@ function idToDep(string $id): string {
 	if (preg_match('#^(1\d\d|\d\d)\d{6}$#', $id)) {  # NTHU
 		$TABLE = [ "000"=>"學士班",
 			"021"=>"數學系",
-			"030"=>"工學院學士班",
+			"030"=>"工學院學士班","031"=>"材料系",
 			"060"=>"電資學士班","061"=>"電機系","062"=>"資工系",
 			"999"=>"END"];
 
 		$idA = substr($id, 0, 3);
 		$idB = substr($id, 3, 3);
 
-		foreach ($TABLE as $s => $n) {
-			if ($idB >= $s)
-				$dep = $n;
-		}
+		$dep = $TABLE[$idB] ?? '未知';
 
 		/* 4 year + (040 ~ 139) + 1911 */
 		$deg = (int)$idA;
