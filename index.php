@@ -46,11 +46,11 @@ include('includes/head.php');
 				<h4>(C) 使用台灣 IP 位址</h4>
 				<p>熱門投稿會快速登上版面，審核者們也有足夠時間找出惡意投稿，滿足以下<b>任一條件</b>即發出</p>
 				<ul>
-					<li>等待審核 10 分鐘：達到 5 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
+					<li>等待審核 10 分鐘：達到 3 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
 					<li>扣除&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;後拿到足夠的&nbsp;<button class="ts vote positive button">通過</button>&nbsp;數<ul>
-						<li>30 分鐘至 2 小時：達到 7 個&nbsp;<button class="ts vote positive button">通過</button></li>
-						<li>2 小時至 6 小時：達到 5 個&nbsp;<button class="ts vote positive button">通過</button></li>
-						<li>6 小時以後：達到 3 個&nbsp;<button class="ts vote positive button">通過</button></li>
+						<li>30 分鐘至 2 小時：達到 5 個&nbsp;<button class="ts vote positive button">通過</button></li>
+						<li>2 小時至 6 小時：達到 3 個&nbsp;<button class="ts vote positive button">通過</button></li>
+						<li>6 小時以後：達到 2 個&nbsp;<button class="ts vote positive button">通過</button></li>
 					</ul></li>
 				</ul>
 				<h4>(D) 境外 IP 位址</h4>
