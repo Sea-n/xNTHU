@@ -67,15 +67,22 @@ include('includes/head.php');
 			<div class="ts horizontal divider">現在開始</div>
 			<div class="ts fluid stackable buttons"><a class="ts massive positive button" href="/submit">我要投稿</a><a class="ts massive info button" href="/review">我想審核</a></div>
 
-			<h2 class="ts header">清大學生登入</h2>
-			<p>若您尚未通過清大學生認證，請點擊此 bot 並依指示驗證身份。</p>
 <?php if (!isset($USER) || !isset($USER['tg_id'])) { ?>
+			<h2 class="ts header">清大學生登入</h2>
+			<p>若您尚未通過清大學生認證，請點擊打開此 bot 並依指示驗證身份。</p>
 			<script async src="https://telegram.org/js/telegram-widget.js?7" data-telegram-login="xNTHUbot" data-size="large" data-auth-url="https://x.nthu.io/login-tg" data-request-access="write"></script>
-<?php } else { ?>
-<div class="ts positive message">
-	<div class="header">您已驗證成功！</div>
-	<p>Tips: 使用 /name 指令即可修改您的暱稱</p>
-</div>
+			<h2 class="ts header">交大學生登入</h2>
+			<p>登入 <a href="/login-nctu">NCTU OAuth</a></p>
+<?php } else if (!isset($USER['tg_id'])) { ?>
+			<h2 class="ts header">使用 Telegram 快速審核</h2>
+			<p>點擊下面按鈕即可綁定 Telegram 帳號，讓您收到最即時的投稿通知，並快速通過/駁回貼文。</p>
+			<script async src="https://telegram.org/js/telegram-widget.js?7" data-telegram-login="xNTHUbot" data-size="large" data-auth-url="https://x.nthu.io/login-tg" data-request-access="write"></script>
+<?php } else if ($USER['name'] == $USER['nctu_id']) { ?>
+			<h2 class="ts header">使用 Telegram 快速審核</h2>
+			<div class="ts positive message">
+				<div class="header">您已連結成功！</div>
+				<p>Tips: 使用 /name 指令即可修改您的暱稱</p>
+			</div>
 <?php } ?>
 
 			<h2 class="ts header">排行榜</h2>
