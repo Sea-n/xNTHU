@@ -1,9 +1,11 @@
 <?php
+require_once('config.php');
+
 $TITLE = htmlentities($TITLE);
 $TITLE = str_replace("\n", "  ", $TITLE);
 
 if (!isset($DESC))
-	$DESC = '不要問為何沒有人審文，先承認你就是沒有人。新版靠北清大 2.0 (xNTHU) 讓全校師生都有了審核的權限，每天穩定發出投稿文章。並支援 Telegram、Facebook 等社群媒體平台。';
+	$DESC = "不要問為何沒有人審文，先承認你就是沒有人。新版$SITENAME (xNTHU) 讓全校師生都有了審核的權限，每天穩定發出投稿文章。並支援 Telegram、Facebook 等社群媒體平台。";
 $DESC = htmlentities($DESC);
 $DESC = str_replace("\n", "  ", $DESC);
 
@@ -12,12 +14,12 @@ if (isset($IMG))
 
 $URL = $_SERVER['REQUEST_URI'];
 $URL = explode('?', $URL, 2)[0];  // remove the query part
-$URL = "https://x.nthu.io$URL";
+$URL = "https://$DOMAIN$URL";
 $URL = htmlentities($URL);
 
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?= $TITLE ?> - 靠北清大 2.0 (xNTHU)</title>
+<title><?= $TITLE ?> - <?= SITENAME ?> (xNTHU)</title>
 <link rel="icon" type="image/png" href="/assets/img/logo-192.png" sizes="192x192">
 <link rel="icon" type="image/png" href="/assets/img/logo-128.png" sizes="128x128">
 <link rel="icon" type="image/png" href="/assets/img/logo-96.png" sizes="96x96">
@@ -25,7 +27,7 @@ $URL = htmlentities($URL);
 <link rel="icon" type="image/png" href="/assets/img/logo-32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="/assets/img/logo-16.png" sizes="16x16">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<meta name="keywords" content="xNTHU, 靠北清大 2.0" />
+<meta name="keywords" content="xNTHU, <?= SITENAME ?>" />
 <meta name="description" content="<?= $DESC ?>" />
 <link rel="canonical" href="<?= $URL ?>" />
 <meta property="og:title" content="<?= $TITLE ?>" />
@@ -36,7 +38,7 @@ $URL = htmlentities($URL);
 <?php } ?>
 <meta property="og:type" content="website" />
 <meta property="og:description" content="<?= $DESC ?>" />
-<meta property="og:site_name" content="靠北清大 2.0" />
+<meta property="og:site_name" content="<?= SITENAME ?>" />
 <meta property="fb:app_id" content="776010579474059" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css">
 <link rel="stylesheet" href="/assets/css/style.css">
