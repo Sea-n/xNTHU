@@ -394,25 +394,6 @@ class MyDB {
 		]);
 	}
 
-	public function insertUserNthu(string $nthu_id, string $tg_id) {
-		$sql = "SELECT nctu_id FROM users WHERE nctu_id = :nctu_id OR tg_id = :tg_id";
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute([
-			':nctu_id' => $nctu_id,
-			':tg_id' => $tg_id,
-		]);
-
-		if ($stmt->fetch())
-			return false;
-
-		$sql = "INSERT INTO users(name, nctu_id, tg_id) VALUES (:nthu_id, :nthu_id, :tg_id)";
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute([
-			':nthu_id' => $nthu_id,
-			':tg_id' => $tg_id,
-		]);
-	}
-
 	public function updateUserTgProfile(array $tg) {
 		$name = $tg['first_name'];
 		if (isset($tg['last_name']))

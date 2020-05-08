@@ -148,54 +148,6 @@ if (substr($text, 0, 1) == '/') {
 			]);
 			break;
 
-		case 'adduser':
-			if ($TG->FromID != 109780439) {
-				$TG->sendMsg([
-					'text' => "此功能僅限管理員使用",
-				]);
-				exit;
-			}
-
-			$args = explode(' ', $arg);
-			if (count($args) != 2) {
-				$TG->sendMsg([
-					'text' => "使用方式：/adduser <NTHU ID> <TG ID>",
-				]);
-				exit;
-			}
-
-			$nthu_id = $args[0];
-			$tg_id = $args[1];
-
-			$db->insertUserNthu($nthu_id, $tg_id);
-
-			$result = $TG->sendMsg([
-				'chat_id' => $tg_id,
-				'text' => "🎉 驗證成功！\n\n請點擊以下按鈕登入靠北清大 2.0 網站",
-				'reply_markup' => [
-					'inline_keyboard' => [
-						[
-							[
-								'text' => '登入靠北清大 2.0',
-								'login_url' => [
-									'url' => "https://x.nthu.io/login-tg?r=%2Freview"
-								]
-							]
-						]
-					]
-				]
-			]);
-
-			if ($result['ok'])
-				$TG->sendMsg([
-					'text' => "Done.\n"
-				]);
-			else
-				$TG->sendMsg([
-					'text' => "Failed.\n\n" . json_encode($result, JSON_PRETTY_PRINT)
-				]);
-			break;
-
 		case 'update':
 			if ($TG->FromID != 109780439) {
 				$TG->sendMsg([
