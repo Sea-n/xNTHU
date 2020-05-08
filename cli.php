@@ -22,8 +22,8 @@ case 'dump':
 		$stmt->execute();
 		$data[$table] = [];
 		while ($item = $stmt->fetch()) {
-			if (isset($item['nctu_id']))
-				$item['nctu_id'] = idToDep($item['nctu_id']) . ' ' . $item['nctu_id'];
+			if (isset($item['stuid']))
+				$item['stuid'] = idToDep($item['stuid']) . ' ' . $item['stuid'];
 
 			if ($table == 'posts')
 				$posts[ $item['uid'] ] = $item;
@@ -91,24 +91,6 @@ case 'reject':
 		$db->deleteSubmission($post['uid'], -13, '逾期未確認');
 	}
 
-	break;
-
-case 'delete':
-	if ($argc < 4)
-		exit('Usage: delete [uid] [reason] [status]');
-
-	$uid = $argv[2];
-	$reason = $argv[3];
-	$status = $argv[4] ?? -4;
-
-	/* Remove vote keyboard in Telegram */
-	$msgs = $db->getTgMsgsByUid($uid);
-	foreach ($msgs as $item) {
-		$TG->deleteMsg($item['chat_id'], $item['msg_id']);
-		$db->deleteTgMsg($uid, $item['chat_id']);
-	}
-
-	$db->deleteSubmission($uid, $status, $reason);
 	break;
 
 default:

@@ -46,11 +46,11 @@ if (!isset($data['username']))
 if (!isset($data['email']))
 	fail('No email from NCTU.', 5);
 
-$USER = $db->getUserByNctu($data['username']);
+$USER = $db->getUserByStuid($data['username']);
 if (!$USER)
-	$db->insertUserNctu($data['username'], $data['email']);
+	$db->insertUserStuid($data['username'], $data['email']);
 
-$_SESSION['nctu_id'] = $data['username'];
+$_SESSION['stuid'] = $data['username'];
 
 echo "Login success!";
 $uri = '/';

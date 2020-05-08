@@ -31,7 +31,7 @@ case 'vote':
 	$uid = $argv[2];
 	$voter = $argv[3];
 	$post = $db->getPostByUid($uid);
-	$USER = $db->getUserByNctu($voter);
+	$USER = $db->getUserByStuid($voter);
 	$VOTE = $db->getVote($uid, $voter);
 
 	/* Remove vote keyboard in Telegram */
@@ -64,7 +64,7 @@ case 'vote':
 	$body = mb_substr($body, 0, 10) . '..';
 	$body = enHTML($body);
 
-	$dep = idToDep($USER['nctu_id']);
+	$dep = idToDep($USER['stuid']);
 
 	$name = $USER['name'];
 	if (is_numeric($name))

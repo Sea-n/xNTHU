@@ -16,7 +16,7 @@ START TRANSACTION;
  *
  * -1 deleted for unknown reason
  * -2 rejected
- * -3 deleted by author
+ * -3 deleted by author (hidden)
  * -4 deleted by admin
  *
  * -11 deleted and hidden by admin
@@ -51,8 +51,8 @@ CREATE TABLE posts (
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
 	name VARCHAR(87) DEFAULT '' NOT NULL,
-	nctu_id VARCHAR(87) PRIMARY KEY NOT NULL,
-	nctu_mail VARCHAR(320) DEFAULT '' NOT NULL,
+	stuid VARCHAR(87) PRIMARY KEY NOT NULL,
+	mail VARCHAR(320) DEFAULT '' NOT NULL,
 	tg_id INTEGER UNIQUE,
 	tg_name VARCHAR(870),
 	tg_username VARCHAR(87),
