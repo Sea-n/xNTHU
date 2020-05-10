@@ -53,20 +53,20 @@ case 'reject':
 		$uid = $post['uid'];
 		$dt = time() - strtotime($post['created_at']);
 
-		/* Before 2 hour */
-		if ($dt < 2*60*60)
-			if ($post['rejects'] < 7)
+		if (strpos($post['author_name'], '境外') !== false) {
+			if ($post['rejects'] < 2)
 				continue;
+		} else {
+			/* Before 2 hour */
+			if ($dt < 2*60*60)
+				if ($post['rejects'] < 5)
+					continue;
 
-		/* 2 hour - 6 hour*/
-		if ($dt < 6*60*60)
-			if ($post['rejects'] < 5)
-				continue;
-
-		/* 6 hour - 24 hour */
-		if ($dt < 24*60*60)
-			if ($post['rejects'] < 3)
-				continue;
+			/* 2 hour - 12 hour*/
+			if ($dt < 12*60*60)
+				if ($post['rejects'] < 3)
+					continue;
+		}
 
 		$db->deleteSubmission($uid, -2, '已駁回');
 
@@ -84,11 +84,51 @@ case 'reject':
 	while ($post = $stmt->fetch()) {
 		$dt = time() - strtotime($post['created_at']);
 
-		/* Before 10 min */
-		if ($dt < 10*60)
+		/* Not within 3 - 4 min */
+		if ($dt < 3*60 || $dt > 4*60)
 			continue;
 
-		$db->deleteSubmission($post['uid'], -13, '逾期未確認');
+		$uid = $post['uid'];
+
+		$msg = "<未確認投稿>\n\n";
+		$msg .= $post['body'];
+
+		$keyboard = [
+			'inline_keyboard' => [
+				[
+					[
+						'text' => '✅ 確認投稿',
+						'callback_data' => "confirm_$uid"
+					],
+					[
+						'text' => '❌ 刪除投稿',
+						'callback_data' => "delete_$uid"
+					]
+				],
+				[
+					[
+						'text' => '開啟審核頁面',
+						'login_url' => [
+							'url' => 'https://' . DOMAIN . "/login-tg?r=%2Freview%2F$uid"
+						]
+					]
+				]
+			]
+		];
+
+		if (!$post['has_img'])
+			$TG->sendMsg([
+				'chat_id' => -1001489855993,
+				'text' => $msg,
+				'reply_markup' => $keyboard,
+			]);
+		else
+			$TG->sendPhoto([
+				'chat_id' => -1001489855993,
+				'photo' => 'https://' . DOMAIN . "/img/$uid.jpg",
+				'caption' => $msg,
+				'reply_markup' => $keyboard,
+			]);
 	}
 
 	break;
