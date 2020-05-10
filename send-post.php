@@ -214,6 +214,7 @@ function send_telegram(int $id, string $body, string $img = ''): int {
 		$result = $TG->sendPhoto([
 			'chat_id' => '@xNTHU',
 			'photo' => 'https://' . DOMAIN . "/img/{$img}.jpg",
+			'caption' => $msg,
 			'parse_mode' => 'HTML',
 		]);
 
