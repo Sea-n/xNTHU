@@ -154,7 +154,7 @@ function checkEligible(array $post): bool {
 	if (strpos($post['author_name'], '境外') === false) {
 		/* If no reject & more than 10 min */
 		if ($post['rejects'] == 0)
-			if ($dt > 9*60 && $vote >= 3)
+			if ($dt > 9*60 && $vote >= 2)
 				return true;
 
 		/* Less than 20 min */
