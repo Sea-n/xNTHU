@@ -41,6 +41,11 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 			</div>
 		</header>
 		<div class="ts container" name="main">
+			<div id="stopped" class="ts negative segment">
+				<span style="font-weight: 500; font-size: 1.2em;">此為 靠北清大 備用板面</span>
+				<p>如無特別原因，請優先至 <a target="_blank" href="https://submit.crush.ninja/KowbeiNTHU20">Crush Ninja</a> 投稿，詳請參見 <a href="/post/108">#靠清108</a> 說明。</p>
+				<p>投稿連結：<a target="_blank" href="https://submit.crush.ninja/KowbeiNTHU20">https://submit.crush.ninja/KowbeiNTHU20</a></p>
+			</div>
 			<div id="rule">
 				<h2>投稿規則</h2>
 				<ol>
