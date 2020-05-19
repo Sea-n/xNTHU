@@ -21,6 +21,7 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 		</header>
 		<div class="ts container" name="main">
 			<h2 class="ts header">社群平台</h2>
+			<p>除了本站文章列表外，您可以在以下 2 個社群媒體平台追蹤<?= SITENAME ?> 帳號。</p>
 			<div class="icon-row">
 				<a id="telegram-icon"  class="ts link tiny rounded image" target="_blank" href="https://t.me/xNTHU"              ><img src="https://image.flaticon.com/icons/svg/2111/2111646.svg"   alt="Telegram" ></a>
 				<a id="facebook-icon"  class="ts link tiny rounded image" target="_blank" href="https://www.facebook.com/xNTHU2.0"><img src="https://image.flaticon.com/icons/svg/220/220200.svg"     alt="Facebook" ></a>
@@ -29,12 +30,14 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 			<h2 class="ts header">審文機制</h2>
 			<div id="review-content" style="height: 320px; overflow-y: hidden;">
 				<p>新版<?= SITENAME ?> 採自助式審文，所有交清師生皆可加入審核者的行列，以下是系統判斷標準</p>
+
 				<h4>(A) 具名投稿</h4>
 				<p>如在 5 分鐘內無 <button class="ts vote negative button">駁回</button>，免審核即自動發出，詳細判斷條件如下：</p>
 				<ul>
 					<li>等待審核至少 5 分鐘</li>
 					<li><button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
 				</ul>
+
 				<h4>(B) 交清 IP 位址</h4>
 				<p>使用 113 或 114 位址投稿者，滿足以下條件即發出</p>
 				<ul>
@@ -44,9 +47,10 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 				<h4>(C) 使用台灣 IP 位址</h4>
 				<p>詳細判斷條件如下：</p>
 				<ul>
-					<li>等待審核至少 10 分鐘</li>
+					<li>等待審核至少 20 分鐘</li>
 					<li>達到 5 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
 				</ul>
+
 			</div>
 			<div id="hide-box">
 				<big onclick="more();" style="cursor: pointer; color: black;">展開完整規則 <i class="dropdown icon"></i></big>

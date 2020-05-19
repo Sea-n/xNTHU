@@ -119,6 +119,7 @@ function checkEligible(array $post): bool {
 
 	/* Rule for Logged-in users */
 	if (!empty($post['author_id'])) {
+		/* Less than 5 min */
 		if ($dt < 4*60)
 			return false;
 
@@ -130,6 +131,7 @@ function checkEligible(array $post): bool {
 
 	/* Rule for NTHU IP address */
 	if ($post['author_name'] == '匿名, 清大' || $post['author_name'] == '匿名, 交大') {
+		/* Less than 10 min */
 		if ($dt < 9*60)
 			return false;
 
@@ -141,7 +143,8 @@ function checkEligible(array $post): bool {
 
 	/* Rule for Taiwan IP address */
 	if (strpos($post['author_name'], '境外') === false) {
-		if ($dt < 9*60)
+		/* Less than 20 min */
+		if ($dt < 19*60)
 			return false;
 
 		if ($post['rejects'])
@@ -150,7 +153,7 @@ function checkEligible(array $post): bool {
 		 if ($vote < 5)
 			 return false;
 
-		 return true;
+		return true;
 	}
 
 	/* Rule for Foreign IP address */
