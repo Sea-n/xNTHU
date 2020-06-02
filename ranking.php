@@ -24,7 +24,7 @@ $TITLE = '排行榜';
 		</header>
 		<div class="ts container" name="main">
 			<p>排名積分會依時間遠近調整權重，24 小時內權重最高，而後每七天積分減半。</p>
-			<p>正確的駁回 <a href="/deleted">已刪投稿</a> 將得到 10 倍分數，誤通過則倒扣 1 倍。</a>
+			<p>正確的駁回 <a href="/deleted">已刪投稿</a> 將得到 10 倍分數。</a>
 
 			<table class="ts table">
 				<thead>
@@ -77,7 +77,7 @@ foreach ($VOTES as $item) {
 
 	if (in_array($item['uid'], $DEL)) {
 		if ($item['vote'] == 1)
-			$pt *= -1;
+			$pt = 0;
 		else
 			$pt *= 10;
 	}
@@ -106,7 +106,7 @@ usort($user_count, function($A, $B) {
 
 $pt_max = $user_count[0]['pt'];
 foreach($user_count as $k => $v) {
-	if ($k%5 == 0 && $user_count[$k]['pt'] < 5) {
+	if ($k > 0 && $k%5 == 0 && $user_count[$k]['pt'] < 5) {
 		$end = $k;
 		break;
 	}
@@ -128,7 +128,7 @@ foreach ($user_count as $i => $item) {
 	else
 		$photo = genPic($id);
 ?>
-					<tr title="<?= $item['pt_int'] ?> pt">
+					<tr title="<?= $item['pt_int'] ?> pt (<?= round($item['pt'], 1) ?>)">
 						<td><?= $no ?></td>
 						<td><?= $dep ?></td>
 						<td><img class="ts circular avatar image" src="<?= $photo ?>" onerror="this.src='/assets/img/avatar.jpg';"></td>

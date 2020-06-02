@@ -27,8 +27,8 @@ if ($TG->ChatID < 0) {
 
 $USER = $db->getUserByTg($TG->FromID);
 if (!$USER) {
-	$msg = "*【靠北清大 2.0 帳號申請單】*\n\n";
-	$msg .= "1. 姓名： `XXX`\n";
+	$msg = "*【$SITENAME 帳號申請單】*\n\n";
+	$msg .= "1. 姓名： `韋詠祥`\n";
 	$msg .= "2. 學號： `108062000`\n";
 	$msg .= "3. 系級： `資工系 23 級`\n";
 	$msg .= "4. Telegram Username： `@{$TG->data['message']['from']['username']}`\n";
@@ -39,7 +39,7 @@ if (!$USER) {
 	]);
 
 	$msg = "您尚未驗證清大身份，請複製並填寫以上申請單後，使用*清大信箱*寄至維護團隊\n\n";
-	$msg .= "主旨： *靠北清大 2.0 - 帳號申請*\n";
+	$msg .= "主旨： *$SITENAME - 帳號申請*\n";
 	$msg .= "收件人： x@nthu.io\n";
 	$msg .= "\n目前為人工審核，寄出後約需 5 - 30 分鐘處理，確認身份後將會由此機器人通知並提供登入連結";
 	$TG->sendMsg([
@@ -91,7 +91,7 @@ if (substr($text, 0, 1) == '/') {
 
 		case 'name':
 			$arg = $TG->enHTML(trim($arg));
-			if (empty($arg) || mb_strlen($arg) > 10) {
+			if (mb_strlen($arg) < 1 || mb_strlen($arg) > 10) {
 				$TG->sendMsg([
 					'text' => "使用方式：`/name 新暱稱`\n\n字數上限：10 個字",
 					'parse_mode' => 'Markdown'
@@ -180,7 +180,7 @@ if (substr($text, 0, 1) == '/') {
 
 			[$uid, $status, $reason] = explode(' ', $arg, 3);
 
-			if (empty($reason)) {
+			if (mb_strlen($reason) == 0) {
 				$TG->sendMsg([
 					'text' => "Usage: /delete <uid> <status> <reason>\n\n" .
 						"-2 rejected\n" .
@@ -268,7 +268,7 @@ if (preg_match('#^\[(approve|reject)/([a-zA-Z0-9]+)\]#', $TG->data['message']['r
 
 	$type = $vote == 1 ? '✅ 通過' : '❌ 駁回';
 
-	if (empty($reason) || mb_strlen($reason) > 100) {
+	if (mb_strlen($reason) < 1 || mb_strlen($reason) > 100) {
 		$TG->sendMsg([
 			'text' => '請輸入 1 - 100 字投票附註'
 		]);

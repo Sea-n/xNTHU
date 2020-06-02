@@ -54,8 +54,8 @@ case 'reject':
 		$dt = time() - strtotime($post['created_at']);
 
 		if (strpos($post['author_name'], '境外') !== false) {
-			/* Before 12 hour */
-			if ($dt < 12*60*60)
+			/* Before 1 hour */
+			if ($dt < 1*60*60)
 				if ($post['rejects'] < 2)
 					continue;
 		} else {
@@ -80,14 +80,15 @@ case 'reject':
 		}
 	}
 
+	/* Unconfirmed submissions */
 	$sql = "SELECT * FROM posts WHERE status = 0";
 	$stmt = $db->pdo->prepare($sql);
 	$stmt->execute();
 	while ($post = $stmt->fetch()) {
-		$dt = time() - strtotime($post['created_at']);
+		$dt = floor(time() / 60) - floor(strtotime($post['created_at']) / 60);
 
 		/* Not within 3 - 4 min */
-		if ($dt < 3*60 || $dt > 4*60)
+		if ($dt <= 3 || $dt > 4)
 			continue;
 
 		$uid = $post['uid'];
@@ -137,4 +138,5 @@ case 'reject':
 
 default:
 	echo "Unknown argument: {$argv[1]}";
+	break;
 }
