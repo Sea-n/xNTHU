@@ -83,7 +83,6 @@ foreach ($sns as $name => $key) {
 /* Update with link to other SNS */
 $sns = [
 	'Telegram' => 'telegram',
-	'Plurk' => 'plurk',
 	'Facebook' => 'facebook',
 ];
 foreach ($sns as $name => $key) {
@@ -396,7 +395,7 @@ function update_telegram(array $post) {
 	if ($post['facebook_id'] > 10)
 		$buttons[] = [
 			'text' => 'Facebook',
-			'url' => "https://www.facebook.com/xNCTU/posts/{$post['facebook_id']}"
+			'url' => "https://www.facebook.com/xNTHU2.0/posts/{$post['facebook_id']}"
 		];
 
 	$TG->editMarkup([
@@ -508,7 +507,7 @@ function update_facebook(array $post) {
 	$msg .= "$link\n\n";
 
 	$msg .= "---\n\n";
-	$msg .= "👉 {$go}： https://x.nctu.app/submit";
+	$msg .= "👉 {$go}： https://x.nthu.io/submit";
 
 	$URL = 'https://graph.facebook.com/v6.0/' . FB_PAGES_ID . "_{$post['facebook_id']}/comments";
 
