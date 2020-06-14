@@ -106,7 +106,7 @@ if (count($posts) == 0) {
 <?php } else if (isset($_GET['deleted'])) { ?>
 			<div class="ts negative message">
 				<div class="header">你不是清大生</div>
-				<p>這邊僅限清大使用者瀏覽，外校生僅可在知道投稿編號的情況下看到刪除記錄，例如 <a href="/review/2C8j">#投稿2C8j</a>。</p>
+				<p>這邊僅限清大使用者瀏覽，外校生僅可在知道投稿編號的情況下看到刪除記錄，例如 <a href="/review/Ysz6">#投稿Ysz6</a>。</p>
 			</div>
 <?php } else { ?>
 			<h2 class="ts header">太棒了！目前沒有待審投稿</h2>

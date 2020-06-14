@@ -1,4 +1,7 @@
+Disabled.
 <?php
+header('Location: https://x.nctu.app/ranking');
+exit;
 session_start(['read_and_close' => true]);
 require_once('utils.php');
 require_once('database.php');
