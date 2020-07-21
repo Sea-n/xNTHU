@@ -32,29 +32,27 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 				<p>新版<?= SITENAME ?> 採自助式審文，所有交清師生皆可加入審核者的行列，以下是系統判斷標準</p>
 
 				<h4>(A) 具名投稿</h4>
-				<p>如在 5 分鐘內無 <button class="ts vote negative button">駁回</button>，免審核即自動發出，詳細判斷條件如下：</p>
+				<p>即使無人審核，經過 10 分鐘也會自動發出，詳細判斷條件如下：</p>
 				<ul>
-					<li>等待審核至少 5 分鐘</li>
-					<li><button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
+					<li>2 分鐘至 10 分鐘：達到 2 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
+					<li>10 分鐘以後：<button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
 				</ul>
 
 				<h4>(B) 交清 IP 位址</h4>
 				<p>使用 113 或 114 位址投稿者，滿足以下條件即發出：</p>
 				<ul>
-					<li>3 分鐘至 10 分鐘：達到 3 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
-					<li>10 分鐘至 1 小時：<button class="ts vote positive button">通過</button>&nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 2 個</li>
-					<li>1 小時以後：<button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
+					<li>3 分鐘至 30 分鐘：達到 2 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
+					<li>30 分鐘以後：<button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>
 				</ul>
 				<div class="ts negative raised compact segment">
 					<h5>例外狀況</h5>
-					<p>為避免非法文章意外通過，每天 03:00 - 09:00 門檻提升為 <button class="ts vote positive button">通過</button> 需比 <button class="ts vote negative button">駁回</button> 多 3 個</p>
+					<p>為避免非法文章意外通過，每天 03:00 - 09:00 門檻提升為 <button class="ts vote positive button">通過</button> 需比 <button class="ts vote negative button">駁回</button> 多 2 個</p>
 				</div>
 
 				<h4>(C) 使用台灣 IP 位址</h4>
 				<p>熱門投稿會快速登上版面，審核者們也有足夠時間找出惡意投稿，滿足以下條件即發出：</p>
 				<ul>
-					<li>5 分鐘至 10 分鐘：達到 5 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
-					<li>10 分鐘至 1 小時：<button class="ts vote positive button">通過</button>&nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 4 個</li>
+					<li>5 分鐘至 1 小時：達到 3 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
 					<li>1 小時以後：<button class="ts vote positive button">通過</button>&nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 2 個</li>
 				</ul>
 

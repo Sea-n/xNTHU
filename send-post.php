@@ -116,14 +116,17 @@ function checkEligible(array $post): bool {
 	$vote = $post['approvals'] - $post['rejects'];
 	$vote3 = $post['approvals'] - $post['rejects']*3;
 
+	if ($dt > 5)
+		return true;
+
 	/* Rule for Logged-in users */
 	if (!empty($post['author_id'])) {
 		/* Less than 2 min */
 		if ($dt < 2)
 			return false;
 
-		/* No reject: 3 votes */
-		if ($vote3 >= 3)
+		/* No reject: 2 votes */
+		if ($vote3 >= 2)
 			return true;
 
 		/* More than 10 min */
@@ -141,14 +144,10 @@ function checkEligible(array $post): bool {
 	 && $post['ip_addr'] != ip_mask($post['ip_addr'])) {
 		/* Night mode */
 		if (strtotime("03:00") <= time() && time() <= strtotime("09:00"))
-			if ($vote < 3)
-				return false;
-
-		if (strtotime("02:30") <= time() && time() <= strtotime("09:30"))
 			if ($vote < 2)
 				return false;
 
-		if (strtotime("02:00") <= time() && time() <= strtotime("10:00"))
+		if (strtotime("02:30") <= time() && time() <= strtotime("09:30"))
 			if ($vote < 1)
 				return false;
 
@@ -156,19 +155,11 @@ function checkEligible(array $post): bool {
 		if ($dt < 3)
 			return false;
 
-		/* No reject: 3 votes */
-		if ($vote3 >= 3)
+		/* No reject: 2 votes */
+		if ($dt < 30 && $vote3 >= 2)
 			return true;
 
-		/* Less than 10 min */
-		if ($dt < 10)
-			return false;
-
-		/* 10 min - 1 hour */
-		if ($dt < 60 && $vote < 2)
-			return false;
-
-		/* More than 1 hour */
+		/* More than 30 min */
 		if ($vote < 0)
 			return false;
 
@@ -181,17 +172,9 @@ function checkEligible(array $post): bool {
 		if ($dt < 5)
 			return false;
 
-		/* No reject: 5 votes */
-		if ($vote3 >= 5)
+		/* No reject: 3 votes */
+		if ($vote3 >= 3)
 				return true;
-
-		/* Less than 10 min */
-		if ($dt < 10)
-			return false;
-
-		/* 10 min - 1 hour */
-		if ($dt < 60 && $vote < 4)
-			return false;
 
 		/* More than 1 hour */
 		if ($vote < 2)

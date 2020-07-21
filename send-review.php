@@ -80,7 +80,7 @@ function sendReview(string $uid) {
 
 	/* Send to Users */
 	foreach ($USERS as $user) {
-		break;  // Disabled
+//		break;  // Disabled
 		if (!isset($user['tg_name']))
 			continue;
 
