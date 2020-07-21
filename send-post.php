@@ -66,24 +66,25 @@ foreach ($sns as $name => $key) {
 		$pid = $func($post);
 
 		if ($pid <= 0) { // Retry limit exceed
-			$dtP = time() - strtotime($post['posted_at']);
-			if ($dtP > 3*5*60) // Total 3 times
+			$dtP = floor(time()/60) - floor(strtotime($post['posted_at'])/60);
+			if ($dtP > 3*5) // Total 3 times
 				$pid = 1;
 		}
 
 		if ($pid > 0)
 			$db->updatePostSns($post['id'], $key, $pid);
-		$post["{$key}_id"] = $pid;
 	} catch (Exception $e) {
 		echo "Send $name Error " . $e->getCode() . ': ' .$e->getMessage() . "\n";
 		echo $e->lastResponse . "\n\n";
 	}
 }
 
+/* Update SNS ID (mainly for Instagram) */
+$post = $db->getPostById($post['id']);
+
 /* Update with link to other SNS */
 $sns = [
 	'Telegram' => 'telegram',
-	'Facebook' => 'facebook',
 ];
 foreach ($sns as $name => $key) {
 	try {
@@ -113,11 +114,20 @@ function checkEligible(array $post): bool {
 
 	$dt = floor(time() / 60) - floor(strtotime($post['created_at']) / 60);
 	$vote = $post['approvals'] - $post['rejects'];
+	$vote3 = $post['approvals'] - $post['rejects']*3;
 
 	/* Rule for Logged-in users */
 	if (!empty($post['author_id'])) {
-		/* Less than 5 min */
-		if ($dt < 4*60)
+		/* Less than 2 min */
+		if ($dt < 2)
+			return false;
+
+		/* No reject: 3 votes */
+		if ($vote3 >= 3)
+			return true;
+
+		/* More than 10 min */
+		if ($dt < 10)
 			return false;
 
 		if ($vote < 0)
@@ -127,12 +137,39 @@ function checkEligible(array $post): bool {
 	}
 
 	/* Rule for NTHU IP address */
-	if ($post['author_name'] == '匿名, 清大' || $post['author_name'] == '匿名, 交大') {
+	if (($post['author_name'] == '匿名, 清大' || $post['author_name'] == '匿名, 交大')
+	 && $post['ip_addr'] != ip_mask($post['ip_addr'])) {
+		/* Night mode */
+		if (strtotime("03:00") <= time() && time() <= strtotime("09:00"))
+			if ($vote < 3)
+				return false;
+
+		if (strtotime("02:30") <= time() && time() <= strtotime("09:30"))
+			if ($vote < 2)
+				return false;
+
+		if (strtotime("02:00") <= time() && time() <= strtotime("10:00"))
+			if ($vote < 1)
+				return false;
+
+		/* Less than 3 min */
+		if ($dt < 3)
+			return false;
+
+		/* No reject: 3 votes */
+		if ($vote3 >= 3)
+			return true;
+
 		/* Less than 10 min */
 		if ($dt < 10)
 			return false;
 
-		if ($vote < 3)
+		/* 10 min - 1 hour */
+		if ($dt < 60 && $vote < 2)
+			return false;
+
+		/* More than 1 hour */
+		if ($vote < 0)
 			return false;
 
 		return true;
@@ -140,15 +177,25 @@ function checkEligible(array $post): bool {
 
 	/* Rule for Taiwan IP address */
 	if (strpos($post['author_name'], '境外') === false) {
-		/* Less than 20 min */
-		if ($dt < 19*60)
+		/* Less than 5 min */
+		if ($dt < 5)
 			return false;
 
-		if ($post['rejects'])
+		/* No reject: 5 votes */
+		if ($vote3 >= 5)
+				return true;
+
+		/* Less than 10 min */
+		if ($dt < 10)
 			return false;
 
-		 if ($vote < 5)
-			 return false;
+		/* 10 min - 1 hour */
+		if ($dt < 60 && $vote < 4)
+			return false;
+
+		/* More than 1 hour */
+		if ($vote < 2)
+			return false;
 
 		return true;
 	}
@@ -465,6 +512,7 @@ function update_facebook(array $post) {
 		"投稿時將網址放在最後一行，發文會自動顯示頁面預覽",
 		"電腦版投稿可以使用 Ctrl-V 上傳圖片",
 		"使用交大網路投稿會自動填入驗證碼",
+		"如想投稿 GIF 可上傳至 Giphy，並將連結置於文章末行",
 
 		"透過自動化審文系統，多數投稿會在 10 分鐘內發出",
 		"所有人皆可匿名投稿，全校師生皆可具名審核",
@@ -481,6 +529,7 @@ function update_facebook(array $post) {
 		"覺得審核太慢嗎？你也可以來投票\nhttps://x.nctu.app/review",
 		"網站上「已刪投稿」區域可以看到被黑箱的記錄\nhttps://x.nctu.app/deleted",
 		"知道都是哪些系的同學在審文嗎？打開排行榜看看吧\nhttps://x.nctu.app/ranking",
+		"靠交 2.0 是交大資工學生自行開發的系統，程式原始碼公開於 GitHub 平台\nhttps://git.io/xNCTU",
 	];
 	assert(count($tips_all) % 7 != 0);
 	$tips = $tips_all[ ($post['id'] * 7) % count($tips_all) ];
@@ -526,6 +575,9 @@ function update_facebook(array $post) {
 	$result = curl_exec($curl);
 	curl_close($curl);
 	$result = json_decode($result, true);
+
+	if (strlen($result['id'] ?? '') > 10)
+		return;  // Success, id = Comment ID
 
 	$fb_id = $result['post_id'] ?? $result['id'] ?? '0_0';
 	$post_id = (int) explode('_', $fb_id)[0];

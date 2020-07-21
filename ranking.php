@@ -28,6 +28,8 @@ $TITLE = '排行榜';
 		<div class="ts container" name="main">
 			<p>排名積分會依時間遠近調整權重，24 小時內權重最高，而後每七天積分減半。</p>
 			<p>正確的駁回 <a href="/deleted">已刪投稿</a> 將得到 10 倍分數。</a>
+			<p>連續投票天數以台灣時間 24:00 為計算基準，如當日已投票、仍未中斷將標記 ⚡️ 符號。</p>
+			<p>點擊名字可將頁尾圖表切換為個人投票記錄。</p>
 
 			<table class="ts table">
 				<thead>
@@ -38,6 +40,7 @@ $TITLE = '排行榜';
 						<th>暱稱</th>
 						<th>✅ 通過</th>
 						<th>❌ 駁回</th>
+						<th>🚀 連續投票</th>
 					</tr>
 				</thead>
 <?php
@@ -63,19 +66,21 @@ $VOTES = $db->getVotes();
 $user_count = [];
 $vote_sum = [1=>0, -1=>0];
 foreach ($VOTES as $item) {
-	if (!isset($user_count[ $item['voter'] ])) {
-		$user_count[ $item['voter'] ] = [
+	if (!isset($user_count[ $item['stuid'] ])) {
+		$user_count[ $item['stuid'] ] = [
 			1 => 0, -1 => 0,
 			'pt' => 0,
-			'id' => $item['voter'],
+			'id' => $item['stuid'],
 		];
 	}
 
-	$user_count[ $item['voter'] ][ $item['vote'] ]++;
+	$user_count[ $item['stuid'] ][ $item['vote'] ]++;
 	$vote_sum[ $item['vote'] ]++;
 
-	$dt = (time() - strtotime($item['created_at'])) / (24*60*60);
-	$dt = max(1, $dt);
+	/* After 1 day, half the score every week */
+	$dt = time() - strtotime($item['created_at']);
+	$dt = $dt / 24 / 60 / 60;
+	$dt = max($dt-1, 0);
 	$pt = pow(0.5, $dt/7);
 
 	if (in_array($item['uid'], $DEL)) {
@@ -85,7 +90,7 @@ foreach ($VOTES as $item) {
 			$pt *= 10;
 	}
 
-	$user_count[ $item['voter'] ]['pt'] += $pt;
+	$user_count[ $item['stuid'] ]['pt'] += $pt;
 }
 
 foreach($user_count as $k => $v) {
@@ -130,6 +135,21 @@ foreach ($user_count as $i => $item) {
 		$photo = "/img/tg/{$item['user']['tg_id']}-x64.jpg";
 	else
 		$photo = genPic($id);
+
+	$lv = strtotime($item['user']['last_vote']);
+	$sc = $item['user']['current_vote_streak'];
+	$sh = $item['user']['highest_vote_streak'];
+	$smx = max($smx, $sh);
+
+	if (date('Ymd') == date('Ymd', $lv))
+		$streak = "$sc 天 ⚡️";  // Currently streak
+	else if (date('Ymd') == date('Ymd', $lv + 24*60*60))
+		$streak = "$sc 天";  // Not voted today
+	else
+		$streak = "<sub>最高 $sh 天</sub>";
+
+	if ($streak[-1] != ">" && $sc != $sh)
+		$streak .= "<sub> / 最高 $sh 天</sub>";
 ?>
 					<tr title="<?= $item['pt_int'] ?> pt (<?= round($item['pt'], 1) ?>)">
 						<td><?= $no ?></td>
@@ -138,6 +158,7 @@ foreach ($user_count as $i => $item) {
 						<td><a onclick="changeChart('<?= $i ?>')"><?= $name ?></a></td>
 						<td><?= $item[1] ?></td>
 						<td><?= $item[-1] ?></td>
+						<td><?= $streak ?></td>
 					</tr>
 <?php } ?>
 					<tr>
@@ -147,6 +168,7 @@ foreach ($user_count as $i => $item) {
 						<td><a onclick="changeChart('ALL')">沒有人</a></td>
 						<td><?= $vote_sum[1] ?></td>
 						<td><?= $vote_sum[-1] ?></td>
+						<td><sub>總共 <?= $smx ?> 天</sub></td>
 					</tr>
 				</tbody>
 			</table>
@@ -220,7 +242,7 @@ function genData(string $id) {
 			'show' => true,
 			'defaultZoom' => [
 				strtotime("28 days ago") * 1000,
-				strtotime("now") * 1000
+				strtotime(" 0 days ago") * 1000
 			]
 		],
 		'types' => ['y0' => 'bar', 'y1' => 'bar', 'x' => 'x'],
@@ -244,12 +266,14 @@ function genData(string $id) {
 		$step = 6*60*60;
 	} else {
 		$name = '所有人';
-		$step = 60*60;
+		$step = 2*60*60;
 		$data['subchart']['defaultZoom'][0] = strtotime("7 days ago") * 1000;
 	}
 
 	$data['title'] = $name;
 	$begin = strtotime("2020-05-04 00:00");
+	if (!empty($id))
+		$begin = strtotime(explode(' ', $USER['created_at'], 2)[0] . " 00:00");
 	$end = strtotime("today 24:00");
 
 	for ($i=$begin; $i<=$end; $i+=$step) {
@@ -259,7 +283,7 @@ function genData(string $id) {
 	}
 
 	foreach ($VOTES as $vote) {
-		if (!empty($id) && $vote['voter'] != $id)
+		if (!empty($id) && $vote['stuid'] != $id)
 			continue;
 
 		$ts = strtotime($vote['created_at']);

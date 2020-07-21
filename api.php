@@ -21,15 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	if ($ACTION == 'posts') {
 		$offset = (int) ($_GET['offset'] ?? 0);
 		$limit = (int) ($_GET['limit'] ?? 0);
+		$likes = (int) ($_GET['likes'] ?? 0);
 		if ($limit < 1)
 			$limit = 50;
 		if ($limit > 5000)
 			$limit = 5000;
 
-		$posts = $db->getPosts($limit, $offset);
+		$posts = $db->getPostsByLikes($likes, $limit, $offset);
 		$result = [];
-		foreach ($posts as $post) {
 
+		foreach ($posts as $i => $post) {
 			if (!empty($post['author_id'])) {
 				$ip_masked = false;
 				$author = $db->getUserByStuid($post['author_id']);
@@ -88,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			$votes = $db->getVotesByUid($uid);
 
 			foreach ($votes as $item) {
-				$id = $item['voter'];
+				$id = $item['stuid'];
 				$user = $db->getUserByStuid($id);
 
 				$result['votes'][] = [
@@ -176,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			} else if ($author_name != '匿名, 交大' && $author_name != '匿名, 清大') {
 				$posts = $db->getPostsByIp($ip_addr, 6);
 				if (count($posts) == 6) {
-					$last = strtotime($posts[2]['created_at']);
+					$last = strtotime($posts[5]['created_at']);
 					if (time() - $last < 3*60*60) {
 						$db->updateSubmissionStatus($uid, -12);
 						err('Please retry afetr 3 hours. 交清 IP 限制 3 小時內僅能發 5 篇文');
@@ -229,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (strlen($uid) != 4)
 			err('uid invalid. 投稿編號無效');
 
-		$voter = $_SESSION['stuid'];
+		$stuid = $_SESSION['stuid'];
 
 		$vote = $_POST['vote'] ?? 0;
 		if ($vote != 1 && $vote != -1)
@@ -242,11 +243,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (mb_strlen($reason) > 100)
 			err('附註請輸入 100 個字以內');
 
-		$result = $db->voteSubmissions($uid, $voter, $vote, $reason);
+		$result = $db->voteSubmissions($uid, $stuid, $vote, $reason);
 		echo json_encode($result, JSON_PRETTY_PRINT);
 
 		if ($result['ok'])
-			system("php jobs.php vote $uid $voter > /dev/null &");
+			system("php jobs.php vote $uid $stuid > /dev/null &");
 	} else {
 		err('Unknown POST action. 未知的操作');
 	}
@@ -274,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 				exit;
 			}
 
-			if (time() - strtotime($post['created_at']) > 3*60)
+			if (time() - strtotime($post['created_at']) > 15*60)
 				err('Timeout. 已超出時限，請重新投稿');
 
 			if ($post['status'] != 0)
@@ -450,7 +451,7 @@ function uploadImage(string $uid): string {
 	}
 
 	/* Convert all file type to jpg */
-	shell_exec("ffmpeg -i $dst $transpose $dst.jpg 2>&1");
+	shell_exec("ffmpeg -i $dst -q:v 1 $transpose $dst.jpg 2>&1");
 	unlink($dst);
 
 	return '';

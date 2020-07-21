@@ -97,34 +97,8 @@ class MyDB {
 		return $results;
 	}
 
-	/* Return submissions with previous vote */
-	public function getSubmissionsForVoter(int $limit, bool $desc = true, string $stuid) {
-		if ($limit == 0) $limit = 9487;
-
-		$data = $this->getVotesByUser($stuid);
-		$votes = [];
-		foreach ($data as $item)
-			$votes[ $item['uid'] ] = $item['vote'];
-
-		$posts = $this->getSubmissions(0, $desc);
-
-		$results = [];
-		foreach ($posts as $item) {
-			/* Should be 1 or -1 or NULL, not 0 */
-			if (isset($votes[ $item['uid'] ]))
-				$item['vote'] = $votes[ $item['uid'] ];
-
-			if (!$limit--)
-				break;
-
-			$results[] = $item;
-		}
-
-		return $results;
-	}
-
 	public function deleteSubmission(string $uid, int $status = -1, string $reason) {
-		$sql = "UPDATE posts SET status = :status, delete_note = :reason, deleted_at = CURRENT_TIMESTAMP WHERE uid = :uid";
+		$sql = "UPDATE posts SET status = :status, delete_note = :reason, deleted_at = IF(deleted_at IS NULL, CURRENT_TIMESTAMP, deleted_at) WHERE uid = :uid";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute([
 			':uid' => $uid,
@@ -157,6 +131,24 @@ class MyDB {
 		return $results;
 	}
 
+	/* Get posts newest first, filter by fb_likes */
+	public function getPostsByLikes(int $likes, int $limit, int $offset = 0) {
+		if ($limit == 0) $limit = 9487;
+
+		$sql = "SELECT * FROM posts WHERE status BETWEEN 4 AND 5 AND fb_likes >= :likes ORDER BY posted_at DESC LIMIT :limit OFFSET :offset";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':likes', $likes, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$results = [];
+		while ($item = $stmt->fetch())
+			$results[] = $item;
+
+		return $results;
+	}
+
 	public function getPostsByIp(string $ip, int $limit, int $offset = 0) {
 		$sql = "SELECT * FROM posts WHERE ip_addr = :ip AND status != -3 AND status > -10 AND author_id = '' ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
 		$stmt = $this->pdo->prepare($sql);
@@ -173,8 +165,21 @@ class MyDB {
 		return $stmt->fetch();
 	}
 
+	public function getPostsByStuid(string $stuid) {
+		$sql = "SELECT * FROM posts WHERE author_id = :stuid";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute([':stuid' => $stuid]);
+
+		$results = [];
+		while ($item = $stmt->fetch())
+			$results[] = $item;
+
+		return $results;
+		return $stmt->fetch();
+	}
+
 	/* Check can user vote for certain submission or not */
-	public function canVote(string $uid, string $voter): array {
+	public function canVote(string $uid, string $stuid): array {
 		$post = $this->getPostByUid($uid);
 		if (!$post)
 			return ['ok' => false, 'msg' => 'uid not found. 找不到該投稿'];
@@ -191,11 +196,11 @@ class MyDB {
 				'msg' => '投稿已刪除，理由：' . $post['delete_note']
 			];
 
-		$sql = "SELECT created_at FROM votes WHERE uid = :uid AND voter = :voter";
+		$sql = "SELECT created_at FROM votes WHERE uid = :uid AND stuid = :stuid";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute([
 			':uid' => $uid,
-			':voter' => $voter
+			':stuid' => $stuid
 		]);
 		if ($stmt->fetch())
 			return ['ok' => false, 'msg' => 'Already voted. 您已投過票'];
@@ -203,7 +208,7 @@ class MyDB {
 		return ['ok' => true];
 	}
 
-	public function voteSubmissions(string $uid, string $voter, int $vote, string $reason = '') {
+	public function voteSubmissions(string $uid, string $stuid, int $vote, string $reason = '') {
 		if ($vote == 1)
 			$type = 'approvals';
 		else if ($vote == -1)
@@ -214,17 +219,17 @@ class MyDB {
 		if (mb_strlen($reason) > 100)
 			return ['ok' => false, 'msg' => 'Reason too long. 附註文字過長'];
 
-		$check = $this->canVote($uid, $voter);
+		$check = $this->canVote($uid, $stuid);
 		if (!$check['ok'])
 			return $check;
 
-		$sql = "INSERT INTO votes(uid, vote, reason, voter) VALUES (:uid, :vote, :reason, :voter)";
+		$sql = "INSERT INTO votes(uid, vote, reason, stuid) VALUES (:uid, :vote, :reason, :stuid)";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute([
 			':uid' => $uid,
 			':vote' => $vote,
 			':reason' => $reason,
-			':voter' => $voter
+			':stuid' => $stuid
 		]);
 
 		/* Caution: use string combine in SQL query */
@@ -232,10 +237,40 @@ class MyDB {
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute([':uid' => $uid]);
 
-		$sql = "UPDATE users SET $type = $type + 1 WHERE stuid = :voter";
+		$sql = "UPDATE users SET $type = $type + 1 WHERE stuid = :stuid";
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute([':voter' => $voter]);
+		$stmt->execute([':stuid' => $stuid]);
 
+		/* Calculate vote streak, the users table record is independent from votes table */
+		$sql = "SELECT * FROM users WHERE stuid = :stuid";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute([':stuid' => $stuid]);
+		$USER = $stmt->fetch();
+
+		$lv = strtotime($USER['last_vote']);
+		if (date('Ymd', $lv) == date('Ymd'))  // Already voted today
+			$sql = "UPDATE users SET last_vote = CURRENT_TIMESTAMP"
+				. " WHERE stuid = :stuid";
+		else if (date('Ymd', $lv) == date('Ymd', time() - 24*60*60)) {  // Streak from yesterday
+			if ($USER['current_vote_streak'] == $USER['highest_vote_streak'])
+				$sql = "UPDATE users SET last_vote = CURRENT_TIMESTAMP, "
+					. "current_vote_streak = current_vote_streak + 1, "
+					. "highest_vote_streak = current_vote_streak "
+					. "WHERE stuid = :stuid";
+			else  // Streaking but not highest
+				$sql = "UPDATE users SET last_vote = CURRENT_TIMESTAMP, "
+					. "current_vote_streak = current_vote_streak + 1 "
+					. "WHERE stuid = :stuid";
+		} else  // New day
+			$sql = "UPDATE users SET last_vote = CURRENT_TIMESTAMP, "
+				. "current_vote_streak = 1, "
+				. "highest_vote_streak = GREATEST(highest_vote_streak, 1) "
+				. "WHERE stuid = :stuid";
+
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute([':stuid' => $stuid]);
+
+		/* Return votes for submission */
 		$sql = "SELECT approvals, rejects FROM posts WHERE uid = :uid";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute([':uid' => $uid]);
@@ -269,8 +304,8 @@ class MyDB {
 		return $results;
 	}
 
-	private function getVotesByUser(string $stuid) {
-		$sql = "SELECT * FROM votes WHERE voter = :stuid ORDER BY created_at DESC";
+	public function getVotesByStuid(string $stuid) {
+		$sql = "SELECT * FROM votes WHERE stuid = :stuid";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute([':stuid' => $stuid]);
 
@@ -282,7 +317,7 @@ class MyDB {
 	}
 
 	public function getVote(string $uid, string $stuid) {
-		$sql = "SELECT * FROM votes WHERE uid = :uid AND voter = :stuid";
+		$sql = "SELECT * FROM votes WHERE uid = :uid AND stuid = :stuid";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute([
 			':uid' => $uid,
@@ -442,11 +477,17 @@ class MyDB {
 		]);
 	}
 
-	public function getUserByStuid(string $id) {
-		$sql = "SELECT * FROM users WHERE stuid = :id";
+	public function getUserByStuid(string $stuid = ''): ?array {
+		if (empty($stuid))
+			return NULL;
+		$sql = "SELECT * FROM users WHERE stuid = :stuid";
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute([':id' => $id]);
-		return $stmt->fetch();
+		$stmt->execute([':stuid' => $stuid]);
+		$result = $stmt->fetch();
+
+		if ($result === false)
+			return NULL;
+		return $result;
 	}
 
 	public function getUserByTg(int $id) {
