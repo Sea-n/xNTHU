@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			if (!empty($post['author_id'])) {
 				$ip_masked = false;
 				$author = $db->getUserByStuid($post['author_id']);
-				$author_name = $author['name'];
+				$dep = idToDep($post['author_id']);
+				$author_name = $dep . ' ' . $author['name'];
 				if (!empty($author['tg_photo']))
 					$author_photo = "/img/tg/{$author['tg_id']}-x64.jpg";
 				else
@@ -170,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				if (count($posts) == 2) {
 					$last = strtotime($posts[1]['created_at']);
 					if (time() - $last < 24*60*60) {
-						$db->updateSubmissionStatus($uid, -12);
+						$db->updatePostStatus($uid, -12);
 						err('Please retry afetr 24 hours. 境外 IP 限制 24 小時內僅能發 1 篇文');
 					}
 				}
@@ -179,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				if (count($posts) == 6) {
 					$last = strtotime($posts[5]['created_at']);
 					if (time() - $last < 3*60*60) {
-						$db->updateSubmissionStatus($uid, -12);
+						$db->updatePostStatus($uid, -12);
 						err('Please retry afetr 3 hours. 交清 IP 限制 3 小時內僅能發 5 篇文');
 					}
 				}
@@ -188,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				if (count($posts) == 6) {
 					$last = strtotime($posts[5]['created_at']);
 					if (time() - $last < 10*60) {
-						$db->updateSubmissionStatus($uid, -12);
+						$db->updatePostStatus($uid, -12);
 						err('Please retry afetr 10 minutes. 校內匿名發文限制 10 分鐘內僅能發 5 篇文');
 					}
 				}
@@ -199,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if (count($posts) == 6) {
 				$last = strtotime($posts[2]['created_at']);
 				if (time() - $last < 60) {
-					$db->updateSubmissionStatus($uid, -12, 'Global rate limit');
+					$db->updatePostStatus($uid, -12, 'Global rate limit');
 					err('Please retry afetr 1 minutes. 系統全域限制 1 分鐘內僅能發 5 篇文');
 				}
 			}
@@ -284,8 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 			if ($_SERVER['REMOTE_ADDR'] !== $post['ip_addr'])
 				err('無法驗證身份：IP 位址不相符');
 
-			$db->updateSubmissionStatus($uid, 1);
-
+			$db->updatePostStatus($uid, 1);
 			echo json_encode([
 				'ok' => true,
 				'msg' => '投稿已送出'
@@ -410,13 +410,18 @@ function uploadImage(string $uid): string {
 	$height = $size[1];
 
 	if ($width * $height < 160*160)
-		return 'Image must be at least 160x160.';
+		$err = 'Image must be at least 160x160.';
 
 	if ($width/8 > $height)
-		return 'Image must be at least 8:1.';
+		$err = 'Image must be at least 8:1.';
 
 	if ($width < $height/4)
-		return 'Image must be at least 1:4.';
+		$err = 'Image must be at least 1:4.';
+
+	if (isset($err)) {
+		unlink($dst);
+		return $err;
+	}
 
 	/* Fix orientation */
 	$orien = shell_exec("exiftool -Orientation -S -n $dst |cut -c14- |tr -d '\\n'");

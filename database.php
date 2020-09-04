@@ -39,7 +39,7 @@ class MyDB {
 		return $stmt->errorInfo();
 	}
 
-	public function updateSubmissionStatus(string $uid, int $status) {
+	public function updatePostStatus(string $uid, int $status) {
 		if ($status == 1)
 			$sql = "UPDATE posts SET status = :status, created_at = CURRENT_TIMESTAMP WHERE uid = :uid";
 		else
@@ -383,7 +383,7 @@ class MyDB {
 		$post = $this->getPostById($id);
 		if ($post['telegram_id'] > 0
 		 && $post['facebook_id'] > 0)
-			$this->updateSubmissionStatus($post['uid'], 5);
+			$this->updatePostStatus($post['uid'], 5);
 	}
 
 	public function insertUserStuid(string $stuid, string $mail) {
