@@ -145,7 +145,7 @@ function checkEligible(array $post): bool {
 
 		/* No reject: 3 votes */
 		if ($dt < 10)
-			return ($vote3 >= 3);
+			return ($vote2 >= 3);
 
 		/* 10 min - 1 hour */
 		if ($dt < 60)

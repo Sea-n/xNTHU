@@ -117,7 +117,7 @@ function update_telegram(array $post) {
 	if ($post['facebook_id'] > 10)
 		$buttons[] = [
 			'text' => 'Facebook',
-			'url' => "https://www.facebook.com/xNCTU/posts/{$post['facebook_id']}"
+			'url' => "https://www.facebook.com/xNTHU2.0/posts/{$post['facebook_id']}"
 		];
 
 	$plurk = base_convert($post['plurk_id'], 10, 36);
@@ -140,7 +140,7 @@ function update_telegram(array $post) {
 		];
 
 	$TG->editMarkup([
-		'chat_id' => '@xNCTU',
+		'chat_id' => '@xNTHU',
 		'message_id' => $post['telegram_id'],
 		'reply_markup' => [
 			'inline_keyboard' => [

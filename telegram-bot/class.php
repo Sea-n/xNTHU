@@ -32,7 +32,7 @@ class Telegram {
 		if (is_null($result))
 			$result = $data;
 
-		file_put_contents("/temp/tg-log/" . date("y-m-d") . "-getTelegram-xNCTU", $method . json_encode($query, JSON_PRETTY_PRINT) . "\n" . json_encode($result, JSON_PRETTY_PRINT) . "\n\n\n", FILE_APPEND);
+		file_put_contents("/temp/tg-log/" . date("y-m-d") . "-getTelegram-xNTHU", $method . json_encode($query, JSON_PRETTY_PRINT) . "\n" . json_encode($result, JSON_PRETTY_PRINT) . "\n\n\n", FILE_APPEND);
 
 		return $result;
 	}
