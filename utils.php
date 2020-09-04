@@ -298,7 +298,7 @@ function idToDep(string $id): string {
 		/* Exception for changed department */
 		if ($id == '0711239') $dep = '資工系';
 
-		return "$dep $deg 級";
+		return "交大$dep $deg 級";
 	}
 
 	/* New Students */
@@ -334,7 +334,6 @@ function idToDep(string $id): string {
 		else
 			$deg += 4;
 
-		return "$dep $deg 級";
 		return "交大$dep $deg 級";
 	}
 

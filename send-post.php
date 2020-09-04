@@ -117,9 +117,6 @@ function checkEligible(array $post): bool {
 	$vote = $post['approvals'] - $post['rejects'];
 	$vote2 = $post['approvals'] - $post['rejects']*2;
 
-	if ($dt > 5)
-		return true;
-
 	/* Rule for Logged-in users */
 	if (!empty($post['author_id'])) {
 		/* No reject: 2 votes */
@@ -483,29 +480,29 @@ function update_facebook(array $post) {
 	$tips_all = [
 		"投稿時將網址放在最後一行，發文會自動顯示頁面預覽",
 		"電腦版投稿可以使用 Ctrl-V 上傳圖片",
-		"使用交大網路投稿會自動填入驗證碼",
+		"使用交清網路投稿會自動填入驗證碼",
 		"如想投稿 GIF 可上傳至 Giphy，並將連結置於文章末行",
 
 		"透過自動化審文系統，多數投稿會在 10 分鐘內發出",
 		"所有人皆可匿名投稿，全校師生皆可具名審核",
-		"靠北交大 2.0 採自助式審文，全校師生皆能登入審核",
-		"靠北交大 2.0 有 50% 以上投稿來自交大 IP 位址",
-		"登入後可看到 140.113.**.*87 格式的部分 IP 位址",
+		"靠北清大 2.0 採自助式審文，全校師生皆能登入審核",
+#		"靠北清大 2.0 有 50% 以上投稿來自交清 IP 位址",
+		"登入後可看到 140.114.**.*87 格式的部分 IP 位址",
 
-		"靠北交大 2.0 除了 Facebook 外，還支援 Twitter、Plurk 等平台\nhttps://twitter.com/x_NCTU/",
-		"靠北交大 2.0 除了 Facebook 外，還支援 Plurk、Twitter 等平台\nhttps://www.plurk.com/xNCTU",
-		"加入靠北交大 2.0 Telegram 頻道，第一時間看到所有貼文\nhttps://t.me/xNCTU",
-		"你知道靠交也有 Instagram 帳號嗎？只要投稿圖片就會同步發佈至 IG 喔\nhttps://www.instagram.com/x_nctu/",
-		"告白交大 2.0 使用同套系統，在此為大家服務\nhttps://www.facebook.com/CrushNCTU/",
+#		"靠北清大 2.0 除了 Facebook 外，還支援 Twitter、Plurk 等平台\nhttps://twitter.com/x_NCTU/",
+#		"靠北清大 2.0 除了 Facebook 外，還支援 Plurk、Twitter 等平台\nhttps://www.plurk.com/xNCTU",
+		"加入靠北清大 2.0 Telegram 頻道，第一時間看到所有貼文\nhttps://t.me/xNTHU",
+#		"你知道靠交也有 Instagram 帳號嗎？只要投稿圖片就會同步發佈至 IG 喔\nhttps://www.instagram.com/x_nctu/",
+#		"告白交大 2.0 使用同套系統，在此為大家服務\nhttps://www.facebook.com/CrushNCTU/",
 
-		"審核紀錄公開透明，你可以看到誰以什麼原因通過/駁回了投稿\nhttps://x.nctu.app/posts",
-		"覺得審核太慢嗎？你也可以來投票\nhttps://x.nctu.app/review",
-		"網站上「已刪投稿」區域可以看到被黑箱的記錄\nhttps://x.nctu.app/deleted",
-		"知道都是哪些系的同學在審文嗎？打開排行榜看看吧\nhttps://x.nctu.app/ranking",
-		"秉持公開透明原則，您可以在透明度報告看到師長同學請求刪文的紀錄\nhttps://x.nctu.app/transparency",
-		"靠交 2.0 是交大資工學生自行開發的系統，程式原始碼公開於 GitHub 平台\nhttps://github.com/Sea-n/xNCTU",
+		"審核紀錄公開透明，你可以看到誰以什麼原因通過/駁回了投稿\nhttps://x.nthu.io/posts",
+		"覺得審核太慢嗎？你也可以來投票\nhttps://x.nthu.io/review",
+		"網站上「已刪投稿」區域可以看到被黑箱的記錄\nhttps://x.nthu.io/deleted",
+		"知道都是哪些系的同學在審文嗎？打開排行榜看看吧\nhttps://x.nthu.io/ranking",
+#		"秉持公開透明原則，您可以在透明度報告看到師長同學請求刪文的紀錄\nhttps://x.nctu.app/transparency",
+#		"靠清 2.0 是交大資工學生自行開發的系統，程式原始碼公開於 GitHub 平台\nhttps://github.com/Sea-n/xNCTU",
 	];
-	assert(count($tips_all) % 7 != 0);  // current count = 20
+	assert(count($tips_all) % 7 != 0);  // current count = 13
 	$tips = $tips_all[ ($post['id'] * 7) % count($tips_all) ];
 
 	$go_all = [
@@ -530,6 +527,7 @@ function update_facebook(array $post) {
 	$msg .= "$link\n\n";
 
 	$msg .= "---\n\n";
+	$msg .= "💡 $tips\n\n";
 	$msg .= "👉 {$go}： https://x.nthu.io/submit";
 
 	$URL = 'https://graph.facebook.com/v6.0/' . FB_PAGES_ID . "_{$post['facebook_id']}/comments";
