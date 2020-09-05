@@ -157,9 +157,9 @@ function checkEligible(array $post): bool {
 
 	/* Rule for Taiwan IP address */
 	if (strpos($post['author_name'], '境外') === false) {
-		/* No reject: 5 votes */
+		/* No reject: 4 votes */
 		if ($dt < 10)
-			return ($vote2 >= 5);
+			return ($vote2 >= 4);
 
 		/* 10 min - 1 hour */
 		if ($dt < 60)
