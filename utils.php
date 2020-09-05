@@ -233,6 +233,7 @@ function humanTime(string $date): string {
 	return "$time ($dt 個月前)";
 }
 
+# FIXME: Distinguish NTHU stuid and new NCTU stuid
 function idToDep(string $id): string {
 	if (preg_match('#^1\d{2}\d{6}$#', $id)) {  # NTHU
 		$TABLE = [ "0000"=>"清華學院學士班", "0001"=>"清華學院學士班",  # 跨院系所
