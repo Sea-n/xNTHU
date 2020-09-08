@@ -611,6 +611,12 @@ class MyDB {
 		]);
 	}
 
+	public function updateGoogleLastVerify(string $sub) {
+		$sql = "UPDATE google_accounts SET last_verify = CURRENT_TIMESTAMP WHERE sub = :sub";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute([':sub' => $sub]);
+	}
+
 	public function getGoogleBySub(string $sub = ''): ?array {
 		if (empty($sub))
 			return NULL;

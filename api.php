@@ -1,5 +1,5 @@
 <?php
-session_start(['read_and_close' => true]);
+session_start();
 require_once('utils.php');
 require_once('database.php');
 require_once('send-review.php');
@@ -249,6 +249,110 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		if ($result['ok'])
 			system("php jobs.php vote $uid $stuid > /dev/null &");
+	} else if ($ACTION == 'verify') {
+		if (!isset($_SESSION['google_sub']))
+			err('Please login first. 請先登入');
+
+		$sub = $_SESSION['google_sub'];
+		$GOOGLE = $db->getGoogleBySub($sub);
+		$last = strtotime($GOOGLE['last_verify']);
+		if (time() - $last < 10)
+			err('Retry later. 冷卻中，請稍後再試');
+
+		$stuid = $_POST['stuid'] ?? '';
+
+		if (!preg_match('#^1\d{2}\d{6}$#', $stuid))
+			err('stuid format error. 學號格式錯誤' . $stuid);
+
+		$year = substr($stuid, 0, 3);
+		$to = "s{$stuid}@m{$year}.nthu.edu.tw";
+		$subject = "[靠北清大 2.0] 帳號驗證 - {$stuid}";
+
+		$data_check_string = "verify_{$stuid}_{$sub}";
+		$hash = hash_hmac('sha256', $data_check_string, VERIFY_SECRET);
+		$code = substr($hash, 0, 8);
+		$verify_link = "https://x.nthu.io/verify?stuid={$stuid}&sub={$sub}&code={$code}";
+
+		$date = date("Y.m.d");
+
+		$heml = <<<EOF
+<heml>
+<head>
+	<style>
+		body {
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+			color: #333;
+			line-height: 1.5;
+		}
+
+		.main {
+			margin: auto;
+			max-width: 600px;
+		}
+
+		a {
+			color: #108ee9;
+			text-decoration: none;
+		}
+
+		b {
+			color: #000;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main">
+		<p>{$GOOGLE['name']} 您好，</p>
+
+		<p>感謝您註冊 <a href="https://{$DOMAIN}/">{$SITENAME}</a>，請點擊下方連結啟用帳號：<br>
+		<span style="font-size: 12px;"><a href={$verify_link}>$verify_link</a></span></p>
+
+		<p>為了維持更新頻率，{$SITENAME} 將審核工作下放至全體師生，因此您的每一票對我們來說都相當重要。<br>
+		雖然所有審核者皆為自由心證，未經過訓練也不強制遵從統一標準；但透過保留所有審核紀錄、被駁回的投稿皆提供全校師生檢視，增加審核標準的透明度。</p>
+
+		<p>有了您的貢獻，期望能以嶄新的姿態，將{$SITENAME} 推向靠北生態系巔峰。</p>
+
+		<p style="text-align: right;">- 靠清團隊, {$date}</p>
+
+		<p style="text-align: center; font-size: 10px; color: #888;">
+			由於 <a href="mailto:{$GOOGLE['email']}">{$GOOGLE['name']} &lt;{$GOOGLE['email']}&gt;</a> 在{$SITENAME} 網站申請寄送驗證碼，因此寄發本信件給您。
+			如不是由您本人註冊，很可能是同學手滑打錯學號了，請不要點擊驗證按鈕以避免爭議。
+			若是未來不想再收到相關信件，請來信 <a href="mailto:x@nthu.io">與我們聯絡</a>，將會盡快將您的學號放入拒收清單內。
+		</p>
+	</div>
+</body>
+</heml>
+EOF;
+
+		$curl = curl_init();
+		curl_setopt_array($curl, [
+			CURLOPT_URL => 'https://heml-api.herokuapp.com/',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_POSTFIELDS => json_encode([
+				'heml' => $heml,
+			]),
+			CURLOPT_HTTPHEADER => [
+				'Content-Type: application/json; charset=utf-8',
+			],
+		]);
+		$data = curl_exec($curl);
+		curl_close($curl);
+		$message = json_decode($data, true)['html'];
+
+		$headers = "MIME-Version: 1.0\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8\r\n";
+		$headers .= "From: 靠北清大 2.0 自動驗證系統 <no-reply@sean.taipei>\r\n";
+		$headers .= "Cc: 靠北清大 2.0 維護團隊 <x@nthu.io>\r\n";
+
+		mail($to, $subject, $message, $headers);
+
+		$db->updateGoogleLastVerify($sub);
+
+		echo json_encode([
+			'ok' => true,
+			'msg' => '寄送成功'
+		], JSON_PRETTY_PRINT);
 	} else {
 		err('Unknown POST action. 未知的操作');
 	}
@@ -295,6 +399,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 
 			sendReview($uid);
 		}
+	} else if ($ACTION == 'verify') {
+		$stuid = $_POST['stuid'] ?? '';
+		$sub = $_POST['sub'] ?? '';
+		$code = $_POST['code'] ?? '';
+
+		$data_check_string = "verify_{$stuid}_{$sub}";
+		$hash = hash_hmac('sha256', $data_check_string, VERIFY_SECRET);
+		$hash = substr($hash, 0, 8);
+		if (!hash_equals($hash, $code))
+			err('Verify failed. 驗證碼錯誤');
+
+		$_SESSION['stuid'] = $stuid;
+
+		$GOOGLE = $db->getGoogleBySub($sub);
+		$USER = $db->getUserByStuid($stuid);
+
+		if ($GOOGLE['stuid'] == $stuid) {
+			echo json_encode([
+				'ok' => true,
+				'msg' => '您已綁定過此帳號'
+			]);
+			exit;
+		}
+
+		if (!$USER)
+			$db->insertUserStuid($stuid, $GOOGLE['email']);
+		$db->bindGoogleToStuid($sub, $stuid);
+
+		echo json_encode([
+			'ok' => true,
+			'msg' => '驗證成功！'
+		], JSON_PRETTY_PRINT);
 	} else {
 		err('Unknown PATCH action. 未知的操作');
 	}
