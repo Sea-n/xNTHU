@@ -15,16 +15,18 @@ if (!empty($stuid) || !empty($sub) || !empty($code)) {
 		exit('Verify failed. 驗證碼錯誤');
 
 	$GOOGLE = $db->getGoogleBySub($sub);
-} else if (isset($_SESSION['stuid'])) {
-	header('Location: /');
-	exit;
-} else if (!isset($_SESSION['google_sub'])) {
-	header('Location: /login-google');
-	exit;
-}
+} else {
+	if (isset($_SESSION['stuid'])) {
+		header('Location: /');
+		exit;
+	}
+	if (!isset($_SESSION['google_sub'])) {
+		header('Location: /login-google');
+		exit;
+	}
 
-if (!$GOOGLE)
 	$GOOGLE = $db->getGoogleBySub($_SESSION['google_sub']);
+}
 
 $gname = toHTML("{$GOOGLE['name']} ({$GOOGLE['email']})");
 
