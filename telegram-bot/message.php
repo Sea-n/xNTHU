@@ -119,7 +119,7 @@ if (substr($text, 0, 1) == '/') {
 		case 'unlink':
 			$db->unlinkUserTg($TG->FromID);
 			$TG->sendMsg([
-				'text' => "已取消連結，請點擊下方按鈕連結新的 NCTU OAuth 帳號",
+				'text' => "已取消連結，請點擊下方按鈕連結新的交清帳號",
 				'reply_markup' => [
 					'inline_keyboard' => [
 						[

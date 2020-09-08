@@ -78,7 +78,7 @@ if (!empty($GOOGLE['stuid'])) {
 	header("Location: $uri");
 } else {
 	$_SESSION['google_sub'] = $data['sub'];
-	echo "Please verify your NCTU account.";
+	echo "Please verify your account.";
 
 	header("Location: /verify");
 }

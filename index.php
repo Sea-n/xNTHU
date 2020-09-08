@@ -32,7 +32,7 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 				<p>新版<?= SITENAME ?> 採自助式審文，所有交清師生皆可加入審核者的行列，以下是系統判斷標準</p>
 
 				<h4>(A) 具名投稿</h4>
-				<p>點擊右上角使用 NCTU OAuth 登入後，可用師生身份具名投稿，即使無人審核也會在 10 分鐘內自動發出，詳細判斷條件如下：</p>
+				<p>點擊右上角 Login 登入後，可用師生身份具名投稿，即使無人審核也會在 10 分鐘內自動發出，詳細判斷條件如下：</p>
 				<ul>
 					<li>10 分鐘以內：達到 2 個&nbsp;<button class="ts vote positive button">通過</button>&nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button></li>
 					<li>10 分鐘以後：<button class="ts vote positive button">通過</button>&nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button></li>

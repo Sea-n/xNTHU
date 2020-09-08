@@ -49,10 +49,6 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 			<p>如果達到上述駁回條件，或是管理團隊覺得投稿不適合發出，就會放到 <a href="/deleted">已刪投稿</a> 頁面。</p>
 			<p>目前此區域限制只有已登入交清帳號的使用者才能檢閱，可見篇數將依審文數量而定，預設會顯示最近 3 篇被駁回的投稿。</p>
 
-			<div class="faq-anchor" id="apply-account"></div><h2 class="ts header">Q：怎麼註冊帳號</h2>
-			<p>如果您是交大師生，請直接點擊右上角 Login 使用 NCTU OAuth 登入，不需另外註冊即可使用。</p>
-			<p>對於清大學生，請依照 <a href="https://t.me/xNTHUbot">Telegram Bot 指引</a> 申請，維護團隊將盡快為您開通帳號權限。</p>
-
 			<div class="faq-anchor" id="ip-mask"></div><h2 class="ts header">Q：隱藏 IP 位址的機制是什麼</h2>
 			<p>所有已登入的交大人、清大人都看得到匿名發文者的部分 IP 位址，一方面知道幾篇文是同一個人發的可能性，另一方面又保留匿名性。</p>
 			<p>對於大部分的位址，會使用 140.114.***.*87 (IPv4) 或 2001:288:e001:***:1234 (IPv6) 的格式，在無法追溯個人的前提下，盡可能提供最多資訊。</p>

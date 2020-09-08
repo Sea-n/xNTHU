@@ -15,7 +15,7 @@ if (!$USER) {
 	$TG->getTelegram('answerCallbackQuery', [
 		'callback_query_id' => $TG->data['callback_query']['id'],
 		'show_alert' => true,
-		'text' => "您尚未綁定 NCTU 帳號，請至$SITENAME 網站登入"
+		'text' => "您尚未驗證交清帳號，請至$SITENAME 網站登入"
 	]);
 	exit;
 }
