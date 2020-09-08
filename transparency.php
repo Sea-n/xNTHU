@@ -48,7 +48,7 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 			</table>
 
 			<h2>請求刪除紀錄</h2>
-			<p>校方定義不限於正式信函通知，包含各處室、教職員工；此處同學僅計算交大在學學生，他校學生列入個人計算。此表格不包含各社群平台檢舉下架貼文。</p>
+			<p>校方定義不限於正式信函通知，包含各處室、教職員工；此處同學僅計算交清在學學生，他校學生列入個人計算。此表格不包含各社群平台檢舉下架貼文。</p>
 			<table class="ts striped table">
 				<thead>
 					<tr>
@@ -70,7 +70,7 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 
 			<br>
 			<p>收到任何刪除通知將人工更新至此頁面，在不造成二次傷害的前提下，本站會盡可能提供最多資訊，原則上收到請求後會在 7 天內公開揭露。</p>
-			<p style="text-align: right;"><i>最後更新日期：2020 Sep 04</i></p>
+			<p style="text-align: right;"><i>最後更新日期：2020 Sep 08</i></p>
 		</div>
 <?php include('includes/footer.php'); ?>
 	</body>
