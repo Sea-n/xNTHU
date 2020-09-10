@@ -50,7 +50,7 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 		<div class="ts container" name="main">
 <?php if (empty($code)) { ?>
 			<h2 class="ts header">清大信箱驗證</h2>
-			<p>為確認學生身份，請輸入您的學號，驗證信將寄送至 <b>s<span id="mail-stuid">108062000</span>@m<span id="mail-year">108</span>.nthu.edu.tw</b> 信箱</p>
+			<p>為確認學生身份，請輸入您的學號，驗證信將寄送至 <b>s<span id="mail-stuid">108062000</span>@m<span id="mail-year">108</span>.nthu.edu.tw</b> 信箱。</p>
 			<form id="send-verify" class="ts form" action="/api/verify" method="POST">
 				<div class="required inline field">
 					<label>學號</label>
@@ -60,6 +60,7 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 				</div>
 				<input id="submit" type="submit" class="ts button" value="發送驗證信" />
 			</form>
+			<p>寄出驗證信後，請開啟 <a id="mail-url" target="_blank" href="https://m108-mail.nthu.edu.tw/">https://m108-mail.nthu.edu.tw/</a> 信箱收驗證碼，如未收到麻煩檢查垃圾信件。</p>
 
 			<h2 class="ts header">如果你是交大生...</h2>
 			<p>請先 <a href="/login-nctu">點我綁定 NCTU OAuth</a> 帳號</p>

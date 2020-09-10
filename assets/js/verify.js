@@ -12,6 +12,7 @@ function formUpdate() {
 	var stuid = document.getElementById('stuid').value;
 	var mailStuid = document.getElementById('mail-stuid');
 	var mailYear = document.getElementById('mail-year');
+	var mailUrl = document.getElementById('mail-url');
 	var submit = document.getElementById('submit');
 
 	if (cd_time == 0 && stuid.length == 9)
@@ -22,8 +23,13 @@ function formUpdate() {
 	stuid += "?????????";
 	stuid = stuid.substr(0, 9);
 
+	var year = stuid.substr(0, 3);
+	var url = 'https://m' + year + '-mail.nthu.edu.tw/';
+
 	mailStuid.innerText = stuid;
-	mailYear.innerText = stuid.substr(0, 3);
+	mailYear.innerText = year;
+	mailUrl.href = url;
+	mailUrl.innerText = url;
 }
 
 function submitForm(e) {
