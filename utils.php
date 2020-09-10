@@ -233,7 +233,6 @@ function humanTime(string $date): string {
 	return "$time ($dt 個月前)";
 }
 
-# FIXME: Distinguish NTHU stuid and new NCTU stuid
 function idToDep(string $id): string {
 	if (preg_match('#^1\d{2}\d{6}$#', $id)) {  # NTHU
 		$TABLE = [ "0000"=>"清華學院學士班", "0001"=>"清華學院學士班", "0002"=>"清華學院學士班",  # 跨院系所
@@ -265,11 +264,7 @@ function idToDep(string $id): string {
 		return "$dep $deg 級";
 	}
 
-	/* Teachers */
-	if (preg_match('#^[A-Z][A-Z0-9][0-9]{3}$#', $id))
-		return '交大教職員';
-
-	/* Old Students */
+	/* Old NCTU Students */
 	if (preg_match('#^\d{7}$#', $id)) {
 		$TABLE = [ "00000"=>"BEGIN",
 			"10001"=>"電資學士班", "10101"=>"電工系", "10501"=>"光電系", "10701"=>"電機系", "11001"=>"機械系", "11201"=>"土木系", "11501"=>"材料系", "11601"=>"奈米學士班", "12001"=>"電物系", "12201"=>"應數系", "12501"=>"應化系", "13101"=>"管科系", "13201"=>"運物系", "13301"=>"工管系", "13401"=>"資財系", "15301"=>"人社系", "15401"=>"傳科系", "16001"=>"資工系", "17001"=>"生科系", "19001"=>"外文系", "19801"=>"百川",
@@ -302,7 +297,7 @@ function idToDep(string $id): string {
 		return "交大$dep $deg 級";
 	}
 
-	/* New Students */
+	/* New NCTU Students */
 	if (preg_match('#^\d{9}$#', $id)) {
 		$idA = $id[0];  // Degree(1): Bachelor, X, Master, Doctor, Part-time
 		$idB = $id[1] . $id[2];  // Year(2)

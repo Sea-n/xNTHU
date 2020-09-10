@@ -46,6 +46,11 @@ if (!isset($data['username']))
 if (!isset($data['email']))
 	fail('No email from NCTU.', 5);
 
+if (preg_match('#^1\d{8}$#', $data['username'])) {
+	header('Refresh: 5; url=/');
+	exit('因學號格式不同，靠北清大不開放交大大一同學註冊');
+}
+
 $USER = $db->getUserByStuid($data['username']);
 if (!$USER)
 	$db->insertUserStuid($data['username'], $data['email']);
