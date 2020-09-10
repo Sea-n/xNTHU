@@ -29,6 +29,8 @@ if (!empty($stuid) || !empty($sub) || !empty($code)) {
 }
 
 if (!empty($GOOGLE['stuid'])) {
+	$_SESSION['stuid'] = $GOOGLE['stuid'];
+	unset($_SESSION['google_sub']);
 	header('Location: /');
 	exit;
 }
@@ -65,7 +67,7 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 				</div>
 				<input id="submit" type="submit" class="ts button" value="發送驗證信" />
 			</form>
-			<p>寄出驗證信後，請開啟 <a id="mail-url" target="_blank" href="https://m108-mail.nthu.edu.tw/">https://m108-mail.nthu.edu.tw/</a> 信箱收驗證碼，如未收到麻煩檢查垃圾信件。</p>
+			<p>寄出驗證信後，請開啟 <a id="mail-url" target="_blank" href="https://m108-mail.nthu.edu.tw/">https://m108-mail.nthu.edu.tw/</a> 信箱收驗證碼，如未收到麻煩檢查垃圾信件，重寄後三分鐘仍未收到請聯絡維護團隊。</p>
 
 			<h2 class="ts header">如果你是交大生...</h2>
 			<p>請先 <a href="/login-nctu">點我綁定 NCTU OAuth</a> 帳號</p>
