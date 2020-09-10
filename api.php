@@ -275,6 +275,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$date = date("Y.m.d");
 
+		$ip_addr = $_SERVER['REMOTE_ADDR'];
+		$ip_from = ip_from($ip_addr);
+
 		$heml = <<<EOF
 <heml>
 <head>
@@ -317,6 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		<p style="text-align: center; font-size: 10px; color: #888;">
 			由於 <a href="mailto:{$GOOGLE['email']}">{$GOOGLE['name']} &lt;{$GOOGLE['email']}&gt;</a> 在{$SITENAME} 網站申請寄送驗證碼，因此寄發本信件給您。
+			（來自「{$ip_from}」，IP 位址為 <code>{$ip_addr}</code>）
 			如不是由您本人註冊，很可能是同學手滑打錯學號了，請不要點擊驗證按鈕以避免爭議。
 			若是未來不想再收到相關信件，請來信 <a href="mailto:x@nthu.io">與我們聯絡</a>，將會盡快將您的學號放入拒收清單內。
 		</p>
