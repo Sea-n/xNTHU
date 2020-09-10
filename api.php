@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(['read_and_close' => true]);
 require_once('utils.php');
 require_once('database.php');
 require_once('send-review.php');
@@ -409,8 +409,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 		$hash = substr($hash, 0, 8);
 		if (!hash_equals($hash, $code))
 			err('Verify failed. 驗證碼錯誤');
-
-		$_SESSION['stuid'] = $stuid;
 
 		$GOOGLE = $db->getGoogleBySub($sub);
 		$USER = $db->getUserByStuid($stuid);

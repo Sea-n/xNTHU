@@ -28,6 +28,11 @@ if (!empty($stuid) || !empty($sub) || !empty($code)) {
 	$GOOGLE = $db->getGoogleBySub($_SESSION['google_sub']);
 }
 
+if (!empty($GOOGLE['stuid'])) {
+	header('Location: /');
+	exit;
+}
+
 $gname = toHTML("{$GOOGLE['name']} ({$GOOGLE['email']})");
 
 $TITLE = '驗證交清身份';
