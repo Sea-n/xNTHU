@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$year = substr($stuid, 0, 3);
 		$to = "s{$stuid}@m{$year}.nthu.edu.tw";
-		$subject = "[靠北清大 2.0] 帳號驗證 - {$stuid}";
+		$subject = '=?UTF-8?B?' . base64_encode("[靠北清大 2.0] 帳號驗證 - {$stuid}") . '?=';
 
 		$data_check_string = "verify_{$stuid}_{$sub}";
 		$hash = hash_hmac('sha256', $data_check_string, VERIFY_SECRET);
@@ -343,11 +343,18 @@ EOF;
 		$data = curl_exec($curl);
 		curl_close($curl);
 		$message = json_decode($data, true)['html'];
+		$message = base64_encode($message);
 
-		$headers = "MIME-Version: 1.0\r\n";
-		$headers .= "Content-type:text/html;charset=UTF-8\r\n";
-		$headers .= "From: 靠北清大 2.0 自動驗證系統 <no-reply@sean.taipei>\r\n";
-		$headers .= "Cc: 靠北清大 2.0 維護團隊 <x@nthu.io>\r\n";
+		$mail_from = base64_encode('靠北清大 2.0 自動驗證系統');
+		$mail_cc   = base64_encode('靠北清大 2.0 維護團隊');
+
+		$headers  = "MIME-Version: 1.0\r\n";
+		$headers .= "Content-type: text/html; charset=UTF-8\r\n";
+		$headers .= "Content-Transfer-Encoding: base64\r\n";
+		$headers .= "Content-Disposition: inline\r\n";
+		$headers .= "From: =?UTF-8?B?$mail_from?= <no-reply@sean.taipei>\r\n";
+		$headers .= "Cc: =?UTF-8?B?$mail_cc?= <x@nthu.io>\r\n";
+		$headers .= "Message-Id: <xnthu.verify.$stuid@sean.taipei>\r\n";
 
 		mail($to, $subject, $message, $headers);
 
