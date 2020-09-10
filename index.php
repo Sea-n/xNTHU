@@ -20,6 +20,25 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 			</div>
 		</header>
 		<div class="ts container" name="main">
+			<h2 class="ts header">成立沿革</h2>
+			<p>2020 年 5 月初，靠北清大 A 在快達到 30,000 篇文章時，突然遭到 Facebook <a target="_blank" href="/post/1">無預警下架</a>。</p>
+			<p>當天早上 <a target="_blank" href="https://x.nctu.app/">靠北交大 2.0</a> 開發者將同套系統移植為清大版本，由於校方未提供 NTHU OAuth 服務，初期主要由交大學生代為審核投稿。</p>
+			<p>當天下午有人成立了靠北清大 B，雖然仍使用 Crush Ninja 系統，但小編每小時審文維持不錯的發文頻率，因此在兩週後靠北清大 B 達到 1,000 人按讚時，本平台 <a target="_blank" href="/post/108">宣布退為備用板面</a>。</p>
+			<br>
+
+			<p>2020 年 9 月 4 日，靠北清大 B <a target="_blank" href="/post/113">遭 Facebook 下架</a>，本平台隨即恢復運作；隔天下午靠北清大 C <a target="_blank" href="https://x.nctu.app/post/4139">恢復上線</a>。</p>
+			<p>2020 年 9 月 10 日，本平台開始支援清大帳號自動化驗證，讓更多清大同學可以參與審核工作。</p>
+			<br>
+
+			<p>比起傳統 Crush Ninja 平台，靠北清大 2.0 做出了數項改變避免重蹈覆徹：</p>
+			<ul>
+				<li>為了維持更新頻率，將審核工作下放至所有交清師生，任何師生只要驗證過清大信箱即可自助審文；除緊急刪除明顯違法文章外，所有師生與管理者票票等值。</li>
+				<li>為了達到審文透明化，雖然所有審核者皆為自由心證，未經過訓練也不強制遵從統一標準；但透過保留所有審核紀錄、被駁回的投稿皆提供全校師生檢視，增加審核標準的透明度。</li>
+				<li>除了 Facebook 以外，也在 Telegram、網站本身、Web Archive 等處永久備份文章，未來不幸遭檢舉下架時還可快速恢復以往繁榮。</li>
+			</ul>
+
+			<p>此專案收錄於 <a target="_blank" href="https://awesome.nctu.app/">Awesome NCTU</a> 網站，也可參考 <a target="_blank" href="https://x.nctu.app/">靠北交大 2.0</a> 系統。</p>
+
 			<h2 class="ts header">社群平台</h2>
 			<p>除了本站文章列表外，您可以在以下 2 個社群媒體平台追蹤<?= SITENAME ?> 帳號。</p>
 			<div class="icon-row">
