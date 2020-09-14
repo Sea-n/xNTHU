@@ -382,7 +382,7 @@ class MyDB {
 
 		$post = $this->getPostById($id);
 		if ($post['telegram_id'] > 0
-		 && $post['facebook_id'] > 0)
+)#		 && $post['facebook_id'] > 0)
 			$this->updatePostStatus($post['uid'], 5);
 	}
 
