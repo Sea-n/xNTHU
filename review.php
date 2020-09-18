@@ -1,9 +1,13 @@
 <?php
-session_start(['read_and_close' => true]);
+session_start();
 require_once('utils.php');
 require_once('database.php');
 $db = new MyDB();
 
+
+if (isset($_SESSION['uid']) && $db->getPostByUid($_SESSION['uid'])['status'] != 0)
+	unset($_SESSION['uid']);
+session_write_close();
 
 $USER = $db->getUserByStuid($_SESSION['stuid'] ?? '');
 $uid = $_GET['uid'] ?? '';
@@ -74,13 +78,8 @@ else
 	<body>
 <?php }
 include('includes/nav.php');
+include('includes/header.php');
 ?>
-		<header class="ts fluid vertically padded heading slate">
-			<div class="ts narrow container">
-				<h1 class="ts header"><?= $deleted ? '已刪投稿' : '貼文審核' ?></h1>
-				<div class="description"><?= SITENAME ?></div>
-			</div>
-		</header>
 		<div class="ts container" name="main">
 <?php
 if ($deleted) {
@@ -137,11 +136,12 @@ if ($deleted) {
 	/* use $posts[0] instead of $post for .voted attr */
 	renderPost($posts[0], true);
 
-	$VOTES = $db->getVotesByUid($post['uid']);
-	include('includes/table-vote.php');
-	if (isset($USER) && 1 <= $post['status'] && $post['status'] <= 3 || $post['status'] == 10) { ?>
-		<button id="refresh" class="ts primary button" onclick="updateVotes('<?= $uid ?>');">重新整理</button>
-<?php } } ?>
+	if ($post['status'] != 0) {
+		$VOTES = $db->getVotesByUid($post['uid']);
+		include('includes/table-vote.php');
+		if (isset($USER) && in_array($post['status'], [1, 2, 3, 10])) { ?>
+			<button id="refresh" class="ts primary button" onclick="updateVotes('<?= $uid ?>');">重新整理</button>
+<?php } } } ?>
 
 			<!-- Full-page Image Box -->
 			<div class="ts modals dimmer" id="img-container-wrapper" style="margin-top: 40px;">
@@ -227,13 +227,24 @@ function renderPost(array $post, $single = false) {
 		</div>
 
 		<p style="margin-top: 0; line-height: 1.7em">
+<?php if ($post['status'] == 0) { ?>
+			<br><span>送出時間：<time data-ts="<?= $ts ?>"><?= $time ?></time></span>
+<?php } else { ?>
 			<span>審核狀況：<button class="ts vote positive button">通過</button>&nbsp;<span id="approvals"><?= $post['approvals'] ?></span>&nbsp;票 /&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;<span id="rejects"><?= $post['rejects'] ?></span>&nbsp;票</span>
 			<br><span>投稿時間：<time data-ts="<?= $ts ?>"><?= $time ?></time></span>
+<?php } ?>
 		</p>
 	</div>
+<?php if ($post['status'] == 0) { ?>
+	<div class="ts fluid bottom attached large buttons">
+		<button id="confirm-button" class="ts positive button" onclick="confirmSubmission('<?= $uid ?>');">確認貼文</button>
+		<button id="delete-button" class="ts negative button" onclick="deleteSubmission('<?= $uid ?>');">刪除投稿</button>
+	</div>
+<?php } else { ?>
 	<div class="ts fluid bottom attached large buttons" style="<?= $post['voted'] ? 'display: none;' : '' ?>">
 		<button class="ts positive button" onclick="approve('<?= $uid ?>');">通過貼文</button>
 		<button class="ts negative button" onclick="reject('<?= $uid ?>');">駁回投稿</button>
 	</div>
+<?php } ?>
 </div>
 <?php }  // function renderPost($post)

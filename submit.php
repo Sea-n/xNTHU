@@ -5,6 +5,11 @@ require_once('database.php');
 require_once('send-review.php');
 $db = new MyDB();
 
+if (isset($_SESSION['uid'])) {
+	header("Location: /review/{$_SESSION['uid']}");
+	exit;
+}
+
 $ip_addr = $_SERVER['REMOTE_ADDR'];
 $ip_masked = ip_mask($ip_addr);
 $ip_from = ip_from($ip_addr);
@@ -33,13 +38,10 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 		<script src="/assets/js/submit.js"></script>
 	</head>
 	<body>
-<?php include('includes/nav.php'); ?>
-		<header class="ts fluid vertically padded heading slate">
-			<div class="ts narrow container">
-				<h1 class="ts header">文章投稿</h1>
-				<div class="description"><?= SITENAME ?></div>
-			</div>
-		</header>
+<?php
+include('includes/nav.php');
+include('includes/header.php');
+?>
 		<div class="ts container" name="main">
 <!--
 			<div id="stopped" class="ts negative segment">
@@ -105,26 +107,6 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 					<input name="csrf_token" id="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>" />
 					<input id="submit" type="submit" class="ts disabled button" value="提交貼文" />
 				</form>
-			</div>
-
-			<div class="ts card" id="preview-section" style="margin-bottom: 42px; display: none;">
-				<div class="image">
-					<img id="preview-img" class="post-image" />
-				</div>
-				<div class="content">
-					<div class="header">投稿預覽</div>
-					<div id="preview-body"></div>
-				</div>
-				<div class="extra content">
-					<div class="right floated author">
-						<img id="author-photo" class="ts circular avatar image" onerror="this.src='/assets/img/avatar.jpg';"> <span id="author-name"></span>
-					</div>
-					<p>發文者 IP 位址：<span id="author-ip">140.113.***.*87</span></p>
-				</div>
-				<div class="ts fluid bottom attached large buttons">
-					<button id="confirm-button" class="ts positive disabled button" onclick="confirmSubmission();">確認投稿 (<span id="countdown">03</span>)</button>
-					<button id="delete-button" class="ts negative button" onclick="deleteSubmission();">刪除投稿</button>
-				</div>
 			</div>
 		</div>
 <?php include('includes/footer.php'); ?>

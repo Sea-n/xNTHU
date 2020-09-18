@@ -1,5 +1,5 @@
 <?php
-session_start(['read_and_close' => true]);
+session_start();
 require_once('utils.php');
 require_once('database.php');
 require_once('send-review.php');
@@ -16,6 +16,7 @@ header('Content-Type: application/json');
 
 /* HTTP Method: GET */
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	session_write_close();
 	$ACTION = $_GET['action'] ?? 'x';
 
 	if ($ACTION == 'posts') {
@@ -213,6 +214,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (empty($author_photo))
 			$author_photo = genPic($ip_masked);
 
+		$_SESSION['uid'] = $uid;
+
 		echo json_encode([
 			'ok' => true,
 			'uid' => $uid,
@@ -223,6 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			'author_photo' => $author_photo,
 		], JSON_PRETTY_PRINT);
 	} else if ($ACTION == 'vote') {
+		session_write_close();
 		if (!isset($_SESSION['stuid']))
 			err('請先登入');
 
@@ -396,8 +400,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 			if ($post['status'] != 0)
 				err("Submission $uid status {$post['status']} is not eligible to be confirmed. 此投稿狀態不允許確認");
 
-			if ($_SERVER['REMOTE_ADDR'] !== $post['ip_addr'])
+			if ($_SESSION['uid'] !== $uid)
 				err('無法驗證身份：IP 位址不相符');
+			unset($_SESSION['uid']);
 
 			$db->updatePostStatus($uid, 1);
 			echo json_encode([
@@ -405,6 +410,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 				'msg' => '投稿已送出'
 			], JSON_PRETTY_PRINT);
 
+			session_write_close();
 			fastcgi_finish_request();
 
 			sendReview($uid);
@@ -460,8 +466,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 		if ($post['status'] != 0)
 			err("目前狀態 {$post['status']} 無法刪除");
 
-		if ($_SERVER['REMOTE_ADDR'] !== $post['ip_addr'])
+		if ($_SESSION['uid'] !== $uid)
 			err('無法驗證身份：IP 位址不相符');
+		unset($_SESSION['uid']);
 
 		$reason = $_POST['reason'] ?? '';
 		$reason = trim($reason);
