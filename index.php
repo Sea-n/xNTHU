@@ -34,16 +34,17 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 			<ul>
 				<li>為了維持更新頻率，將審核工作下放至所有交清師生，任何師生只要驗證過清大信箱即可自助審文；除緊急刪除明顯違法文章外，所有師生與管理者票票等值。</li>
 				<li>為了達到審文透明化，雖然所有審核者皆為自由心證，未經過訓練也不強制遵從統一標準；但透過保留所有審核紀錄、被駁回的投稿皆提供全校師生檢視，增加審核標準的透明度。</li>
-				<li>除了 Facebook 以外，也在 Telegram、網站本身、Web Archive 等處永久備份文章，未來不幸遭檢舉下架時還可快速恢復以往繁榮。</li>
+				<li>除了 Facebook 以外，也在 Telegram、Instagram、網站本身、Web Archive 等處永久備份文章，未來不幸遭檢舉下架時還可快速恢復以往繁榮。</li>
 			</ul>
 
 			<p>此專案收錄於 <a target="_blank" href="https://awesome.nctu.app/">Awesome NCTU</a> 網站，也可參考 <a target="_blank" href="https://x.nctu.app/">靠北交大 2.0</a> 系統。</p>
 
 			<h2 class="ts header">社群平台</h2>
-			<p>除了本站文章列表外，您可以在以下 2 個社群媒體平台追蹤<?= SITENAME ?> 帳號。</p>
+			<p>除了本站文章列表外，您可以在以下 3 個社群媒體平台追蹤<?= SITENAME ?> 帳號。</p>
 			<div class="icon-row">
 				<a id="telegram-icon"  class="ts link tiny rounded image" target="_blank" href="https://t.me/xNTHU"              ><img src="https://image.flaticon.com/icons/svg/2111/2111646.svg"   alt="Telegram" ></a>
 				<a id="facebook-icon"  class="ts link tiny rounded image" target="_blank" href="https://www.facebook.com/xNTHU2.0"><img src="https://image.flaticon.com/icons/svg/220/220200.svg"     alt="Facebook" ></a>
+				<a id="instagram-icon" class="ts link tiny rounded image" target="_blank" href="https://www.instagram.com/x_nthu"><img src="https://image.flaticon.com/icons/svg/2111/2111463.svg"   alt="Instagram"></a>
 			</div>
 
 			<h2 class="ts header">審文機制</h2>

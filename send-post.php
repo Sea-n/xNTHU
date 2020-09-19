@@ -55,6 +55,7 @@ $link = "https://$DOMAIN/post/{$post['id']}";
 /* Send post to every SNS */
 $sns = [
 	'Telegram' => 'telegram',
+	'Instagram' => 'instagram',
 	'Facebook' => 'facebook',
 ];
 foreach ($sns as $name => $key) {
@@ -403,6 +404,16 @@ function send_facebook(array $post): int {
 	return $post_id;
 }
 
+function send_instagram(array $post): int {
+	if (!$post['has_img'])
+		return -1;
+
+	system("node " . __DIR__ . "/send-ig.js {$post['id']} "
+		. ">> /temp/xnctu-ig.log 2>> /temp/xnctu-ig.err");
+
+	return 0;
+}
+
 function update_telegram(array $post) {
 	global $TG;
 
@@ -412,6 +423,12 @@ function update_telegram(array $post) {
 		$buttons[] = [
 			'text' => 'Facebook',
 			'url' => "https://www.facebook.com/xNTHU2.0/posts/{$post['facebook_id']}"
+		];
+
+	if (strlen($post['instagram_id']) > 1)
+		$buttons[] = [
+			'text' => 'Instagram',
+			'url' => "https://www.instagram.com/p/{$post['instagram_id']}"
 		];
 
 	$TG->editMarkup([
