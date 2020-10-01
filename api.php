@@ -173,35 +173,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		/* Check rate limit */
 		if (empty($author_id)) {
-			if (strpos($author_name, '境外') !== false) {
-				err('Disabled. 靠北清大暫時不支援境外發文');
-			} else if ($author_name != '匿名, 交大' && $author_name != '匿名, 清大') {
-				$posts = $db->getPostsByIp($ip_addr, 6);
-				if (count($posts) == 6) {
-					$last = strtotime($posts[5]['created_at']);
-					if (time() - $last < 3*60*60) {
-						$db->updatePostStatus($uid, -12);
-						err('Please retry afetr 3 hours. 校外 IP 限制 3 小時內僅能發 5 篇文');
-					}
-				}
-			} else {
-				$posts = $db->getPostsByIp($ip_addr, 6);
-				if (count($posts) == 6) {
-					$last = strtotime($posts[5]['created_at']);
-					if (time() - $last < 10*60) {
-						$db->updatePostStatus($uid, -12);
-						err('Please retry afetr 10 minutes. 校內匿名發文限制 10 分鐘內僅能發 5 篇文');
-					}
+			$rules = [
+				'A' => [
+					'msg' => '具名發文不受限制',
+				],
+				'B' => [
+					'period' => 10*60,
+					'limit' => 5,
+					'msg' => '交清匿名發文限制 10 分鐘內僅能發 5 篇文',
+				],
+				'C' => [
+					'period' => 3*60*60,
+					'limit' => 3,
+					'msg' => '校外 IP 限制 3 小時內僅能發 3 篇文',
+				],
+				'D' => [
+					'period' => 24*60*60,
+					'limit' => 0,
+					'msg' => '靠北清大暫時不支援境外發文',
+				],
+			];
+
+			if ($author_name == '匿名, 交大'
+			 || $author_name == '匿名, 清大')
+				$rule = $rules['B'];
+			else if (strpos($author_name, '境外') === false)
+				$rule = $rules['C'];
+			else
+				$rule = $rules['D'];
+
+			$posts = $db->getPostsByIp($ip_addr, $rule['limit']+1);
+			if (count($posts) == $rule['limit']+1) {
+				$last = strtotime($posts[ $rule['limit'] ]['created_at']);
+				$cd = $rule['period'] - (time() - $last);
+				if ($cd > 0) {
+					$db->deleteSubmission($uid, -12, $rule['msg']);
+					err("Please retry afetr $cd seconds. {$rule['msg']}");
 				}
 			}
 
 			/* Global rate limit for un-loggined users */
-			$posts = $db->getSubmissions(6);
-			if (count($posts) == 6) {
-				$last = strtotime($posts[2]['created_at']);
-				if (time() - $last < 60) {
-					$db->updatePostStatus($uid, -12, 'Global rate limit');
-					err('Please retry afetr 1 minutes. 系統全域限制 1 分鐘內僅能發 5 篇文');
+			$max = 5;
+			$posts = $db->getSubmissions($max+1);
+			if (count($posts) == $max+1) {
+				$last = strtotime($posts[$max]['created_at']);
+				$cd = 3*60 - (time() - $last);
+				if ($cd > 0) {
+					$db->deleteSubmission($uid, -12, 'Global rate limit');
+					err("Please retry afetr $cd seconds. 系統全域限制未登入者 3 分鐘內僅能發 $max 篇文");
 				}
 			}
 		}
@@ -521,7 +540,7 @@ function checkSubmitData(string $body, bool $has_img): string {
 	if (mb_strlen($body) < 1)
 		return 'Body is empty. 請輸入文章內容';
 
-	if ($has_img && mb_strlen($body) > 1000)
+	if ($has_img && mb_strlen($body) > 960)
 		return 'Body too long (' . mb_strlen($body) . ' chars). 文章過長';
 
 	if (mb_strlen($body) > 4000)
