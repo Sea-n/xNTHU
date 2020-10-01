@@ -144,7 +144,21 @@ function checkEligible(array $post): bool {
 			if ($vote < 1)
 				return false;
 
-		/* No reject: 4 votes */
+		/* No reject */
+		if ($dt < 10)
+			return ($vote2 >= 3);
+
+		/* 10 min - 1 hour */
+		if ($dt < 60)
+			return ($vote >= 2);
+
+		/* More than 1 hour */
+		return ($vote >= 0);
+	}
+
+	/* Rule for Taiwan IP address */
+	if (strpos($post['author_name'], '境外') === false) {
+		/* No reject */
 		if ($dt < 10)
 			return ($vote2 >= 4);
 
@@ -153,21 +167,7 @@ function checkEligible(array $post): bool {
 			return ($vote >= 3);
 
 		/* More than 1 hour */
-		return ($vote >= 0);
-	}
-
-	/* Rule for Taiwan IP address */
-	if (strpos($post['author_name'], '境外') === false) {
-		/* No reject: 5 votes */
-		if ($dt < 10)
-			return ($vote2 >= 5);
-
-		/* 10 min - 1 hour */
-		if ($dt < 60)
-			return ($vote >= 4);
-
-		/* More than 1 hour */
-		return ($vote >= 3);
+		return ($vote >= 2);
 	}
 
 	/* Rule for Foreign IP address */

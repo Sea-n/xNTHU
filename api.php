@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$last = strtotime($posts[5]['created_at']);
 					if (time() - $last < 3*60*60) {
 						$db->updatePostStatus($uid, -12);
-						err('Please retry afetr 3 hours. 交清 IP 限制 3 小時內僅能發 5 篇文');
+						err('Please retry afetr 3 hours. 校外 IP 限制 3 小時內僅能發 5 篇文');
 					}
 				}
 			} else {
