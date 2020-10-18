@@ -35,7 +35,7 @@ function ip_from(string $ip_addr): string {
 
 
 	/* Query TWNIC whois */
-	$curl = curl_init('https://rms.twnic.net.tw/query_whois1.php');
+	$curl = curl_init('https://rms.twnic.tw/query_whois1.php');
 	curl_setopt($curl, CURLOPT_POSTFIELDS, "q=$ip_addr");
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	$resp = curl_exec($curl);
@@ -56,6 +56,7 @@ function ip_from(string $ip_addr): string {
 		$name = str_replace("台灣之星電信", "台灣之星", $name);
 		$name = str_replace("台灣寬頻通訊顧問", "台灣寬頻通訊", $name);
 		$name = str_replace("台灣碩網網路娛樂", "台灣碩網", $name);
+		$name = str_replace("大新店民主有線電視", "大新店寬頻", $name);
 		$name = str_replace("國家發展委員會", "國發會", $name);
 		$name = str_replace("中央研究院資訊服務處", "中研院", $name);
 		return $name;
@@ -89,7 +90,11 @@ function ip_from(string $ip_addr): string {
 		$ptr = explode('.', $ptr);
 		$ptr = array_slice($ptr, -3, 3);
 		$ptr = join('.', $ptr);
+		$ptr = str_replace("emome-ip6.hinet.net", "中華電信", $ptr);
+		$ptr = str_replace("dynamic-ip.hinet.net", "中華電信", $ptr);
+		$ptr = str_replace("dynamic-ip6.hinet.net", "中華電信", $ptr);
 		$ptr = str_replace("dynamic.kbtelecom.net", "中嘉和網", $ptr);
+		$ptr = str_replace("static.kbtelecom.net", "中嘉和網", $ptr);
 		return $ptr;
 	}
 
@@ -207,7 +212,7 @@ function toHTML(string $text = ''): string {
 
 function enHTML(string $str = ''): string {
 	$search =  array('&', '"', '<', '>');
-	$replace = array('&amp;', '&quot;', '&lt;', '&gt');
+	$replace = array('&amp;', '&quot;', '&lt;', '&gt;');
 	$str = str_replace($search, $replace, $str);
 	return $str;
 }
@@ -316,6 +321,7 @@ function idToDep(string $id): string {
 			"1-483"=>"傳科系",
 			"1-511"=>"電機系",
 			"1-550"=>"資工系",
+			"1-610"=>"奈米學士班", "1-611"=>"機械系", "1-612"=>"土木系", "1-613"=>"材料系",
 			"1-651"=>"電物系", "1-652"=>"應數系", "1-654"=>"應化系",
 			"1-700"=>"管科系", "1-701"=>"運物系", "1-704"=>"工管系", "1-705"=>"資財系",
 			"1-950"=>"百川",
