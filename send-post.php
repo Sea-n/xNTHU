@@ -146,7 +146,7 @@ function checkEligible(array $post): bool {
 
 		/* No reject */
 		if ($dt < 10)
-			return ($vote2 >= 3);
+			return ($vote2 >= 4);
 
 		/* 10 min - 1 hour */
 		if ($dt < 60)
@@ -160,7 +160,7 @@ function checkEligible(array $post): bool {
 	if (strpos($post['author_name'], '境外') === false) {
 		/* No reject */
 		if ($dt < 10)
-			return ($vote2 >= 4);
+			return ($vote2 >= 5);
 
 		/* 10 min - 1 hour */
 		if ($dt < 60)
