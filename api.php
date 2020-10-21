@@ -300,6 +300,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$ip_addr = $_SERVER['REMOTE_ADDR'];
 		$ip_from = ip_from($ip_addr);
 
+		/* Plaintext version */
+		$plain = <<<EOF
+{$GOOGLE['name']} 您好，
+
+感謝您註冊 {$SITENAME}，請點擊下方連結啟用帳號：
+$verify_link
+
+為了維持更新頻率，{$SITENAME} 將審核工作下放至全體師生，因此您的每一票對我們來說都相當重要。
+雖然所有審核者皆為自由心證，未經過訓練也不強制遵從統一標準；但透過保留所有審核紀錄、被駁回的投稿皆提供全校師生檢視，增加審核標準的透明度。
+
+有了您的貢獻，期望能以嶄新的姿態，將{$SITENAME} 推向靠北生態系巔峰。
+
+- 靠清團隊, {$date}
+
+
+由於 {$GOOGLE['name']} <{$GOOGLE['email']}> 在{$SITENAME} 網站申請寄送驗證碼，因此寄發本信件給您。（來自「{$ip_from}」，IP 位址為 {$ip_addr}）
+如不是由您本人註冊，很可能是同學手滑打錯學號了，請不要點擊驗證按鈕以避免爭議。
+若是未來不想再收到相關信件，請來信 與我們聯絡，將會盡快將您的學號放入拒收清單內。
+EOF;
+
+		/* HTML version */
 		$heml = <<<EOF
 <heml>
 <head>
@@ -351,6 +372,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </heml>
 EOF;
 
+		/* Convert HEML to HTML */
 		$curl = curl_init();
 		curl_setopt_array($curl, [
 			CURLOPT_URL => 'https://heml-api.herokuapp.com/',
@@ -364,21 +386,35 @@ EOF;
 		]);
 		$data = curl_exec($curl);
 		curl_close($curl);
-		$message = json_decode($data, true)['html'];
-		$message = base64_encode($message);
+		$html = json_decode($data, true)['html'];
 
+		/* Merge HTML and plaintext to body */
+		$boundary = md5(microtime());
+		$body = "--$boundary\r\n" .
+			"Content-Type: text/plain; charset=\"UTF-8\"\r\n" .
+			"Content-Transfer-Encoding: base64\r\n\r\n";
+		$body .= chunk_split(base64_encode($plain));
+
+		$body .= "--$boundary\r\n" .
+			"Content-Type: text/html; charset=\"UTF-8\"\r\n" .
+			"Content-Transfer-Encoding: base64\r\n\r\n";
+		$body .= chunk_split(base64_encode($html));
+
+		$body .= "--$boundary--";
+
+		/* Mail Headers */
 		$mail_from = base64_encode('靠北清大 2.0 自動驗證系統');
 		$mail_cc   = base64_encode('靠北清大 2.0 維護團隊');
 
 		$headers  = "MIME-Version: 1.0\r\n";
-		$headers .= "Content-type: text/html; charset=UTF-8\r\n";
-		$headers .= "Content-Transfer-Encoding: base64\r\n";
-		$headers .= "Content-Disposition: inline\r\n";
 		$headers .= "From: =?UTF-8?B?$mail_from?= <no-reply@sean.taipei>\r\n";
 		$headers .= "Cc: =?UTF-8?B?$mail_cc?= <x@nthu.io>\r\n";
 		$headers .= "Message-Id: <xnthu.verify.$stuid@sean.taipei>\r\n";
+		$headers .= "List-Unsubscribe: <https://x.nthu.io/?unsubscribe>\r\n";
+		$headers .= "X-Mailer: xNTHU/2.0\r\n";
+		$headers .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
 
-		mail($to, $subject, $message, $headers);
+		mail($to, $subject, $body, $headers);
 
 		$db->updateGoogleLastVerify($sub);
 
