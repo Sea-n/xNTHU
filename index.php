@@ -26,8 +26,8 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 			<p>當天下午有人成立了靠北清大 B，雖然仍使用 Crush Ninja 系統，但小編每小時審文維持不錯的發文頻率，因此在兩週後靠北清大 B 達到 1,000 人按讚時，本平台 <a target="_blank" href="/post/108">宣布退為備用板面</a>。</p>
 			<br>
 
-			<p>2020 年 9 月 4 日，靠北清大 B <a target="_blank" href="/post/113">遭 Facebook 下架</a>，本平台隨即恢復運作；隔天下午靠北清大 C <a target="_blank" href="https://x.nctu.app/post/4139">恢復上線</a>。</p>
-			<p>2020 年 9 月 10 日，本平台開始支援清大帳號自動化驗證，讓更多清大同學可以參與審核工作。</p>
+			<p>2020 年 9 月，靠北清大 B <a target="_blank" href="/post/113">遭 Facebook 下架</a>，本平台隨即恢復運作</p>
+			<p>為了讓簡化驗證程序，本平台開始支援清大帳號自動化驗證，讓更多清大同學可以參與審核工作。</p>
 			<br>
 
 			<p>比起傳統 Crush Ninja 平台，靠北清大 2.0 做出了數項改變避免重蹈覆徹：</p>
