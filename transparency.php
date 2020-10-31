@@ -36,6 +36,20 @@ include('includes/header.php');
 				</tbody>
 			</table>
 
+			<h2>因應 Facebook 政策自我審查</h2>
+			<p>此清單中的貼文僅會從 Facebook、Instagram 下架，您仍然可以從 Telegram、Twitter、Plurk 看到原文。</p>
+			<table class="ts striped table">
+				<thead>
+					<tr>
+						<th>日期</th>
+						<th>內容節錄</th>
+						<th>貼文編號</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+
 			<h2>維護團隊主動刪除</h2>
 			<table class="ts striped table">
 				<thead>
@@ -63,6 +77,7 @@ include('includes/header.php');
 					</tr>
 				</thead>
 				<tbody>
+					<tr><td>2020 Oct</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr class="negative indicated"><td>2020 Sep</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr><td>2020 Aug</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr><td>2020 Jul</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
@@ -73,7 +88,7 @@ include('includes/header.php');
 
 			<br>
 			<p>收到任何刪除通知將人工更新至此頁面，在不造成二次傷害的前提下，本站會盡可能提供最多資訊，原則上收到請求後會在 7 天內公開揭露。</p>
-			<p style="text-align: right;"><i>最後更新日期：2020 Oct 15</i></p>
+			<p style="text-align: right;"><i>最後更新日期：2020 Oct 26</i></p>
 		</div>
 <?php include('includes/footer.php'); ?>
 	</body>

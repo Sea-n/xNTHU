@@ -115,7 +115,7 @@ $VOTES = $db->getVotesByUid($post['uid']);
 					<p><span><i class="telegram icon"></i> Telegram: <a target="_blank" href="https://t.me/s/xNTHU/<?= $post['telegram_id'] ?>">@xNTHU/<?= $post['telegram_id'] ?></a></span><br>
 <?php }
 if ($post['facebook_id'] > 10) { ?>
-					<span><i class="facebook icon"></i> Facebook: <a target="_blank" href="https://www.facebook.com/xNTHU2.0/posts/<?= $post['facebook_id'] ?>">@xNTHU2.0/<?= $post['facebook_id'] ?></a></span><br>
+					<span><i class="facebook icon"></i> Facebook: <a target="_blank" href="https://www.facebook.com/xNTHU2.0/posts/<?= $post['facebook_id'] ?>">@xNTHU2.0/<?= $post['facebook_id'] ?></a> <small>(<?= $post['fb_likes'] ?> likes)</small></span><br>
 <?php } ?>
 
 					<div itemprop="author" itemscope itemtype="http://schema.org/Person" class="right floated author">
@@ -151,6 +151,8 @@ include('includes/table-vote.php');
 $posts = $db->getPosts(500);
 $posts = array_filter($posts, function($post) {
 	global $id;
+	if ($post['facebook_id'] < 10)
+		return false;
 	return $post['id'] != $id;
 });
 

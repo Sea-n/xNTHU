@@ -34,7 +34,3 @@ define('LOG_GROUP', -1001489855993);
 define('MYSQL_PASSWORD', '');
 
 define('VERIFY_SECRET', 'RANDOM_SECRET_STRING');
-
-define('TG_ADMINS', [
-	109780439,  # Sean
-]);
