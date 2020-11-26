@@ -79,6 +79,11 @@ include('includes/header.php');
 				</thead>
 				<tbody>
 					<tr>
+						<td>2020 Nov 26</td>
+						<td>各位支那豬</td>
+						<td><a href="https://x.nctu.app/post/5987" target="_blank">#靠交5987</a></td>
+					</tr>
+					<tr>
 						<td>2020 Nov 11</td>
 						<td>同性戀不准公開宣揚</td>
 						<td><a href="https://x.nctu.app/post/5813" target="_blank">#靠交5813</a></td>
