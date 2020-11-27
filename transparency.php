@@ -50,17 +50,23 @@ include('includes/header.php');
 				</tbody>
 			</table>
 
-			<h2>維護團隊主動刪除</h2>
+			<h2>申訴處理結果</h2>
 			<table class="ts striped table">
 				<thead>
 					<tr>
 						<th>日期</th>
 						<th>貼文編號</th>
-						<th>內容節錄</th>
+						<th>處理方式</th>
 						<th>理由</th>
 					</tr>
 				</thead>
 				<tbody>
+					<tr>
+						<td>2020 Nov 26</td>
+						<td><a href="/post/570" target="_blank">#靠清570</a></td>
+						<td>圖片補馬賽克、移除 Facebook 貼文</td>
+						<td>未經提醒/同意拍攝人像，見 <a href="/post/571" target="_blank">#靠清571</a></td>
+					</tr>
 				</tbody>
 			</table>
 
@@ -77,6 +83,7 @@ include('includes/header.php');
 					</tr>
 				</thead>
 				<tbody>
+					<tr class="negative indicated"><td>2020 Nov</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
 					<tr><td>2020 Oct</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr class="negative indicated"><td>2020 Sep</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr><td>2020 Aug</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
@@ -88,7 +95,7 @@ include('includes/header.php');
 
 			<br>
 			<p>收到任何刪除通知將人工更新至此頁面，在不造成二次傷害的前提下，本站會盡可能提供最多資訊，原則上收到請求後會在 7 天內公開揭露。</p>
-			<p style="text-align: right;"><i>最後更新日期：2020 Oct 26</i></p>
+			<p style="text-align: right;"><i>最後更新日期：2020 Nov 27</i></p>
 		</div>
 <?php include('includes/footer.php'); ?>
 	</body>
