@@ -28,6 +28,22 @@ include('includes/header.php');
 				</thead>
 				<tbody>
 					<tr>
+						<td>2020 Dec 05</td>
+						<td>
+							<a href="https://x.nctu.app/post/6081" target="_blank">#靠交6081</a>
+						</td>
+						<td>熊頭打R18補丁直播</td>
+						<td>裸露內容</td>
+					</tr>
+					<tr>
+						<td>2020 Nov 18</td>
+						<td>
+							<a href="https://x.nctu.app/post/5890" target="_blank">#靠交5890</a>
+						</td>
+						<td>支那人被共產黨迫害死好</td>
+						<td>仇恨言論</td>
+					</tr>
+					<tr>
 						<td>2020 Oct 13</td>
 						<td>
 							<a href="https://x.nctu.app/post/5141" target="_blank">#靠交5141</a>
@@ -172,6 +188,7 @@ include('includes/header.php');
 					</tr>
 				</thead>
 				<tbody>
+					<tr><td>2020 Dec</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr><td>2020 Nov</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr><td>2020 Oct</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr class="negative indicated"><td>2020 Sep</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
@@ -187,7 +204,7 @@ include('includes/header.php');
 
 			<br>
 			<p>收到任何刪除通知將人工更新至此頁面，在不造成二次傷害的前提下，本站會盡可能提供最多資訊，原則上收到請求後會在 7 天內公開揭露。</p>
-			<p style="text-align: right;"><i>最後更新日期：2020 Nov 11</i></p>
+			<p style="text-align: right;"><i>最後更新日期：2020 Dec 11</i></p>
 		</div>
 <?php include('includes/footer.php'); ?>
 	</body>

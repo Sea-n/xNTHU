@@ -11,11 +11,11 @@ $TG = new Telegram();
 
 
 /* Check unfinished post */
-$posts = $db->getPosts(6500);
+$posts = $db->getPosts(50);
 $posts = array_reverse($posts);
 
 foreach ($posts as $item)
-	if ($item['facebook_id'] < 87 && $item['id'] > 5791) {
+	if ($item['facebook_id'] < 87 && $item['id'] > 6092) {
 		$post = $item;
 		break;
 	}
