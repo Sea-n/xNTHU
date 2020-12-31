@@ -41,7 +41,7 @@ function ip_from(string $ip_addr): string {
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	$resp = curl_exec($curl);
 
-	if (preg_match('#<tr><td>Chinese Name</td><td>([^<]+?)(股份|有限|公司|台灣|分公司)*</td></tr>#', $resp, $matches)) {
+	if (preg_match('#<tr>\s*<td>Chinese Name</td>\s*<td>([^<]+?)(股份|有限|公司|台灣|分公司)*</td>\s*</tr>#', $resp, $matches)) {
 		$name = $matches[1];
 		/* Check TANet Whois */
 		if ($name == '教育部') {
@@ -64,7 +64,7 @@ function ip_from(string $ip_addr): string {
 	}
 
 	/* IPv6 address only have English org name for unknown reason */
-	if (preg_match('#<tr><td>Organization Name</td><td>([^<]+?)(\s*Co.,\s*Ltd.)*</td></tr>#i', $resp, $matches)) {
+	if (preg_match('#<tr>\s*<td>Organization Name</td>\s*<td>([^<]+?)(\s*Co.,\s*Ltd.)*</td>\s*</tr>#i', $resp, $matches)) {
 		$name = $matches[1];
 		/* Check TANet Whois */
 		if ($name == 'Ministry of Education Computer Center') {
