@@ -11,11 +11,11 @@ $TG = new Telegram();
 
 
 /* Check unfinished post */
-$posts = $db->getPosts(100);
+$posts = $db->getPosts(50);
 $posts = array_reverse($posts);
 
 foreach ($posts as $item)
-	if ($item['facebook_id'] < 5) {
+	if ($item['facebook_id'] < 87 && $item['id'] > 6092) {
 		$post = $item;
 		break;
 	}
@@ -38,7 +38,7 @@ $link = "https://$DOMAIN/post/{$post['id']}";
 try {
 	$pid = send_facebook($post);
 	if ($pid <= 0)
-		$pid = $post['facebook_id'] + 1;
+		$pid = 1;
 
 	$db->updatePostSns($post['id'], 'facebook', $pid);
 } catch (Exception $e) {

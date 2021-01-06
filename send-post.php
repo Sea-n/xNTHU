@@ -455,7 +455,7 @@ function update_plurk(array $post) {
 	else
 		$msg .= "審核結果：✅ 通過 {$post['approvals']} 票\n\n";
 
-	$msg .= "🥙 其他平台：https://www.facebook.com/xNCTU/posts/{$post['facebook_id']} (Facebook)"
+	$msg .= "🥙 其他平台：https://www.facebook.com/xNCTU2.0/posts/{$post['facebook_id']} (Facebook)"
 		. "、https://twitter.com/x_NCTU/status/{$post['twitter_id']} (Twitter)";
 	if (strlen($post['instagram_id']) > 1)
 		$msg .= "、https://www.instagram.com/p/{$post['instagram_id']} (Instagram)";

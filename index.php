@@ -39,6 +39,10 @@ $IMG = "https://$DOMAIN/assets/img/og.png";
 
 			<p>此專案收錄於 <a target="_blank" href="https://awesome.nctu.app/">Awesome NCTU</a> 網站，也可參考 <a target="_blank" href="https://x.nctu.app/">靠北交大 2.0</a> 系統。</p>
 
+			<h3 class="ts header">坎坷歷程</h3>
+			<p>作為交大學生的靠北平台，也吸引到了不少各校來的投稿，其中不乏遊走道德邊緣的貼文，從四月到十月共有 5 篇貼文遭 Facebook 檢舉刪除，完整列表可參見 <a href="/transparency">透明度報告</a>。</p>
+			<p>在 2020 年 11 月初，原粉專 <a href="https://www.facebook.com/xNCTU">@xNCTU</a> 遭到 Facebook 無預警下架，隨後開設 <a href="https://www.facebook.com/xNCTU2.0">@xNCTU2.0</a> 並恢復熱門貼文，繼續提供大家屬於交大人的靠交。</p>
+
 			<h2 class="ts header">社群平台</h2>
 			<p>除了本站文章列表外，您可以在以下 3 個社群媒體平台追蹤<?= SITENAME ?> 帳號。</p>
 			<div class="icon-row">

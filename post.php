@@ -151,20 +151,19 @@ include('includes/table-vote.php');
 $posts = $db->getPosts(500);
 $posts = array_filter($posts, function($post) {
 	global $id;
-	if ($post['facebook_id'] < 10)
-		return false;
 	return $post['id'] != $id;
 });
 
 usort($posts, function (array $a, array $b) {
-	return $b['fb_likes'] <=> $a['fb_likes'];
+	return max($b['fb_likes'], $b['fb_likes_old']) <=> max($a['fb_likes'], $a['fb_likes_old']);
 });
 $posts = array_slice($posts, 0, 50);
 
 $posts2 = [];
 for ($i=1; $i<=8; $i++) {
 	$pos = $id % ($i*3);
-	$posts2[] = array_splice($posts, $pos, 1)[0];
+	if (count($posts) > $pos)
+		$posts2[] = array_splice($posts, $pos, 1)[0];
 }
 
 foreach ($posts2 as $post) {
