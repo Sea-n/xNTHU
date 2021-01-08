@@ -155,7 +155,7 @@ $posts = array_filter($posts, function($post) {
 });
 
 usort($posts, function (array $a, array $b) {
-	return max($b['fb_likes'], $b['fb_likes_old']) <=> max($a['fb_likes'], $a['fb_likes_old']);
+	return $b['fb_likes'] <=> $a['fb_likes'];
 });
 $posts = array_slice($posts, 0, 50);
 

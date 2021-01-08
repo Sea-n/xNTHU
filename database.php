@@ -135,7 +135,7 @@ class MyDB {
 	public function getPostsByLikes(int $likes, int $limit, int $offset = 0) {
 		if ($limit == 0) $limit = 9487;
 
-		$sql = "SELECT * FROM posts WHERE status BETWEEN 4 AND 5 AND fb_likes >= :likes OR fb_likes_old >= :likes ORDER BY posted_at DESC LIMIT :limit OFFSET :offset";
+		$sql = "SELECT * FROM posts WHERE status BETWEEN 4 AND 5 AND fb_likes >= :likes ORDER BY posted_at DESC LIMIT :limit OFFSET :offset";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':likes', $likes, PDO::PARAM_INT);
 		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
