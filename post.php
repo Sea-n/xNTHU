@@ -116,7 +116,10 @@ $VOTES = $db->getVotesByUid($post['uid']);
 <?php }
 if ($post['facebook_id'] > 10) { ?>
 					<span><i class="facebook icon"></i> Facebook: <a target="_blank" href="https://www.facebook.com/xNTHU2.0/posts/<?= $post['facebook_id'] ?>">@xNTHU2.0/<?= $post['facebook_id'] ?></a> <small>(<?= $post['fb_likes'] ?> likes)</small></span><br>
-<?php } ?>
+<?php }
+if (strlen($post['instagram_id']) > 1) { ?>
+					<span><i class="instagram icon"></i> Instagram: <a target="_blank" href="https://www.instagram.com/p/<?= $post['instagram_id'] ?>">@x_nthu/<?= $post['instagram_id'] ?></a></span><br>
+<?php  } ?>
 
 					<div itemprop="author" itemscope itemtype="http://schema.org/Person" class="right floated author">
 						<img itemprop="image" class="ts circular avatar image" src="<?= $author_photo ?>" onerror="this.src='/assets/img/avatar.jpg';"> <span itemprop="name"><?= $author_name ?></span>
