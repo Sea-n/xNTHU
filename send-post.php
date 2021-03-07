@@ -120,16 +120,16 @@ function checkEligible(array $post): bool {
 
 	/* Rule for Logged-in users */
 	if (!empty($post['author_id'])) {
-		/* No reject: 2 votes */
+		/* No reject: 3 votes */
 		if ($dt < 10)
-			return ($vote2 >= 2);
+			return ($vote2 >= 3);
 
 		/* More than 10 min */
 		return ($vote >= 0);
 	}
 
 	/* Rule for NTHU IP address */
-	if (($post['author_name'] == '匿名, 清大' || $post['author_name'] == '匿名, 交大')
+	if (($post['author_name'] == '匿名, 清大' || $post['author_name'] == '匿名, 交大' || $post['author_name'] == '匿名, 陽交大')
 	 && $post['ip_addr'] != ip_mask($post['ip_addr'])) {
 		/* Night mode */
 		if (strtotime("03:00") <= time() && time() <= strtotime("09:00"))
@@ -146,11 +146,11 @@ function checkEligible(array $post): bool {
 
 		/* No reject */
 		if ($dt < 10)
-			return ($vote2 >= 4);
+			return ($vote2 >= 5);
 
 		/* 10 min - 1 hour */
 		if ($dt < 60)
-			return ($vote >= 2);
+			return ($vote >= 3);
 
 		/* More than 1 hour */
 		return ($vote >= 0);
@@ -160,14 +160,14 @@ function checkEligible(array $post): bool {
 	if (strpos($post['author_name'], '境外') === false) {
 		/* No reject */
 		if ($dt < 10)
-			return ($vote2 >= 5);
+			return ($vote2 >= 7);
 
 		/* 10 min - 1 hour */
 		if ($dt < 60)
-			return ($vote >= 3);
+			return ($vote >= 5);
 
 		/* More than 1 hour */
-		return ($vote >= 2);
+		return ($vote >= 3);
 	}
 
 	/* Rule for Foreign IP address */
