@@ -62,6 +62,12 @@ include('includes/header.php');
 				</thead>
 				<tbody>
 					<tr>
+						<td>2021 Mar 23</td>
+						<td><a href="/post/1284" target="_blank">#靠清1284</a></td>
+						<td>移除各平台貼文</td>
+						<td>不實訊息（清大孔子學院）</td>
+					</tr>
+					<tr>
 						<td>2021 Mar 05</td>
 						<td><a href="/post/934" target="_blank">#靠清934</a></td>
 						<td>移除各平台貼文</td>
@@ -89,7 +95,7 @@ include('includes/header.php');
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="negative indicated"><td>2021 Mar</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+					<tr class="negative indicated"><td>2021 Mar</td><td>2</td><td>1</td><td>0</td><td>2</td></tr>
 					<tr><td>2021 Feb</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr><td>2021 Jan</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 					<tr><td>2020 Dec</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
@@ -105,7 +111,7 @@ include('includes/header.php');
 
 			<br>
 			<p>收到任何刪除通知將人工更新至此頁面，在不造成二次傷害的前提下，本站會盡可能提供最多資訊，原則上收到請求後會在 7 天內公開揭露。</p>
-			<p style="text-align: right;"><i>最後更新日期：2021 Mar 24</i></p>
+			<p style="text-align: right;"><i>最後更新日期：2021 Mar 25</i></p>
 		</div>
 <?php include('includes/footer.php'); ?>
 	</body>
