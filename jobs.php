@@ -57,33 +57,6 @@ case 'vote':
 		]);
 		$db->deleteTgMsg($uid, $chat_id);
 	}
-
-	/* Send vote log to group */
-	$body = $post['body'];
-	$body = preg_replace('/\s+/', '', $body);
-	$body = mb_substr($body, 0, 10) . '..';
-	$body = enHTML($body);
-
-	$dep = idToDep($USER['stuid']);
-
-	$name = $USER['name'];
-	if (is_numeric($name))
-		$name = "N$name";
-	$name = preg_replace('/[ -\/:-@[-`{-~]/iu', '_', $name);
-
-	$type = ($VOTE['vote'] == 1 ? '✅' : '❌');
-	$reason = $VOTE['reason'];
-
-	$msg = "#投稿$uid $body\n" .
-		enHTML("$dep #$name\n\n") .
-		enHTML("$type $reason");
-
-	$TG->sendMsg([
-		'chat_id' => LOG_GROUP,
-		'text' => $msg,
-		'parse_mode' => 'HTML',
-		'disable_web_page_preview' => true,
-	]);
 	break;
 
 default:
