@@ -274,14 +274,14 @@ function humanTime(string $date): string
 
 function idToDep(string $id): string
 {
-    if (preg_match('#^[A-Z][A-Z0-9][0-9]{3}$#', $id))
-        return '教職員';
+    if (preg_match('#^1\d{8}$#', $id))
+        return idToDepNTHU($id);
 
     if (preg_match('#^\d{7}$#', $id))
-        return idToDepNCTU($id);
+        return "交大" . idToDepNCTU($id);
 
     if (preg_match('#^\d{9}$#', $id))
-        return idToDepNYCU($id);
+        return "交大" . idToDepNYCU($id);
 
     return "非學生 $id";
 }

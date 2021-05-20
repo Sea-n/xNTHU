@@ -68,7 +68,7 @@ Route::get('/post/{post:id}', function (Post $post) {
 
 Route::name('login.')->group(function () {
     Route::get('/login', function () {
-        return redirect('/login/nctu');
+        return redirect('/login/google');
     })->name('index');
 
     Route::get('/login/google', [LoginController::class, 'redirectToGoogle'])->name('google');
@@ -89,7 +89,7 @@ Route::post('/logout', function () {
 
 
 Route::get('/verify', [VerifyController::class, 'index'])->name('verify.index');
-# Route::get('/verify/confirm', [VerifyController::class, 'show'])->name('verify.show');
+Route::get('/verify/confirm', [VerifyController::class, 'show'])->name('verify.show');
 
 
 Route::get('/sitemap.xml', [CrawlerController::class, 'sitemap']);

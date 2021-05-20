@@ -78,7 +78,7 @@ class TelegramController extends Controller
 
         $user = User::where('tg_id', '=', $message->from->id)->first();
         if (!$user) {
-            $msg = "您尚未綁定任何交大身份\n\n";
+            $msg = "您尚未綁定任何交清身份\n\n";
             $msg .= "請先至網站登入後，再點擊下方按鈕綁定帳號";
             Telegram::sendMessage([
                 'chat_id' => $message->chat->id,
@@ -187,7 +187,7 @@ class TelegramController extends Controller
 
                     Telegram::sendMessage([
                         'chat_id' => $message->chat->id,
-                        'text' => "已取消連結，請點擊下方按鈕連結新的 NCTU OAuth 帳號",
+                        'text' => "已取消連結，請點擊下方按鈕連結新的交清帳號",
                         'reply_markup' => json_encode([
                             'inline_keyboard' => [
                                 [
@@ -502,7 +502,7 @@ class TelegramController extends Controller
             Telegram::answerCallbackQuery([
                 'callback_query_id' => $callback->id,
                 'show_alert' => true,
-                'text' => "您尚未綁定 NCTU 帳號，請至" . env('APP_CHINESE_NAME') . ' 網站登入',
+                'text' => "您尚未綁定交清帳號，請至" . env('APP_CHINESE_NAME') . ' 網站登入',
             ]);
             return;
         }
@@ -547,7 +547,7 @@ class TelegramController extends Controller
                     'chat_id' => $callback->message->chat->id,
                     'reply_to_message_id' => $callback->message->messageId,
                     'text' => "[$type/$uid] 請輸入 1 - 100 字理由\n\n" .
-                        "將會顯示於貼文頁面中，所有已登入的交大人都能看到您的具名投票",
+                        "將會顯示於貼文頁面中，所有已登入的交清師生都能看到您的具名投票",
                     'reply_markup' => json_encode([
                         'force_reply' => true,
                     ])

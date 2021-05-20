@@ -8,7 +8,7 @@ use App\Models\Vote;
 
 $IMG = url('/assets/img/og.png');
 
-$hashtag = "#靠交{$post->id}";
+$hashtag = "#靠清{$post->id}";
 
 $DESC = $post->body;
 $TITLE = "$hashtag $DESC";
@@ -75,7 +75,7 @@ for ($i=1; $i<=8; $i++) {
     @foreach ($posts2 as $i => $item)
         <div class="ts card" onclick="location.href = '/post/{{ $item->id }}';" style="cursor: pointer;">
             <div class="content">
-                <div class="header"><a href="/post/{{ $item->id }}">#靠交{{ $item->id }}</a></div>
+                <div class="header"><a href="/post/{{ $item->id }}">#靠清{{ $item->id }}</a></div>
                 <div class="description" style="height: 360px; overflow-y: hidden;">{!! x(mb_substr($item->body, 0, 360)) . '...' !!}</div>
                 <div id="hide-box">
                     <sub>點擊打開全文</sub>

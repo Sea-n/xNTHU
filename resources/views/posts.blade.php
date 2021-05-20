@@ -85,13 +85,13 @@ $posts = $query->orderByDesc('id')->take(50)->get();
                 <img id="img" class="post-image" style="max-height: 40vh; width: auto; cursor: zoom-in;"/>
             </div>
             <div class="content">
-                <div class="header"><a id="hashtag">#靠交000</a></div>
+                <div class="header"><a id="hashtag">#靠清000</a></div>
                 <div id="body"></div>
             </div>
             <div class="extra content">
                 <div class="right floated author">
                     <img class="ts circular avatar image" id="author-photo"> <span id="author-name">Sean</span>
-                    <br><span class="right floated" id="ip-outer">(<span id="ip-inner">140.113.***.*87</span>)</span>
+                    <br><span class="right floated" id="ip-outer">(<span id="ip-inner">140.114.***.*87</span>)</span>
                 </div>
                 <p style="margin-top: 0; line-height: 1.7em">
                     <span>審核狀況：<button class="ts vote positive button">通過</button>

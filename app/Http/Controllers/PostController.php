@@ -208,12 +208,12 @@ class PostController extends Controller
                 ],
                 'D' => [
                     'period' => 12 * 60 * 60,
-                    'limit' => 1,
-                    'msg' => '境外 IP 限制 12 小時內僅能發 1 篇文',
+                    'limit' => 0,
+                    'msg' => '靠北清大暫時不支援境外發文',
                 ],
             ];
 
-            if ($ip_from == '交大')
+            if (in_array($ip_from, ['交大', '清大'])
                 $rule = $rules['B'];
             else if (strpos($ip_from, '境外') === false)
                 $rule = $rules['C'];
@@ -376,7 +376,7 @@ class PostController extends Controller
     {
         /* Check CAPTCHA */
         $captcha = trim(request()->input('captcha', 'X'));
-        if (!in_array($captcha, ['交大竹湖', '交大竹狐'])) {
+        if (!in_array($captcha, ['清大梅園', '清華梅園', '清大梅竹'])) {
             if (mb_strlen($captcha) > 1 && mb_strlen($captcha) < 20)
                 error_log("Captcha failed: $captcha.");
             return 'Are you human? 驗證碼錯誤';
