@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /login
+Disallow: /logout
+Disallow: /review
+Allow: /review/DEMO$
+Disallow: /api
+Sitemap: https://x.nctu.app/sitemap.xml
