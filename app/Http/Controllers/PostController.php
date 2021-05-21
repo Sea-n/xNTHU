@@ -27,7 +27,7 @@ class PostController extends Controller
 
         $query = Post::where('status', '=', 5);
         if (is_numeric($likes))
-            $query = $query->where('max_likes', '>=', $likes);
+            $query = $query->where('fb_likes', '>=', $likes);
         if (is_numeric($media))
             $query = $query->where('media', '=', $media);
 
@@ -213,7 +213,7 @@ class PostController extends Controller
                 ],
             ];
 
-            if (in_array($ip_from, ['交大', '清大'])
+            if (in_array($ip_from, ['交大', '陽交大', '清大']))
                 $rule = $rules['B'];
             else if (strpos($ip_from, '境外') === false)
                 $rule = $rules['C'];
