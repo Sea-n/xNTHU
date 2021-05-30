@@ -138,9 +138,9 @@ class LoginController extends Controller
         if ($user) {
             if (Auth::check() && Auth::id() != $user->stuid) {
                 $msg = "⚠️ 您已連結過此帳號\n\n" .
-                    "目前無法將不同的 NCTU OAuth 帳號連結至同一個 Telegram 帳號\n\n" .
-                    'NCTU ID from session: ' . Auth::id() . "\n" .
-                    "NCTU ID from database: {$user->stuid}\n" .
+                    "目前無法將不同的交清帳號連結至同一個 Telegram 帳號\n\n" .
+                    'Student ID from session: ' . Auth::id() . "\n" .
+                    "Student ID from database: {$user->stuid}\n" .
                     "Telegram UID: {$auth_data['id']}";
 
                 Telegram::sendMessage([

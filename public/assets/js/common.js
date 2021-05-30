@@ -5,7 +5,7 @@ window.addEventListener("resize", resizeNav);
 
 function init() {
     console.log("Hey there!");
-    console.log("Source code: https://git.io/xNCTU");
+    console.log("Source code: https://git.io/xNTHU");
 
     resizeNav();
     adjustNav();

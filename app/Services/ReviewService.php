@@ -226,6 +226,7 @@ class ReviewService extends BaseService
         }
 
         /* Send vote log to group */
+        /*
         $hashtag = "#投稿{$post->uid}";
         $body = preg_replace('/\s+/', '', $post->body);
         $body = mb_substr($body, 0, 10) . '..';
@@ -252,6 +253,7 @@ class ReviewService extends BaseService
         } catch (TelegramResponseException $e) {
             Log::error($e->getMessage());
         }
+         */
     }
 
     /**

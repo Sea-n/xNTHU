@@ -20,8 +20,8 @@ if (Auth::check()) {
 
 @guest
     <div class="ts negative message">
-        <div class="header">你不是交大生</div>
-        <p>這邊僅限交大使用者瀏覽，外校生僅可在知道投稿編號的情況下看到刪除記錄，例如 <a href="/review/2C8j">#投稿2C8j</a>。</p>
+        <div class="header">你不是交清師生</div>
+        <p>這邊僅限交清使用者瀏覽，外校生僅可在知道投稿編號的情況下看到刪除記錄，例如 <a href="/review/Zrem">#投稿Zrem</a>。</p>
     </div>
 @endguest
 

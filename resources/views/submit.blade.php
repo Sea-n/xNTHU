@@ -6,10 +6,10 @@ $ip_masked = $ip_addr;
 if (strpos($ip_from, '境外') === false)
     $ip_masked = ip_mask($ip_masked);
 
-$captcha_q = "請輸入「交大ㄓㄨˊㄏㄨˊ」（四個字）";
+$captcha_q = "請輸入「清大ㄇㄟˊㄩㄢˊ」（四個字）";
 $captcha_a = "";
-if (Auth::check() || in_array($ip_from, ['交大', '陽交大']))
-    $captcha_a = "交大竹湖";
+if (Auth::check() || in_array($ip_from, ['交大', '陽交大', '清大']))
+    $captcha_a = "清大梅園";
 ?>
 
 @extends('layouts.master')
@@ -43,7 +43,7 @@ if (Auth::check() || in_array($ip_from, ['交大', '陽交大']))
 @endif
         <div id="warning-ip" class="ts info message" style="{{ Auth::check() ? 'display: none;' : '' }}">
             <div class="header">注意</div>
-            <p>一但送出投稿後，所有人都能看到您的網路服務商（{{ $ip_from }}），已登入的交大人能看見您的部分 IP 位址 ({{ $ip_masked }}) 。</p>
+            <p>一但送出投稿後，所有人都能看到您的網路服務商（{{ $ip_from }}），已登入的交清師生能看見您的部分 IP 位址 ({{ $ip_masked }}) 。</p>
         </div>
         <form id ="submit-post" class="ts form" action="/submit" method="POST" enctype="multipart/form-data">
             <div id="body-field" class="required resizable field">

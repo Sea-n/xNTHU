@@ -159,7 +159,7 @@ class PostSend extends Command
         }
 
         /* Rule for NCTU IP address */
-        if (in_array($post->ip_from, ['交大', '陽交大'])
+        if (in_array($post->ip_from, ['交大', '陽交大', '清大'])
             && $post->ip_addr != ip_mask($post->ip_addr)) {
 
             /* No reject: 5 votes */
@@ -200,7 +200,7 @@ class PostSend extends Command
 
         /* Rule for Foreign IP address */
         if (true) {
-            return ($vote >= 10);
+            return false;
         }
     }
 }
