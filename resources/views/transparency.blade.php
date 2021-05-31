@@ -71,6 +71,12 @@
         </thead>
         <tbody>
         <tr>
+            <td>2021 May 31</td>
+            <td><a href="/post/2939" target="_blank">#靠清2939</a></td>
+            <td>移除各平台貼文</td>
+            <td>攻擊性投稿</td>
+        </tr>
+        <tr>
             <td>2021 May 15</td>
             <td><a href="/post/2289" target="_blank">#靠清2289</a></td>
             <td>刪除 Facebook 留言 + 停用留言功能</td>
@@ -112,10 +118,10 @@
         <tbody>
         <tr class="negative indicated">
             <td>2021 May</td>
-            <td>0</td>
-            <td>3</td>
-            <td>0</td>
             <td>1</td>
+            <td>5</td>
+            <td>0</td>
+            <td>2</td>
         </tr>
         <tr>
             <td>2021 Apr</td>
@@ -206,5 +212,5 @@
 
     <br>
     <p>收到任何刪除通知將人工更新至此頁面，在不造成二次傷害的前提下，本站會盡可能提供最多資訊，原則上收到請求後會在 7 天內公開揭露。</p>
-    <p style="text-align: right;"><i>最後更新日期：2021 May 20</i></p>
+    <p style="text-align: right;"><i>最後更新日期：2021 May 31</i></p>
 @stop
