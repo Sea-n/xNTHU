@@ -284,8 +284,11 @@ function idToDep(string $id): string
     if (preg_match('#^\d{9}$#', $id))
         return "交大" . idToDepNYCU($id);
 
-    if (preg_match('#^[A-Z]{1,2}[A-Z0-9][0-9]{3}$#', $id))
+    if (preg_match('#^[A-Z][A-Z0-9][0-9]{3}$#', $id))
         return "交大教職員";
+
+    if (preg_match('#^[AE][A-Z][A-Z0-9][0-9]{3}$#', $id))
+        return "陽交教職員";
 
     return "非學生 $id";
 }
