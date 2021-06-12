@@ -116,6 +116,13 @@
         </tr>
         </thead>
         <tbody>
+        <tr>
+            <td>2021 Jun</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
         <tr class="negative indicated">
             <td>2021 May</td>
             <td>0</td>

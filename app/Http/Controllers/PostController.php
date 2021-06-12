@@ -26,11 +26,11 @@ class PostController extends Controller
         $offset = $request->input('offset', 0);
         $limit = $request->input('limit', 50);
 
-        $query = Post::where('status', '=', 5);
+        $query = Post::where('status', 5);
         if (is_numeric($likes))
             $query = $query->where('fb_likes', '>=', $likes);
         if (is_numeric($media))
-            $query = $query->where('media', '=', $media);
+            $query = $query->where('media', $media);
         if (mb_strlen($keyword))
             $query = $query->where('body', 'LIKE', "%$keyword%");
 
@@ -94,7 +94,7 @@ class PostController extends Controller
                 'id' => $post->id,
             ]);
 
-        $votes = Vote::where('uid', '=', $post->uid)->orderBy('created_at')->get();
+        $votes = Vote::where('uid', $post->uid)->orderBy('created_at')->get();
         $results = [];
         foreach ($votes as $item)
             $results[] = [
@@ -161,7 +161,7 @@ class PostController extends Controller
          */
         do {
             $uid = rand58(4);
-        } while (Post::where('uid', '=', $uid)->first());
+        } while (Post::where('uid', $uid)->count());
 
         /* Upload Image */
         if ($has_img) {
@@ -250,7 +250,8 @@ class PostController extends Controller
             else
                 $rule = $rules['D'];
 
-            $posts = Post::where('ip_addr', '=', $ip_addr)
+            $posts = Post::where('ip_addr', $ip_addr)
+                ->whereNotIn('status', [-12, -3, 5])
                 ->orderByDesc('created_at')
                 ->take($rule['limit'] + 1)->get();
             if (count($posts) == $rule['limit'] + 1) {

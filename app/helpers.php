@@ -278,6 +278,9 @@ function idToDep(string $id): string
     if (preg_match('#^1\d{8}$#', $id))
         return idToDepNTHU($id);
 
+    if (preg_match('#^[AE][A-Z][A-Z0-9][0-9]{3}$#', $id))
+        return '教職員';
+
     if (preg_match('#^\d{7}$#', $id))
         return "交大" . idToDepNCTU($id);
 

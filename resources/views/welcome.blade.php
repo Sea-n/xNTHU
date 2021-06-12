@@ -54,10 +54,13 @@
         <h4>(A) 具名投稿</h4>
         <p>點擊右上角 Login 登入後，可用師生身份具名投稿，即使無人審核也會在 10 分鐘內自動發出，詳細判斷條件如下：</p>
         <ul>
-            <li>10 分鐘以內：達到 3 個&nbsp;<button class="ts vote positive button">通過</button>
+            <li>10 分鐘以內：達到 4 個&nbsp;<button class="ts vote positive button">通過</button>
                 &nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button>
             </li>
-            <li>10 分鐘以後：&nbsp;<button class="ts vote positive button">通過</button>
+            <li>10 分鐘至 1 小時：&nbsp;<button class="ts vote positive button">通過</button>
+                &nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 2 個
+            </li>
+            <li>1 小時以後：&nbsp;<button class="ts vote positive button">通過</button>
                 &nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button>
             </li>
         </ul>
@@ -65,34 +68,28 @@
         <h4>(B) 交清 IP 位址</h4>
         <p>使用 113 或 114 位址投稿者，滿足以下條件即發出：</p>
         <ul>
-            <li>10 分鐘以內：達到 5 個&nbsp;<button class="ts vote positive button">通過</button>
+            <li>10 分鐘以內：達到 6 個&nbsp;<button class="ts vote positive button">通過</button>
                 &nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button>
             </li>
             <li>10 分鐘至 1 小時：&nbsp;<button class="ts vote positive button">通過</button>
-                &nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 3 個
+                &nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 4 個
             </li>
             <li>1 小時以後：&nbsp;<button class="ts vote positive button">通過</button>
-                &nbsp;不少於&nbsp;<button class="ts vote negative button">駁回</button>
+                &nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 2 個
             </li>
         </ul>
-        <div class="ts negative raised compact segment">
-            <h5>例外狀況</h5>
-            <p>為避免非法文章意外通過，每天 03:00 - 09:00 門檻提升為&nbsp;<button class="ts vote positive button">通過</button>
-                需比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 3 個
-            </p>
-        </div>
 
         <h4>(C) 使用台灣 IP 位址</h4>
         <p>熱門投稿會快速登上版面，審核者們也有足夠時間找出惡意投稿，滿足以下條件即發出：</p>
         <ul>
-            <li>10 分鐘以內：達到 7 個&nbsp;<button class="ts vote positive button">通過</button>
+            <li>10 分鐘以內：達到 8 個&nbsp;<button class="ts vote positive button">通過</button>
                 &nbsp;且無&nbsp;<button class="ts vote negative button">駁回</button>
             </li>
             <li>10 分鐘至 1 小時：&nbsp;<button class="ts vote positive button">通過</button>
-                &nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 5 個
+                &nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 6 個
             </li>
             <li>1 小時以後：&nbsp;<button class="ts vote positive button">通過</button>
-                &nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 3 個
+                &nbsp;比&nbsp;<button class="ts vote negative button">駁回</button>&nbsp;多 4 個
             </li>
         </ul>
 
