@@ -118,6 +118,13 @@
         <tbody>
         <tr class="negative indicated">
             <td>2021 May</td>
+            <td>0</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr class="negative indicated">
+            <td>2021 May</td>
             <td>1</td>
             <td>5</td>
             <td>0</td>
@@ -210,7 +217,30 @@
         </tbody>
     </table>
 
+    <h2>帳號處份記錄</h2>
+    <p>為保障{{ env('APP_CHINESE_NAME') }} 多數人使用權益，將適時停用惡意使用者帳號部分功能，並於此頁面公開揭露。</p>
+    <table class="ts striped table">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>系級</th>
+            <th>使用者暱稱</th>
+            <th>處份內容</th>
+            <th>相關理由</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>2021 Jun 12</td>
+            <td>清大數學碩 / 交大應數博</td>
+            <td>106021502 / 409652001</td>
+            <td>禁止發文、審核 6 個月</td>
+            <td>詳見 <a href="/review/PinJ" target="_blank">#投稿PinJ</a></td>
+        </tr>
+        </tbody>
+    </table>
+
     <br>
     <p>收到任何刪除通知將人工更新至此頁面，在不造成二次傷害的前提下，本站會盡可能提供最多資訊，原則上收到請求後會在 7 天內公開揭露。</p>
-    <p style="text-align: right;"><i>最後更新日期：2021 May 31</i></p>
+    <p style="text-align: right;"><i>最後更新日期：2021 Jun 12</i></p>
 @stop

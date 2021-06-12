@@ -184,7 +184,7 @@ class PostController extends Controller
         }
 
         /* Insert record */
-        Post::create([
+        $post = Post::create([
             'uid' => $uid,
             'body' => $body,
             'media' => $media,
@@ -192,6 +192,33 @@ class PostController extends Controller
             'ip_addr' => $ip_addr,
             'ip_from' => $ip_from,
         ]);
+
+        if (empty($author_id)) {
+            if (in_array($ip_addr, config('blacklist.submit.ip_addr'))) {
+                $post->update([
+                    'status' => -14,
+                    'deleted_at' => Carbon::now(),
+                    'delete_note' => "IP 位址「{$ip_addr}」已被封鎖",
+                ]);
+                return response()->json([
+                    'ok' => false,
+                    'msg' => "The IP address {$ip_addr} has been banned.",
+                ]);
+
+            }
+        } else {
+            if (in_array($author_id, config('blacklist.submit.users'))) {
+                $post->update([
+                    'status' => -14,
+                    'deleted_at' => Carbon::now(),
+                    'delete_note' => "發文者「{$author_id}」已被封鎖",
+                ]);
+                return response()->json([
+                    'ok' => false,
+                    'msg' => "The user {$author_id} has been banned.",
+                ]);
+            }
+        }
 
         /* Check rate limit */
         if (empty($author_id)) {
@@ -230,7 +257,7 @@ class PostController extends Controller
                 $last = strtotime($posts[$rule['limit']]->created_at);
                 $cd = $rule['period'] - (time() - $last);
                 if ($cd > 0) {
-                    Post::where('uid', '=', $uid)->update([
+                    $post->update([
                         'status' => -12,
                         'deleted_at' => Carbon::now(),
                         'delete_note' => $rule['msg'],
@@ -249,7 +276,7 @@ class PostController extends Controller
                 $last = strtotime($posts[$max]['created_at']);
                 $cd = 3 * 60 - (time() - $last);
                 if ($cd > 0) {
-                    Post::where('uid', '=', $uid)->update([
+                    $post->update([
                         'status' => -12,
                         'deleted_at' => Carbon::now(),
                         'delete_note' => 'Global rate limit',
