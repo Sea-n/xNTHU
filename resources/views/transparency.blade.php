@@ -20,6 +20,24 @@
         </thead>
         <tbody>
         <tr>
+            <td>2021 Jun 25</td>
+            <td><a href="/post/3476" target="_blank">#靠清3476</a></td>
+            <td>助教發現作弊</td>
+            <td>侵犯隱私</td>
+        </tr>
+        <tr>
+            <td>2021 Jun 18</td>
+            <td><a href="/post/3322" target="_blank">#靠清3322</a></td>
+            <td>華齋每晚 10 點敲敲敲</td>
+            <td>煽動暴力</td>
+        </tr>
+        <tr>
+            <td>2021 Jun 16</td>
+            <td><a href="/post/3292" target="_blank">#靠清3292</a></td>
+            <td>義齋哪有女廁</td>
+            <td>成人色情</td>
+        </tr>
+        <tr>
             <td>2021 May 20</td>
             <td><a href="/post/2641" target="_blank">#靠清2641</a></td>
             <td>如果不靈的話送你一拳</td>
@@ -71,6 +89,12 @@
         </thead>
         <tbody>
         <tr>
+            <td>2021 Jun 22</td>
+            <td><a href="/post/3364" target="_blank">#靠清3364</a></td>
+            <td>移除各平台貼文</td>
+            <td>攻擊性投稿</td>
+        </tr>
+        <tr>
             <td>2021 May 31</td>
             <td><a href="/post/2939" target="_blank">#靠清2939</a></td>
             <td>移除各平台貼文</td>
@@ -117,18 +141,18 @@
         </thead>
         <tbody>
         <tr>
-            <td>2021 Jun</td>
+            <td>2021 Jul</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
         </tr>
         <tr class="negative indicated">
-            <td>2021 May</td>
+            <td>2021 Jun</td>
+            <td>1</td>
+            <td>3</td>
             <td>0</td>
-            <td>2</td>
-            <td>0</td>
-            <td>0</td>
+            <td>1</td>
         </tr>
         <tr class="negative indicated">
             <td>2021 May</td>
@@ -249,5 +273,5 @@
 
     <br>
     <p>收到任何刪除通知將人工更新至此頁面，在不造成二次傷害的前提下，本站會盡可能提供最多資訊，原則上收到請求後會在 7 天內公開揭露。</p>
-    <p style="text-align: right;"><i>最後更新日期：2021 Jun 12</i></p>
+    <p style="text-align: right;"><i>最後更新日期：2021 Jul 03</i></p>
 @stop
