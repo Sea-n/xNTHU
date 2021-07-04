@@ -81,17 +81,17 @@ class TelegramController extends Controller
             $msg .= "不過在啟用 Telegram 審文功能之前，要麻煩您先設定一下 username 使用者名稱喔！";
             Telegram::sendMessage([
                 'chat_id' => $message->chat->id,
-				'text' => $msg,
-				'reply_markup' => json_encode([
-					'inline_keyboard' => [
-						[
-							[
-								'text' => '📗 按我看教學',
-								'url' => 'https://t.me/UNameBot?start=tech'
-							]
-						]
-					]
-				])
+                'text' => $msg,
+                'reply_markup' => json_encode([
+                    'inline_keyboard' => [
+                        [
+                            [
+                                'text' => '📗 按我看教學',
+                                'url' => 'https://t.me/UNameBot?start=tech'
+                            ]
+                        ]
+                    ]
+                ])
             ]);
             return;
         }
@@ -283,6 +283,19 @@ class TelegramController extends Controller
 
                             if ($post->media == 0)
                                 $post->update(['media' => 1]);
+
+                            $curl = curl_init();
+                            curl_setopt_array($curl, [
+                                CURLOPT_URL => 'https://api.cloudflare.com/client/v4/zones/' . env('CLOUDFLARE_ZONE') . '/purge_cache',
+                                CURLOPT_POSTFIELDS => '{"purge_everything": true}',
+                                CURLOPT_RETURNTRANSFER => 1,
+                                CURLOPT_HTTPHEADER => [
+                                    'Authorization: Bearer ' . env('CLOUDFLARE_TOKEN'),
+                                    'Content-Type: application/json',
+                                ]
+                            ]);
+                            curl_exec($curl);
+                            curl_close($curl);
                             break;
 
                         default:

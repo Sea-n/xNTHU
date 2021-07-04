@@ -80,6 +80,7 @@ table.votes thead tr th:nth-child(1) {
 
 table.votes thead tr th:nth-child(2) {
     width: 72px;
+    min-width: 72px;
 }
 
 table.votes thead tr th:nth-child(3) {
@@ -88,6 +89,10 @@ table.votes thead tr th:nth-child(3) {
 
 table.votes thead tr th:nth-child(4) {
     width: 160px;
+}
+
+table.votes thead tr th:nth-child(5) {
+    width: 240px;
 }
 
 p {
