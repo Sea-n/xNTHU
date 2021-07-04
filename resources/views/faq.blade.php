@@ -41,7 +41,7 @@
     <p>目前此區域限制只有已登入交清帳號的使用者才能檢閱，可見篇數將依審文數量而定，預設會顯示最近 3 篇被駁回的投稿。</p>
 
     <div class="faq-anchor" id="apply-account"></div><h2 class="ts header">Q：怎麼註冊帳號</h2>
-    <p>如果您是清大的學生、老師、校友，請先點擊右上角 Login 使用 Google 登入，在驗證頁面輸入學號並寄送驗證信，點擊信中連結即可啟用帳號。往後只要使用您所綁定的 Google 或 Telegram 帳號即可登入{{ env('APP_CHINESE_NAME') }} 審文。</p>
+    <p>如果您是清大的學生、老師、校友，可以參考 <a href="/post/3519">#靠清3519</a> 提供的 <a target="_blank" href="https://youtu.be/Bjpmt28VWf4">一分鐘教你成為靠北清大小編</a> 教學影片，請先點擊右上角 Login 使用 Google 登入，在驗證頁面輸入學號並寄送驗證信，點擊信中連結即可啟用帳號。往後只要使用您所綁定的 Google 或 Telegram 帳號即可登入{{ env('APP_CHINESE_NAME') }} 審文。</p>
     <p>如果您是交大的學生、老師、校友，請直接點擊右上角 Login 使用 NCTU OAuth 登入，不需另外註冊即可使用。</p>
     <p>但若您是友校學生、高三考生、其他親友，在這邊就只能跟您說聲抱歉了，目前不開放非交清使用者註冊，但您仍然可以正常投稿、瀏覽文章。</p>
 
