@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('post:send')->everyFiveMinutes();
         $schedule->command('post:fb')->everyFiveMinutes()->between('18:00', '20:00');
         $schedule->command('post:reject')->everyMinute();
-        $schedule->command('post:update 42')->hourlyAt(12);
-        $schedule->command('post:update 1000')->dailyAt('06:42');
+        // $schedule->command('post:update 42')->hourlyAt(12);
+        // $schedule->command('post:update 1000')->dailyAt('06:42');
     }
 
     /**

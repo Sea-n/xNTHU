@@ -129,29 +129,13 @@ $verify_link
 若是未來不想再收到相關信件，請來信 與我們聯絡，將會盡快將您的學號放入拒收清單內。";
 
         /* HTML version */
-        $heml = view('heml.verify', [
+        $html = view('mail.verify', [
             'google' => $google,
             'verify_link' => $verify_link,
             'date' => $date,
             'ip_addr' => $ip_addr,
             'ip_from' => $ip_from,
         ])->render();
-
-        /* Convert HEML to HTML */
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => 'https://heml-api.herokuapp.com/',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POSTFIELDS => json_encode([
-                'heml' => $heml,
-            ]),
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/json; charset=utf-8',
-            ],
-        ]);
-        $data = curl_exec($curl);
-        curl_close($curl);
-        $html = json_decode($data)->html;
 
         /* Merge HTML and plaintext to body */
         $boundary = md5(microtime());
