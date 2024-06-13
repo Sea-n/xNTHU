@@ -33,8 +33,8 @@ class RankingController extends Controller
             'subchart' => [
                 'show' => true,
                 'defaultZoom' => [
-                    strtotime("2020-04-01") * 1000,
-                    strtotime("2020-10-01") * 1000
+                    strtotime("2021-02-10") * 1000,
+                    strtotime("2021-07-10") * 1000
                 ]
             ],
             'types' => ['y0' => 'bar', 'y1' => 'bar', 'x' => 'x'],

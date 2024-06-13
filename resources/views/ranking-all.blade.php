@@ -224,8 +224,8 @@ function genData()
         'subchart' => [
             'show' => true,
             'defaultZoom' => [
-                strtotime("2020-04-15") * 1000,
-                strtotime("2020-07-15") * 1000
+                strtotime("2021-04-20") * 1000,
+                strtotime("2021-06-20") * 1000
             ]
         ],
         'types' => ['y0' => 'bar', 'y1' => 'bar', 'x' => 'x'],
@@ -243,8 +243,8 @@ function genData()
     ];
 
     $data['title'] = '所有人';
-    $begin = strtotime("2020-02-20 00:00");
-    $end = strtotime("2022-01-20 24:00");
+    $begin = strtotime("2020-05-01 00:00");
+    $end = strtotime("2022-02-01 24:00");
     $step = 4 * 60 * 60;
 
     for ($i = $begin; $i <= $end; $i += $step) {
@@ -253,7 +253,7 @@ function genData()
         $data['columns'][2][] = 0;
     }
 
-    $VOTES = Vote::where('created_at', '<', Carbon::parse('2022-01-20'))->get();
+    $VOTES = Vote::where('created_at', '<', Carbon::parse('2022-02-01'))->get();
     foreach ($VOTES as $vote) {
         $ts = strtotime($vote['created_at']);
         $y = $vote['vote'] == 1 ? 1 : 2;
